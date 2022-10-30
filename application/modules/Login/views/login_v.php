@@ -43,7 +43,7 @@
 
       ?>
 
-      <form action="<?= base_url('login')?>" method="post">
+      <form action="<?= base_url('Login')?>" method="post">
        <?= csrf() ?>
         <div class="input-group mb-3">
           <input type="text" name="nik" value="<?= set_value('nik') ?>" class="form-control <?= (form_error('nik') ? "is-invalid" : "") ?>" placeholder="Username">
