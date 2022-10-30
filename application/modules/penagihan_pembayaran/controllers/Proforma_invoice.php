@@ -193,9 +193,10 @@ if(!empty($data['invoice_date'])) {
 	$manage = json_decode($data['items'], true);
 	foreach ($manage as $item) {
 		$i++;
+		$produk = $this->Data_model->produk_profile($item['description_name']);
 		$total_price = (double)$item['description_price'] * (double)$item['description_quantity'];
 		$total_price_all += $total_price;
-		$items .= "<tr><td style=\"width: 5%;\">$i</td><td style=\"width: 50%;\">$item[description_name]</td><td style=\"width: 15%;\">$item[description_quantity] Units</td><td style=\"width: 15%;\">".number_format($item['description_price'], 0, ',', ',')."</td><td style=\"width: 15%;\">".number_format($total_price, 0, ',', ',')."</td></tr>";
+		$items .= "<tr><td style=\"width: 5%;\">$i</td><td style=\"width: 50%;\">$produk[nama_produk]</td><td style=\"width: 15%;\">$item[description_quantity] Units</td><td style=\"width: 15%;\">".number_format($item['description_price'], 0, ',', ',')."</td><td style=\"width: 15%;\">".number_format($total_price, 0, ',', ',')."</td></tr>";
 		
 	}
 	

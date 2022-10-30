@@ -36,6 +36,15 @@ class Proforma_invoice_m extends CI_Model {
 		->where(['id' => $id])
 		->get()->row_array();
 		return $data;
+	}
+
+	public function produk_profile($id){
+		$data = $this->db
+		->select('u.*')
+		->from('data_produk u')
+		->where(['id' => $id])
+		->get()->row_array();
+		return $data;
 	}	
 	
 	public function simpan_tambah(){
