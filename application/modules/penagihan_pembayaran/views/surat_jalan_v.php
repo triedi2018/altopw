@@ -44,7 +44,7 @@ tr.details td.details-control {
                     <th>No Surat Jalan</th>
                     <th>Tgl Surat Jalan</th>
                     <th>Pelanggan</th>					
-					<th>Description</th>
+					<th>Keterangan</th>
 					<th>Total</th>
                   </tr>
                   </thead>
