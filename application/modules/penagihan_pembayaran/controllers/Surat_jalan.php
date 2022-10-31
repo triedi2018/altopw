@@ -104,7 +104,8 @@ class Surat_jalan extends CI_Controller {
                 echo "<option data-address='$customer[alamat]' data-phone='$customer[phone]' data-attn='$customer[contact_person]' value='$customer[id]'>$customer[nama_pelanggan]</option>";
             }
         }
-    }	
+    }
+
 	
     public function tampildata()
 	{

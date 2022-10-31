@@ -54,7 +54,7 @@ $('.btn-action').on('click',function(){
 			
 			$('#add-items').on('click',function(){
 				
-				$("#description ol").append("<li style='margin-bottom:10px;'> Produk: &nbsp;<select id='list_produk' class='description_name' type='text' style='width:250px;' required  /> &nbsp; Quantity: &nbsp;<input type='text' style='width:50px;' required align='center' class='allow_only_numbers description_quantity'  /> &nbsp; Harga: &nbsp;<input type='text' style='width:150px;' required class='allow_only_numbers description_price' readonly  />&nbsp; <a href='javascript:void(0);' class='remove'>×</a></li>"); 
+				$("#description ol").append("<li style='margin-bottom:10px;'> No Surat Jalan: &nbsp;<select id='list_surat_jalan' class='description_no_surat_jalan' type='text' style='width:250px;' required  /> &nbsp; Tgl : &nbsp;<input type='text' style='width:150px;' required align='center' class='description_tanggal_surat_jalan'  /> &nbsp; <a href='javascript:void(0);' class='remove'>×</a></li>"); 
 				$(document).on("click", "a.remove" , function() {
 					$(this).parent().remove();
 				});
@@ -78,25 +78,21 @@ $('.btn-action').on('click',function(){
 				  
 				xhr = $.ajax({
 				  method : "POST",
-				  url : "<?= base_url().$this->uri->segment(1,0).$this->uri->slash_segment(2,'both')?>list-produk",
+				  url : "<?= base_url().$this->uri->segment(1,0).$this->uri->slash_segment(2,'both')?>list-surat-jalan",
+				  data:"customer_id=" + $('#list_customers').val(),
 				  success: function(response){
 					  
-					$('.description_name').last().html(response);
+					$('.description_no_surat_jalan').last().html(response);
 					
-					  $('#form-action').on('change','.description_name',function(e){
+					  $('#form-action').on('change','.description_no_surat_jalan',function(e){
 						if (e.target.value != "" ){
 							
 						  console.log(e.target);
 						  
-						  var nama_produk = $(this).find(':selected').data('nama_produk');
-						  var id_produk = $(this).find(':selected').data('id');
-						  var harga = $(this).find(':selected').data('harga');
+						  var tanggal_surat_jalan = $(this).find(':selected').data('tanggal_surat_jalan');
+						  console.log(tanggal_surat_jalan);
 						  
-						  console.log(nama_produk);
-						  console.log(id_produk);
-						  console.log(harga);
-						  
-						  $(this).parent().find('.description_price').val(harga);
+						  $(this).parent().find('.description_tanggal_surat_jalan').val(tanggal_surat_jalan);
 						  
 						  
 						}
@@ -187,33 +183,15 @@ function validate_form(action){
   });
   
   $('#form-action').validate({
-    rules: {
-      invoice_no : {
-        required : true
-      },
-      invoice_date: {
-        required: true
-      },
-      cust_order_no:{required:true},
-      cust_order_date:{required:true},
-	  payment_term:{required:true},
-	  due_date:{required:true},
-	  customer_id:{required:true},
-	  subject:{required:true},
-	  faktur_number:{required:true},
-	  total:{required:true},
+	rules: {  
+      customer_id:{required:true},
+      invoice_no:{required:true},
+	  invoice_date:{required:true},
     },
     messages: {
+      customer_id:"Harus diisi",
       invoice_no:"Harus diisi",
       invoice_date:"Harus diisi",
-      cust_order_no:"Harus diisi",
-      cust_order_date:"Harus diisi",
-	  payment_term:"Harus diisi",
-	  due_date:"Harus diisi",
-	  customer_id:"Harus diisi",
-	  subject:"Harus diisi",
-	  faktur_number:"Harus diisi",
-	  total:"Harus diisi",
     },
     errorElement: 'span',
     errorPlacement: function (error, element) {
@@ -246,20 +224,7 @@ function validate_form(action){
 			  var current = $(this);
 			  var jsonObj = {};
 			  //console.log(current);
-			  jsonObj.description_name = current.find(".description_name option:selected").val();	
-				current.find('input[type=text]').each(function(){
-					if($(this).hasClass('description_name')) {
-						//alert($(this).val());
-						jsonObj.description_name = $(this).val();
-					}
-					if($(this).hasClass('description_quantity')) {
-						jsonObj.description_quantity = $(this).val();
-					}
-					if($(this).hasClass('description_price')) {
-						jsonObj.description_price = $(this).val();
-					}
-				  
-				});	
+			  jsonObj.no_surat_jalan = current.find(".description_no_surat_jalan option:selected").val();	
 
 			json_description.push(jsonObj);
 			  
@@ -340,14 +305,9 @@ $(document).ready(function () {
             },
             { "data": "invoice_no" },
             { "data": "invoice_date" },
-			{ "data": "subject" },
-            { "data": "cust_order_no" },
-            { "data": "cust_order_date" },
-			{ "data": "payment_term" },
-			{ "data": "due_date" },
-			{ "data": "faktur_number" },			
+			{ "data": "nama_pelanggan" },			
 			{ "data": "items" },
-			{ "data": "total" },
+			//{ "data": "total" },
         ],
 		
 		"lengthMenu": [[50, -1], [50, "All"]]

@@ -104,6 +104,17 @@ class Proforma_invoice extends CI_Controller {
                 echo "<option data-address='$customer[alamat]' data-phone='$customer[phone]' data-attn='$customer[contact_person]' value='$customer[id]'>$customer[nama_pelanggan]</option>";
             }
         }
+    }
+
+    public function list_surat_jalan(){
+        cek_ajax();
+        $data = $this->Data_model->list_surat_jalan();
+        if ($data){
+            echo "<option value=''>Pilih Surat Jalan</option>";
+            foreach($data as $surat_jalan){
+                echo "<option data-no_surat_jalan='$surat_jalan[no_surat_jalan]' data-tanggal_surat_jalan='$surat_jalan[tanggal_surat_jalan]' value='$surat_jalan[id]'>$surat_jalan[no_surat_jalan]</option>";
+            }
+        }
     }	
 	
     public function tampildata()
@@ -119,16 +130,14 @@ class Proforma_invoice extends CI_Controller {
 
             // tombol action - dicek juga punya akses apa engga gengs....
             $tombol_action = (cek_akses_user()['edit'] == 1 ? '<a href="#" ><span class="badge badge-primary btn-edit" data-jenis_action="edit" data-id="'.md5($data['id']).'" data-'.$this->security->get_csrf_token_name().'='.$this->security->get_csrf_hash().'>Edit</span></a>' : '' ). 
-            (cek_akses_user()['hapus'] == 1 ? ' <a href="#" ><span class="badge badge-danger btn-hapus" data-jenis_action="hapus" data-id="'.md5($data['id']).'">Hapus</span></a>' : '').
-			(cek_akses_user()['hapus'] == 1 ? ' <a href="#" ><span class="badge badge-warning btn-print" data-jenis_action="hapus" data-id="'.md5($data['id']).'">Print</span></a>' : '');
+            (cek_akses_user()['hapus'] == 1 ? ' <a href="#" ><span class="badge badge-danger btn-hapus" data-jenis_action="hapus" data-id="'.md5($data['id']).'">Hapus</span></a>' : '');
+			//(cek_akses_user()['hapus'] == 1 ? ' <a href="#" ><span class="badge badge-warning btn-print" data-jenis_action="hapus" data-id="'.md5($data['id']).'">Print</span></a>' : '');
 
             // column buat data tables --
-            $row = ['subject' => $data['subject'] ,'invoice_no' => $data['invoice_no'],'invoice_date'=>$data['invoice_date'],
-			'cust_order_no'=>$data['cust_order_no'],
-			'cust_order_date'=>$data['cust_order_date'],
-			'payment_term'=>$data['payment_term'],
-			'due_date'=>$data['due_date'],
-            'customer_id' => $data['customer_id'],
+            $row = [
+			'invoice_no' => $data['invoice_no'],
+			'invoice_date'=>date("d-m-Y", strtotime($data['invoice_date'])),
+            'nama_pelanggan' => $data['nama_pelanggan'],
 			'items' => $this->json_description($data['items']),
 			'faktur_number' => $data['faktur_number'],
 			'total' => $data['total'],
@@ -154,7 +163,8 @@ class Proforma_invoice extends CI_Controller {
 		$manage = json_decode($json, true);
 		$result = '<table>';
 		foreach ($manage as $value) {
-			$result .= "<tr><td>$value[description_name]</td><td>$value[description_quantity]</td><td>$value[description_price]</td></tr>";
+			$surat_jalan = $this->Data_model->surat_jalan_profile($value['no_surat_jalan']);
+			$result .= "<tr><td>$surat_jalan[no_surat_jalan]</td></tr>";
 		}
 		$result .= '<table>';
 		return $result;

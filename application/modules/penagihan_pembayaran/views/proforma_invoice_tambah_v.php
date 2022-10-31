@@ -76,92 +76,16 @@
 						  <button class="btn btn-outline-secondary" type="button" ><i class="far fa-calendar-alt"></i></button>
 						</div>
 					  </div>
-					</div>
-					
-					<div class="form-group">
-					  <label>Pelanggan Order No <span class="symbol required"> </span></label>
-					  <div class="input-group mb-3">
-						<div class="input-group-prepend">
-						  <span class="input-group-text"><i class="fas fa-file"></i></span>
-						</div>
-						<input type="text" autocomplete="off" name="cust_order_no" required class="form-control" placeholder="Pelanggan Order No">
-					  </div>
-					</div>		
-
-					<div class="form-group">
-					  <label class="control-label">
-						Pelanggan Order Date <span class="symbol required"> </span>
-					  </label>
-					  <div class="input-group input-append datepicker date" data-date-format='dd-mm-yyyy' style="padding: 0px;" > 
-						<input class="form-control" type="text" readonly autocomplete="off" name="cust_order_date" required />
-						<div class="input-group-append">
-						  <button class="btn btn-outline-secondary" type="button" ><i class="far fa-calendar-alt"></i></button>
-						</div>
-					  </div>
-					</div>	
-
-					<div class="form-group">
-					  <label>Payment Term <span class="symbol required"> </span></label>
-					  <div class="input-group mb-3">
-						<div class="input-group-prepend">
-						  <span class="input-group-text"><i class="fas fa-file"></i></span>
-						</div>
-						<input type="text" autocomplete="off" name="payment_term" required class="form-control" placeholder="Payment Term ">
-					  </div>
-					</div>	
-
-					<div class="form-group">
-					  <label class="control-label">
-						Due Date <span class="symbol required"> </span>
-					  </label>
-					  <div class="input-group input-append datepicker date" data-date-format='dd-mm-yyyy' style="padding: 0px;" > 
-						<input class="form-control" type="text" readonly autocomplete="off" name="due_date" required />
-						<div class="input-group-append">
-						  <button class="btn btn-outline-secondary" type="button" ><i class="far fa-calendar-alt"></i></button>
-						</div>
-					  </div>
 					</div>			
 					
 			
 			</div>	
 			
-		</div>
-
-		<div class="row">
-			<div class="col-lg-12 col-12">
-			
-					<div class="form-group">
-					  <label>Subject <span class="symbol required"> </span></label>
-					  <div class="input-group mb-3">
-						<div class="input-group-prepend">
-						  <span class="input-group-text"><i class="fas fa-file"></i></span>
-						</div>
-						<textarea rows="3" name="subject" required class="form-control" placeholder="Subject"></textarea>
-					  </div>
-					</div>	
-			
-			</div>
-		</div>
-		
-		<div class="row">
-			<div class="col-lg-12 col-12">
-			
-					<div class="form-group">
-					  <label>Faktur Number <span class="symbol required"> </span></label>
-					  <div class="input-group mb-3">
-						<div class="input-group-prepend">
-						  <span class="input-group-text"><i class="fas fa-file"></i></span>
-						</div>
-						<input type="text" autocomplete="off" name="faktur_number" required class="form-control" placeholder="Faktur Number ">
-					  </div>
-					</div>		
-			
-			</div>
-		</div>		
+		</div>	
 		
 		<div class="row" style="display:block;">
 					  <button id="add-items" type="button" class="btn btn-primary mb-3 btn-action-items">
-						  <span class="fa fa-plus"></span> Tambah Produk
+						  <span class="fa fa-plus"></span> Tambah Surat Jalan
 					  </button>
 					  
 			<div id="description">
@@ -169,22 +93,6 @@
 				</ol>
 			</div>
 				<input type="hidden" name="items" />	  
-		</div>
-
-		<div class="row">
-			<div class="col-lg-12 col-12">
-			
-					<div class="form-group">
-					  <label>Total <span class="symbol required"> </span></label>
-					  <div class="input-group mb-3">
-						<div class="input-group-prepend">
-						  <span class="input-group-text"><i class="fas fa-file"></i></span>
-						</div>
-						<input type="text" autocomplete="off" name="total" required class="form-control" placeholder="Total ">
-					  </div>
-					</div>	
-			
-			</div>
 		</div>
 
 		<div class="row">

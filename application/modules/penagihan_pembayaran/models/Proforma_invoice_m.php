@@ -10,6 +10,15 @@ class Proforma_invoice_m extends CI_Model {
 
 	public function list_customers(){
 		return $this->db->get('data_pelanggan')->result_array();
+	}
+
+	public function list_surat_jalan(){
+		$data = $this->db
+		->select('u.*')
+		->from('surat_jalan u')
+		->where('customer_id',$this->input->post('customer_id'))
+		->get()->result_array();
+		return $data;
 	}	
 
 	public function edit(){
@@ -45,6 +54,15 @@ class Proforma_invoice_m extends CI_Model {
 		->where(['id' => $id])
 		->get()->row_array();
 		return $data;
+	}
+
+	public function surat_jalan_profile($id){
+		$data = $this->db
+		->select('u.*')
+		->from('surat_jalan u')
+		->where(['id' => $id])
+		->get()->row_array();
+		return $data;
 	}	
 	
 	public function simpan_tambah(){
@@ -53,70 +71,21 @@ class Proforma_invoice_m extends CI_Model {
 		if ($cek){
 			return json_encode(['status' => 'error','pesan' => 'Gagal menyimpan data, Invoice No sudah ada..']);
 		}
-		$stok = $this->json_description($this->input->post('items'));
-		if(!$stok->status) {
-			return json_encode(['status' => 'error','pesan' => $stok->pesan]);
-		}
 		// insert ke table user
 		$this->db->insert('proforma_invoices',
 		[
 			'invoice_no' => $this->input->post('invoice_no'),
 			'invoice_date' => convert_date_to_en($this->input->post('invoice_date')),
-			'subject' => $this->input->post('subject'),
-			'cust_order_no' => $this->input->post('cust_order_no'),
-			'cust_order_date' => convert_date_to_en($this->input->post('cust_order_date')),
-			'payment_term' => $this->input->post('payment_term'),
-			'due_date' => convert_date_to_en($this->input->post('due_date')),
 			'customer_id' => $this->input->post('customer_id'),
-			'faktur_number' => $this->input->post('faktur_number'),
 			'items' => $this->input->post('items'),
-			'total' => $this->input->post('total'),
 			'created_at' => date('Y-m-d H:i:s')
 		]);
-		
-		$manage = json_decode($this->input->post('items'), true);
-		foreach ($manage as $value) {
-			$description_name = $value['description_name'];
-			$description_quantity = $value['description_quantity'];
-			$description_price = $value['description_price'];
-			$this->db->insert('barang_keluar',
-			[
-				'id_produk' => $description_name,
-				'jumlah' => $description_quantity,
-				'harga' => $description_price,
-				'invoice_no' => $this->input->post('invoice_no'),
-				'tanggal_invoice' => convert_date_to_en($this->input->post('invoice_date')),
-				'created_at' => date('Y-m-d H:i:s')
-			]);
-			
-		}		
-		
-		
-		
+				
 
 		return json_encode(['status' => 'success','pesan' => 'Data berhasil disimpan']);
 
 	}
-	
-	public function json_description($json)
-	{
-		$manage = json_decode($json, true);
-		foreach ($manage as $value) {
-			$description_name = $value['description_name'];
-			$description_quantity = $value['description_quantity'];
-			$cek = $this->db->get_where("( select a.*, b.nama_produk from ( select id_produk, sum(jumlah) as jumlah from barang_masuk group by id_produk ) a left join data_produk b on a.id_produk = b.id ) u"," u.id_produk = $description_name and jumlah >= $description_quantity ")->row_array();
-			if ($cek){
-				return json_decode(json_encode(['status' => TRUE,'pesan' => 'Gagal menyimpan data, Jumlah Stok mencukupi..']));
-			}
-			else
-			{
-				return json_decode(json_encode(['status' => FALSE,'pesan' => 'Gagal menyimpan data, Jumlah Stok tidak mencukupi..']));
-			}
-			
-		}
-		//return true;
-	}	
-	
+		
 	
 	public function simpan_edit(){
 
@@ -124,15 +93,8 @@ class Proforma_invoice_m extends CI_Model {
 		[
 			'invoice_no' => $this->input->post('invoice_no'),
 			'invoice_date' => convert_date_to_en($this->input->post('invoice_date')),
-			'subject' => $this->input->post('subject'),
-			'cust_order_no' => $this->input->post('cust_order_no'),
-			'cust_order_date' => convert_date_to_en($this->input->post('cust_order_date')),
-			'payment_term' => $this->input->post('payment_term'),
-			'due_date' => convert_date_to_en($this->input->post('due_date')),
 			'customer_id' => $this->input->post('customer_id'),
-			'faktur_number' => $this->input->post('faktur_number'),
-			'items' => $this->input->post('items'),
-			'total' => $this->input->post('total')
+			'items' => $this->input->post('items')
 		]);
 
 		if ($this->db->affected_rows() > 0){
@@ -158,7 +120,7 @@ class Proforma_invoice_m extends CI_Model {
 		
 	}
 
-    var $table = 'proforma_invoices u';
+    var $table = '( select a.* , b.nama_pelanggan from proforma_invoices a left join data_pelanggan b on a.customer_id = b.id ) u';
 	var $column_order = array('','u.id'); //set order berdasarkan field yang di mau
 	var $column_search = array('u.invoice_no','items'); //set field yang bisa di search
 	var $order = array('u.id' => 'desc'); // default order 

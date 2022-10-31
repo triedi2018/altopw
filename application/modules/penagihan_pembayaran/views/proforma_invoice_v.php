@@ -45,7 +45,6 @@ tr.details td.details-control {
                     <th>Invoice Date</th>
                     <th>Nama Pelanggan</th>					
 					<th>Surat Jalan</th>
-					<th>Total</th>
                   </tr>
                   </thead>
                   <tbody>
