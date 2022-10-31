@@ -20,6 +20,41 @@ class Surat_jalan_m extends CI_Model {
 		return $data;
 	}
 	
+	public function get_no_urut(){
+		$data = $this->db
+		->select('u.*')
+		->from('surat_jalan u')
+		->order_by("id", "desc")
+		->limit(1)
+		->get()->row_array();
+		
+		$no_surat_jalan = "SRT-" . date('Ym');
+		
+		if($data) {
+			$no_surat_jalan_temp = $data['no_surat_jalan'];
+			$init = substr($no_surat_jalan_temp,0,10);
+			$final = substr($no_surat_jalan_temp,10,strlen($no_surat_jalan_temp)-10);
+			//$no_surat_jalan = $final;
+			
+			if($no_surat_jalan == $init) {
+				$value = (int)$final;
+				$no_surat_jalan .= str_pad($value+1, 8, '0', STR_PAD_LEFT);
+			}
+			else
+			{
+				$no_surat_jalan = "SRT-" . date('Ym') . '00000001';
+			}
+
+		}
+		else 
+		{
+			$no_surat_jalan = "SRT-" . date('Ym') . '00000001';
+		}
+				
+		
+		return $no_surat_jalan;
+	}	
+	
 	public function edit_get($id){
 		$data = $this->db
 		->select('u.*')

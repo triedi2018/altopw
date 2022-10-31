@@ -62,7 +62,7 @@
 						<div class="input-group-prepend">
 						  <span class="input-group-text"><i class="fas fa-file"></i></span>
 						</div>
-						<input type="text" autocomplete="off" name="no_surat_jalan" required class="form-control" placeholder="No Surat Jalan">
+						<input type="text" autocomplete="off" name="no_surat_jalan" required class="form-control" value="<?= $no_urut ?>" placeholder="No Surat Jalan">
 					  </div>
 					</div>		
 

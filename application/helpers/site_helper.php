@@ -186,3 +186,10 @@ if (!function_exists('rupiah')){
     }
 }
 
+if (!function_exists('thousands')){
+    function thousands($angka){
+		$hasil_thousands = number_format($angka,0,',','.');
+		return $hasil_thousands;
+    }
+}
+
