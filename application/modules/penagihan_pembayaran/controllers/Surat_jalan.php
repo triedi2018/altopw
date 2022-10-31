@@ -129,7 +129,7 @@ class Surat_jalan extends CI_Controller {
 			'no_surat_jalan'=>$data['no_surat_jalan'],
 			'tanggal_surat_jalan'=>date("d-m-Y", strtotime($data['tanggal_surat_jalan'])),
 			'items' => $this->json_description($data['items']),
-			'total' => $data['total'],
+			'total' => rupiah($data['total']),
             'action' => $tombol_action,
             
             ];
@@ -150,10 +150,11 @@ class Surat_jalan extends CI_Controller {
 	public function json_description($json)
 	{
 		$manage = json_decode($json, true);
-		$result = '<table>';
+		$result = '<table width="100%">';
 		foreach ($manage as $value) {
 			$produk = $this->Data_model->produk_profile($value['description_name']);
-			$result .= "<tr><td>$produk[nama_produk]</td><td>$value[description_quantity]</td><td>$value[description_price]</td></tr>";
+			$rupiah = rupiah($value['description_price']);
+			$result .= "<tr><td width='50%' >$produk[nama_produk]</td><td width='20%' >$value[description_quantity]</td><td width='30%' >$rupiah</td></tr>";
 		}
 		$result .= '<table>';
 		return $result;
