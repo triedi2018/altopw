@@ -35,7 +35,7 @@
     <!-- /.lockscreen-image -->
 
     <!-- lockscreen credentials (contains the form) -->
-    <form method="post" action="<?= base_url("login") ?>" class="lockscreen-credentials">
+    <form method="post" action="<?= base_url("Login") ?>" class="lockscreen-credentials">
     <?= csrf() ?>
       <div class="input-group">
           <input type="hidden" name="nik" value="<?= $username ?>" />
