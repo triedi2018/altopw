@@ -111,11 +111,6 @@ class Proforma_invoice_m extends CI_Model {
 		$this->db
 		->where(['md5(u.id)' => $this->input->post('id')]);
 		$this->db->delete('proforma_invoices u');
-		//return $this->db->affected_rows(); 
-		
-		$this->db
-		->where(['u.invoice_no' => $cek['invoice_no']]);
-		$this->db->delete('barang_keluar u');
 		return $this->db->affected_rows(); 		
 		
 	}
