@@ -54,7 +54,7 @@
     Enter your password to retrieve your session
   </div>
   <div class="text-center">
-    <a href="<?= base_url() ?>login/out">Or sign in as a different user</a>
+    <a href="<?= base_url() ?>Login/out">Or sign in as a different user</a>
   </div>
   <div class="lockscreen-footer text-center">
     <strong>Copyright &copy; 2022 <a href="<?= base_url() ?>">PREMIER WATER</a>.</strong>

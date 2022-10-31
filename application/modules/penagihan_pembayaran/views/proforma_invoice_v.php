@@ -43,13 +43,8 @@ tr.details td.details-control {
                     <th></th>
                     <th>Invoice No</th>
                     <th>Invoice Date</th>
-                    <th>Subject</th>
-                    <th>Cust Order No</th>
-					<th>Cust Order Date</th>
-					<th>Payment Term</th>
-					<th>Due Date</th>
-					<th>Faktur No</th>					
-					<th>Description</th>
+                    <th>Nama Pelanggan</th>					
+					<th>Surat Jalan</th>
 					<th>Total</th>
                   </tr>
                   </thead>
