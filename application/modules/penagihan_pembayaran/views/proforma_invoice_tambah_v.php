@@ -62,7 +62,7 @@
 						<div class="input-group-prepend">
 						  <span class="input-group-text"><i class="fas fa-file"></i></span>
 						</div>
-						<input type="text" autocomplete="off" name="invoice_no" required class="form-control" placeholder="Invoice No">
+						<input type="text" autocomplete="off" name="invoice_no" value="<?= $no_urut ?>" required class="form-control" placeholder="Invoice No">
 					  </div>
 					</div>		
 

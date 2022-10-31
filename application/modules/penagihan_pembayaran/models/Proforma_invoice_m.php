@@ -37,6 +37,40 @@ class Proforma_invoice_m extends CI_Model {
 		->get()->row_array();
 		return $data;
 	}
+	
+	public function get_no_urut(){
+		$data = $this->db
+		->select('u.*')
+		->from('proforma_invoices u')
+		->order_by("id", "desc")
+		->limit(1)
+		->get()->row_array();
+		
+		$no_urut = "PRO-" . date('Ym');
+		
+		if($data) {
+			$no_urut_temp = $data['invoice_no'];
+			$init = substr($no_urut_temp,0,10);
+			$final = substr($no_urut_temp,10,strlen($no_urut_temp)-10);
+			
+			if($no_urut == $init) {
+				$value = (int)$final;
+				$no_urut .= str_pad($value+1, 8, '0', STR_PAD_LEFT);
+			}
+			else
+			{
+				$no_urut = "PRO-" . date('Ym') . '00000001';
+			}
+
+		}
+		else 
+		{
+			$no_urut = "PRO-" . date('Ym') . '00000001';
+		}
+				
+		
+		return $no_urut;
+	}	
 
 	public function customer_profile($id){
 		$data = $this->db

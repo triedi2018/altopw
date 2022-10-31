@@ -38,7 +38,8 @@ class Proforma_invoice extends CI_Controller {
         if (cek_akses_user()['tambah'] == 0){
             redirect(base_url('unauthorized'));
         }
-        $this->load->view('proforma_invoice_tambah_v');
+		$data['no_urut'] = $this->Data_model->get_no_urut();
+        $this->load->view('proforma_invoice_tambah_v', $data);
     }
 
     public function simpan_tambah(){
