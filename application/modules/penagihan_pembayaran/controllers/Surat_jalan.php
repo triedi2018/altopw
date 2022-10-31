@@ -126,7 +126,7 @@ class Surat_jalan extends CI_Controller {
             $row = [
 			'nama_pelanggan'=>$data['nama_pelanggan'],
 			'no_surat_jalan'=>$data['no_surat_jalan'],
-			'tanggal_surat_jalan'=>$data['tanggal_surat_jalan'],
+			'tanggal_surat_jalan'=>date("d-m-Y", strtotime($data['tanggal_surat_jalan'])),
 			'items' => $this->json_description($data['items']),
 			'total' => $data['total'],
             'action' => $tombol_action,
