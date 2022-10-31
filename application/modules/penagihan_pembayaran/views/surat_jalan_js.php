@@ -46,18 +46,99 @@ $('.btn-action').on('click',function(){
 			}
 		  });
 
-	xhr = $.ajax({
-	  method : "POST",
-	  url : "<?= base_url().$this->uri->segment(1,0).$this->uri->slash_segment(2,'both')?>list-produk",
-	  success: function(response){
-		$('#list_produk').html(response);
+		xhr = $.ajax({
+		  method : "POST",
+		  url : "<?= base_url().$this->uri->segment(1,0).$this->uri->slash_segment(2,'both')?>list-customers",
+		  success: function(response){
+			$('#list_customers').html(response);
+			
+			$('#add-items').on('click',function(){
 				
-		hide_loading();
-	  },
-	  error : function(){
+				$("#description ol").append("<li style='margin-bottom:10px;'> Produk: &nbsp;<select id='list_produk' class='description_name' type='text' style='width:250px;' required  /> &nbsp; Quantity: &nbsp;<input type='text' style='width:50px;' required align='center' class='allow_only_numbers description_quantity'  /> &nbsp; Harga: &nbsp;<input type='text' style='width:150px;' required class='allow_only_numbers description_price' readonly  />&nbsp; <a href='javascript:void(0);' class='remove'>×</a></li>"); 
+				$(document).on("click", "a.remove" , function() {
+					$(this).parent().remove();
+				});
 
-	  }
-	})
+				  $(".allow_only_numbers").keydown(function(e) {
+
+					// Allow: backspace, delete, tab, escape, enter and .
+					if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 173 , 190]) !== -1 ||
+					  // Allow: Ctrl+A,Ctrl+C,Ctrl+V, Command+A
+					  ((e.keyCode == 65 || e.keyCode == 86 || e.keyCode == 67) && (e.metaKey === true)) ||
+					  // Allow: home, end, left, right, down, up
+					  (e.keyCode >= 35 && e.keyCode <= 40)) {
+					  // let it happen, don't do anything
+					  return;
+					}
+					// Ensure that it is a number and stop the keypress
+					if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {			
+					  e.preventDefault();
+					}
+				  });
+				  
+				xhr = $.ajax({
+				  method : "POST",
+				  url : "<?= base_url().$this->uri->segment(1,0).$this->uri->slash_segment(2,'both')?>list-produk",
+				  success: function(response){
+					  
+					$('.description_name').last().html(response);
+					
+					  $('#form-action').on('change','.description_name',function(e){
+						if (e.target.value != "" ){
+							
+						  console.log(e.target);
+						  
+						  var nama_produk = $(this).find(':selected').data('nama_produk');
+						  var id_produk = $(this).find(':selected').data('id');
+						  var harga = $(this).find(':selected').data('harga');
+						  
+						  console.log(nama_produk);
+						  console.log(id_produk);
+						  console.log(harga);
+						  
+						  $(this).parent().find('.description_price').val(harga);
+						  
+						  
+						}
+					  });	
+
+						
+						
+
+						$(".description_quantity").keyup(function(e) {
+							
+							var total = 0;
+							
+							$('input[name=total]').val(total);
+							
+							$('.description_name').each(function() { 
+								//ek.push($(this).val()); 
+								console.log($(this).val());
+								var price = $(this).parent().find('.description_price').val();
+								var quantity = $(this).parent().find('.description_quantity').val();
+								console.log(quantity);
+								total += (price * quantity);
+							});
+							
+							$('input[name=total]').val(total);
+						})
+						
+					hide_loading();
+				  },
+				  error : function(){
+
+				  }
+				})				  
+
+				
+			});		
+			
+			hide_loading();
+		  },
+		  error : function(){
+
+		  }
+		})
 		  
 
       hide_loading();
@@ -67,44 +148,37 @@ $('.btn-action').on('click',function(){
     }
   })
 })
+
 function cek_divisi_jabatan(){
-  $('#form-action').on('change','#divisi',function(e){
-    // console.log(e.target.value);
-    show_loading();
-    xhr = $.ajax({
-      method : "POST",
-      url : "<?= base_url().$this->uri->segment(1,0).$this->uri->slash_segment(2,'both')?>list-jabatan",
-      data : "divisi="+e.target.value,
-      success: function(response){
-        $('#jabatan').html(response);
-        hide_loading();
-      },
-      error : function(){
-
-      }
-    })
-    
-  });
-  $('#form-action').on('change','#jabatan',function(e){
+	
+  $('#form-action').on('change','#list_customers',function(e){
+	  
+	  show_loading();
+	  
     if (e.target.value != "" ){
-      // console.log(e.target.value);
-      show_loading();
-      xhr = $.ajax({
-        method : "POST",
-        url : "<?= base_url().$this->uri->segment(1,0).$this->uri->slash_segment(2,'both')?>list-atasan",
-        data : "nik="+$('#nik').val()+"&divisi="+$('#divisi').val(),
-        success: function(response){
-          $('#atasan1').html(response);
-          $('#atasan2').html(response);
-          hide_loading();
-        },
-        error : function(){
-
-        }
-      })
+		
+      console.log(e.target);
+	  
+	  var address = $(this).find(':selected').data('address');
+	  var phone = $(this).find(':selected').data('phone');
+	  var attn = $(this).find(':selected').data('attn');
+	  
+	  console.log(address);
+	  console.log(phone);
+	  console.log(attn);
+	  
+	  $('textarea[name="address"]').val(address);
+	  $('input[name="phone"]').val(phone);
+	  $('input[name="attn"]').val(attn);
+	  
     }
+	
+	hide_loading();
+	
   });
+  
 }
+
 function validate_form(action){
   
 
@@ -114,14 +188,16 @@ function validate_form(action){
   
   $('#form-action').validate({
     rules: {
-      id_produk:{required:true},
-      jumlah: { required: true },
-      tanggal_masuk:{required:true},
+      customer_id:{required:true},
+      no_surat_jalan:{required:true},
+	  tanggal_surat_jalan:{required:true},
+	  total:{required:true},
     },
     messages: {
-      id_produk:"Harus diisi",
-      jumlah:"Harus diisi",
-      tanggal_masuk:"Harus diisi",
+      customer_id:"Harus diisi",
+      no_surat_jalan:"Harus diisi",
+      tanggal_surat_jalan:"Harus diisi",
+	  total:"Harus diisi",
     },
     errorElement: 'span',
     errorPlacement: function (error, element) {
@@ -146,6 +222,35 @@ function validate_form(action){
     submitHandler: function () {
       $('#simpan').text('Menyimpan data...');
       $('#simpan').attr('disabled','disabled');
+	  
+		var json_description = [];
+	  
+		  $('#description').find('li').each(function(){
+			  
+			  var current = $(this);
+			  var jsonObj = {};
+			  //console.log(current);
+			  jsonObj.description_name = current.find(".description_name option:selected").val();	
+				current.find('input[type=text]').each(function(){
+					if($(this).hasClass('description_name')) {
+						//alert($(this).val());
+						jsonObj.description_name = $(this).val();
+					}
+					if($(this).hasClass('description_quantity')) {
+						jsonObj.description_quantity = $(this).val();
+					}
+					if($(this).hasClass('description_price')) {
+						jsonObj.description_price = $(this).val();
+					}
+				  
+				});	
+
+			json_description.push(jsonObj);
+			  
+		  })
+		  
+		  jsonStr = JSON.stringify(json_description);
+		  $("input[name=items]").val(jsonStr);	  
 
       show_loading();
       let formdata = $('#form-action').serialize();
@@ -211,11 +316,17 @@ $(document).ready(function () {
         
 
         "columns": [
-            { "data": "nama_produk" },
-            { "data": "jumlah" },
-			{ "data": "harga" },
-			{ "data": "no_surat_jalan" },
-			{ "data": "tanggal_surat_jalan" }
+            {
+                "class":          "details-control",
+                "orderable":      false,
+                "data":           null,
+                "defaultContent": ""
+            },
+            { "data": "no_surat_jalan" },
+            { "data": "tanggal_surat_jalan" },
+			{ "data": "nama_pelanggan" },			
+			{ "data": "items" },
+			{ "data": "total" },
         ],
 		
 		"lengthMenu": [[50, -1], [50, "All"]]
@@ -320,6 +431,16 @@ $(document).ready(function () {
 		}			
 			
 		})
+
+    })
+
+
+    $('#example1 tbody').on('click','.btn-print',function(e){
+      //alert(e.target.dataset.id);
+		var anchor = document.createElement('a');
+		anchor.href = "<?= base_url().$this->uri->segment(1,0).$this->uri->slash_segment(2,'both')?>printdata/" + e.target.dataset.id;
+		anchor.target="_blank";
+		anchor.click();		
 
     })	
 

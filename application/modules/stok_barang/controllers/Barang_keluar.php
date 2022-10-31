@@ -111,7 +111,7 @@ class Barang_keluar extends CI_Controller {
 
             // column buat data tables --
             $row = [
-			'nama_produk' => $data['nama_produk'] ,'jumlah' => $data['jumlah'],'harga' => $data['harga'],'invoice_no' => $data['invoice_no'],'tanggal_invoice' => date("d-m-Y", strtotime($data['tanggal_invoice'])),
+			'nama_produk' => $data['nama_produk'] ,'jumlah' => $data['jumlah'],'harga' => $data['harga'],'no_surat_jalan' => $data['no_surat_jalan'],'tanggal_surat_jalan' => date("d-m-Y", strtotime($data['tanggal_surat_jalan'])),
             'action' => $tombol_action,
             
             ];
