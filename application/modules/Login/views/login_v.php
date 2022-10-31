@@ -27,7 +27,8 @@
 }
 </style>
 </head>
-<body class="hold-transition login-page">
+<body class="hold-transition login-page" style="overflow-y: hidden;background:url(
+	'<?php echo base_url('assets/images/Buku-2.jpg'); ?>')no-repeat;background-size:100%;">
 <div class="login-box">
   <div class="login-logo">
     <a href="index2.html"><b>PREMIER WATER </b></a>
