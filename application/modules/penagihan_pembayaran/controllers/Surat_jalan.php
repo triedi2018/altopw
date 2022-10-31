@@ -151,7 +151,8 @@ class Surat_jalan extends CI_Controller {
 		$manage = json_decode($json, true);
 		$result = '<table>';
 		foreach ($manage as $value) {
-			$result .= "<tr><td>$value[description_name]</td><td>$value[description_quantity]</td><td>$value[description_price]</td></tr>";
+			$produk = $this->Data_model->produk_profile($value['description_name']);
+			$result .= "<tr><td>$produk[nama_produk]</td><td>$value[description_quantity]</td><td>$value[description_price]</td></tr>";
 		}
 		$result .= '<table>';
 		return $result;
