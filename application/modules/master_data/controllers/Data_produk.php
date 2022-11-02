@@ -99,7 +99,7 @@ class Data_produk extends CI_Controller {
             (cek_akses_user()['hapus'] == 1 ? ' <a href="#" ><span class="badge badge-danger btn-hapus" data-jenis_action="hapus" data-id="'.md5($data['id']).'">Hapus</span></a>' : '');
 
             // column buat data tables --
-            $row = ['nama_produk' => $data['nama_produk'] ,'harga' => $data['harga'],'satuan'=>$data['satuan'],
+            $row = ['nama_produk' => $data['nama_produk'] ,'harga' => rupiah($data['harga']),'satuan'=>$data['satuan'],
             'action' => $tombol_action,
             
             ];
