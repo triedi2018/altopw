@@ -19,6 +19,15 @@ class Proforma_invoice_m extends CI_Model {
 		->where('customer_id',$this->input->post('customer_id'))
 		->get()->result_array();
 		return $data;
+	}
+
+	public function list_proforma_invoices_join($invoice_no){
+		$data = $this->db
+		->select('u.*')
+		->from('vw_proforma_invoices_join u')
+		->where('invoice_no',$invoice_no)
+		->get()->result_array();
+		return $data;
 	}	
 
 	public function edit(){
