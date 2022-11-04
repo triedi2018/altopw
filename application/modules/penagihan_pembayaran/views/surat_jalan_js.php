@@ -54,7 +54,7 @@ $('.btn-action').on('click',function(){
 			
 			$('#add-items').on('click',function(){
 				
-				$("#description ol").append("<li style='margin-bottom:10px;'> Produk: &nbsp;<select id='list_produk' class='description_name' type='text' style='width:250px;' required  /> &nbsp; Quantity: &nbsp;<input type='text' style='width:50px;' required align='center' class='allow_only_numbers description_quantity'  /> &nbsp; Harga: &nbsp;<input type='text' style='width:150px;' required class='allow_only_numbers description_price' readonly  />&nbsp; <a href='javascript:void(0);' class='remove'>×</a></li>"); 
+				$("#description ol").append("<li style='margin-bottom:10px;'> Produk: &nbsp;<select id='list_produk' class='description_name' type='text' style='width:250px;' required  /> &nbsp; Quantity: &nbsp;<input type='text' style='width:50px;' required align='center' class='allow_only_numbers description_quantity'  /> &nbsp; Harga: &nbsp;<input type='text' style='width:150px;' required class='allow_only_numbers description_price'  />&nbsp; <a href='javascript:void(0);' class='remove'>×</a></li>"); 
 				$(document).on("click", "a.remove" , function() {
 					$(this).parent().remove();
 				});
@@ -105,7 +105,7 @@ $('.btn-action').on('click',function(){
 						
 						
 
-						$(".description_quantity").keyup(function(e) {
+						$(".description_quantity , .description_price").keyup(function(e) {
 							
 							var total = 0;
 							
