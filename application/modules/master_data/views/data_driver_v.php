@@ -42,6 +42,9 @@ tr.details td.details-control {
                     <th></th>
 					<th>Kode</th>
                     <th>Nama Driver</th>
+					<th>NIK</th>
+					<th>Alamat</th>
+					<th>No HP</th>
                   </tr>
                   </thead>
                   <tbody>

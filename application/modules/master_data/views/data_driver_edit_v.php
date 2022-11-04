@@ -13,34 +13,55 @@
 		
 		<input type="hidden" name="id" value="<?= md5($data['id']) ?>" />
 
+			<div class="form-group">
+			  <label>Kode Driver <span class="symbol required"> </span></label>
+			  <div class="input-group mb-3">
+				<div class="input-group-prepend">
+				  <span class="input-group-text"><i class="fas fa-file"></i></span>
+				</div>
+				<input type="text" autocomplete="off" name="kode" required class="form-control" readonly value="<?= $data['kode'] ?>" placeholder="Kode Driver">
+			  </div>
+			</div>
+
             <div class="form-group">
-              <label>Nama Produk <span class="symbol required"> </span></label>
+              <label>NIK <span class="symbol required"> </span></label>
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fas fa-file"></i></span>
                 </div>
-                <input type="text" autocomplete="off" name="nama_produk" value="<?= $data['nama_produk'] ?>" required class="form-control" placeholder="Nama Produk">
+                <input type="text" autocomplete="off" name="nik" value="<?= $data['nik'] ?>" required class="form-control" placeholder="NIK">
+              </div>
+            </div>			
+
+            <div class="form-group">
+              <label>Nama Driver <span class="symbol required"> </span></label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-file"></i></span>
+                </div>
+                <input type="text" autocomplete="off" name="nama_driver" value="<?= $data['nama_driver'] ?>" required class="form-control" placeholder="Nama Driver">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Alamat <span class="symbol required"> </span></label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-file"></i></span>
+                </div>
+                <input type="text" autocomplete="off" name="alamat" value="<?= $data['alamat'] ?>" required class="form-control" placeholder="Alamat">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>No HP <span class="symbol required"> </span></label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-file"></i></span>
+                </div>
+                <input type="text" autocomplete="off" name="hp" value="<?= $data['hp'] ?>" required class="form-control" placeholder="No HP">
               </div>
             </div>	
-			
-            <div class="form-group">
-              <label>Harga <span class="symbol required"> </span></label>
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-file"></i></span>
-                </div>
-                <input type="text" autocomplete="off" name="harga" value="<?= $data['harga'] ?>" required class="form-control" placeholder="Harga">
-              </div>
-            </div>				
-
-			<div class="form-group">
-			  <label>Satuan <span class="symbol required"> </span></label>
-			  <select class="form-control" id="satuan" name="satuan">
-				<option value="Unit" <?php if($data['satuan'] == 'Unit' ) { echo "selected"; } ?> >Unit</option>
-				<option value="Galon" <?php if($data['satuan'] == 'Galon' ) { echo "selected"; } ?> >Galon</option>
-				<option value="Dus" <?php if($data['satuan'] == 'Dus' ) { echo "selected"; } ?> >Dus</option>
-			  </select>
-			</div>
 
             <span class="symbol required"> Harus diisi 
             <!-- <div class="form-group mb-0">

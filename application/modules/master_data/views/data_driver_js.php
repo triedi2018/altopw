@@ -185,7 +185,10 @@ $(document).ready(function () {
                 "defaultContent": ""
             },
 			{ "data": "kode" },
-            { "data": "nama_driver" }
+            { "data": "nama_driver" },
+			{ "data": "nik" },
+			{ "data": "alamat" },
+			{ "data": "hp" }
         ],
 		
 		"lengthMenu": [[50, -1], [50, "All"]]

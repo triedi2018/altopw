@@ -19,7 +19,17 @@
 				</div>
 				<input type="text" autocomplete="off" name="kode" required class="form-control" readonly value="<?= $no_urut ?>" placeholder="Kode Driver">
 			  </div>
-			</div>		
+			</div>
+
+            <div class="form-group">
+              <label>NIK <span class="symbol required"> </span></label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-file"></i></span>
+                </div>
+                <input type="text" autocomplete="off" name="nik" required class="form-control" placeholder="NIK">
+              </div>
+            </div>			
 
             <div class="form-group">
               <label>Nama Driver <span class="symbol required"> </span></label>
@@ -29,7 +39,27 @@
                 </div>
                 <input type="text" autocomplete="off" name="nama_driver" required class="form-control" placeholder="Nama Driver">
               </div>
-            </div>	
+            </div>
+
+            <div class="form-group">
+              <label>Alamat <span class="symbol required"> </span></label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-file"></i></span>
+                </div>
+                <input type="text" autocomplete="off" name="alamat" required class="form-control" placeholder="Alamat">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>No HP <span class="symbol required"> </span></label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-file"></i></span>
+                </div>
+                <input type="text" autocomplete="off" name="hp" required class="form-control" placeholder="No HP">
+              </div>
+            </div>			
 
             <span class="symbol required"> Harus diisi 
             <!-- <div class="form-group mb-0">

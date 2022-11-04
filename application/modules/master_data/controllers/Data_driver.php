@@ -100,7 +100,7 @@ class Data_driver extends CI_Controller {
             (cek_akses_user()['hapus'] == 1 ? ' <a href="#" ><span class="badge badge-danger btn-hapus" data-jenis_action="hapus" data-id="'.md5($data['id']).'">Hapus</span></a>' : '');
 
             // column buat data tables --
-            $row = ['kode' => $data['kode'],'nama_driver' => $data['nama_driver'],
+            $row = ['kode' => $data['kode'],'nama_driver' => $data['nama_driver'],'nik' => $data['nik'],'alamat' => $data['alamat'],'hp' => $data['hp'],
             'action' => $tombol_action,
             
             ];

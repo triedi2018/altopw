@@ -58,6 +58,9 @@ class Data_driver_m extends CI_Model {
 		$this->db->insert('driver',
 		['nama_driver' => $this->input->post('nama_driver'),
 		'kode' => $this->input->post('kode'),
+		'nik' => $this->input->post('nik'),
+		'alamat' => $this->input->post('alamat'),
+		'hp' => $this->input->post('hp'),
 		'created_at' => date('Y-m-d H:i:s')
 		]);
 
@@ -69,7 +72,10 @@ class Data_driver_m extends CI_Model {
 		$this->db->where('md5(id)',$this->input->post('id'))->update('driver',
 		[
 			'nama_driver' => $this->input->post('nama_driver'),
-			'kode' => $this->input->post('kode')
+			'kode' => $this->input->post('kode'),
+			'nik' => $this->input->post('nik'),
+			'alamat' => $this->input->post('alamat'),
+			'hp' => $this->input->post('hp')
 		]);
 
 		if ($this->db->affected_rows() > 0){
