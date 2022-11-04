@@ -262,6 +262,24 @@ $html = <<<EOD
 	</tr>	
 	</tbody>
 	</table>
+	
+	<div style="height:20px;"></div>
+	
+	<table style="width: 100%; border-collapse: collapse;" border="0">
+	<tbody>
+	<tr>
+	<td>
+	Alamat Pengiriman : 
+	</td>	
+	</tr>
+	<tr>
+	<td>
+	$customer[alamat_pengiriman]
+	</td>	
+	</tr>	
+	</tbody>
+	</table>	
+	
 </td>	
 </tr>
 
