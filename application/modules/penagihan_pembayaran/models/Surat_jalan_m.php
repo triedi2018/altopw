@@ -10,6 +10,10 @@ class Surat_jalan_m extends CI_Model {
 
 	public function list_customers(){
 		return $this->db->get('data_pelanggan')->result_array();
+	}
+
+	public function list_drivers(){
+		return $this->db->get('driver')->result_array();
 	}	
 
 	public function edit(){
@@ -98,6 +102,7 @@ class Surat_jalan_m extends CI_Model {
 			'no_surat_jalan' => $this->input->post('no_surat_jalan'),
 			'tanggal_surat_jalan' => convert_date_to_en($this->input->post('tanggal_surat_jalan')),
 			'customer_id' => $this->input->post('customer_id'),
+			'driver_id' => $this->input->post('driver_id'),
 			'items' => $this->input->post('items'),
 			'total' => $this->input->post('total'),
 			'created_at' => date('Y-m-d H:i:s')
@@ -187,7 +192,7 @@ class Surat_jalan_m extends CI_Model {
 		
 	}
 
-    var $table = '( select a.* , b.nama_pelanggan from surat_jalan a left join data_pelanggan b on a.customer_id = b.id ) u';
+    var $table = '( select a.* , b.nama_pelanggan, c.nama_driver from surat_jalan a left join data_pelanggan b on a.customer_id = b.id left join driver c on a.driver_id = c.id ) u';
 	var $column_order = array('','u.id'); //set order berdasarkan field yang di mau
 	var $column_search = array('u.no_surat_jalan','items'); //set field yang bisa di search
 	var $order = array('u.id' => 'desc'); // default order 

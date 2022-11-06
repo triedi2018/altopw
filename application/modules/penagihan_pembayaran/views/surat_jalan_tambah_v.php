@@ -19,7 +19,15 @@
 						<option value="">Pilih Pelanggan </option>
 						
 					  </select>
-					</div>			
+					</div>
+
+					<div class="form-group">
+					  <label>Nama Driver <span class="symbol required"> </span></label>
+					  <select class="form-control" id="list_drivers" name="driver_id">
+						<option value="">Pilih Driver </option>
+						
+					  </select>
+					</div>					
 
 					<div class="form-group">
 					  <label>Alamat </label>

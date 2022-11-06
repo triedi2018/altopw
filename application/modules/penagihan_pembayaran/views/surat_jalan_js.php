@@ -139,6 +139,19 @@ $('.btn-action').on('click',function(){
 
 		  }
 		})
+		
+		xhr = $.ajax({
+		  method : "POST",
+		  url : "<?= base_url().$this->uri->segment(1,0).$this->uri->slash_segment(2,'both')?>list-drivers",
+		  success: function(response){
+			$('#list_drivers').html(response);	
+			
+			hide_loading();
+		  },
+		  error : function(){
+
+		  }
+		})		
 		  
 
       hide_loading();
@@ -324,7 +337,8 @@ $(document).ready(function () {
             },
             { "data": "no_surat_jalan" },
             { "data": "tanggal_surat_jalan" },
-			{ "data": "nama_pelanggan" },			
+			{ "data": "nama_pelanggan" },	
+			{ "data": "nama_driver" },				
 			{ "data": "items" },
 			{ "data": "total" },
         ],

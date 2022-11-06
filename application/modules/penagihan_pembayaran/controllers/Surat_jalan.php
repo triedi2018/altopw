@@ -106,6 +106,17 @@ class Surat_jalan extends CI_Controller {
             }
         }
     }
+	
+    public function list_drivers(){
+        cek_ajax();
+        $data = $this->Data_model->list_drivers();
+        if ($data){
+            echo "<option value=''>Pilih Driver</option>";
+            foreach($data as $driver){
+                echo "<option data-address='$driver[alamat]' data-phone='$driver[phone]' data-attn='$driver[kode]' value='$driver[id]'>$driver[nama_driver]</option>";
+            }
+        }
+    }	
 
 	
     public function tampildata()
@@ -127,6 +138,7 @@ class Surat_jalan extends CI_Controller {
             // column buat data tables --
             $row = [
 			'nama_pelanggan'=>$data['nama_pelanggan'],
+			'nama_driver'=>$data['nama_driver'],
 			'no_surat_jalan'=>$data['no_surat_jalan'],
 			'tanggal_surat_jalan'=>date("d-m-Y", strtotime($data['tanggal_surat_jalan'])),
 			'items' => $this->json_description($data['items']),
