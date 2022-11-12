@@ -110,7 +110,7 @@ class Daftar_stok_barang extends CI_Controller {
             (cek_akses_user()['hapus'] == 1 ? ' <a href="#" ><span class="badge badge-danger btn-hapus" data-jenis_action="hapus" data-id="'.md5($data['id']).'">Hapus</span></a>' : '');
 
             // column buat data tables --
-            $row = ['nama_produk' => $data['nama_produk'] ,'jumlah' => $data['jumlah'],
+            $row = ['nama_produk' => $data['nama_produk'] ,'jumlah_in' => thousands($data['jumlah_in']),'jumlah_out' => thousands($data['jumlah_out']),'jumlah_all' => thousands($data['jumlah_all']),
             'action' => $tombol_action,
             
             ];

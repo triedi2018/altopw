@@ -212,7 +212,9 @@ $(document).ready(function () {
 
         "columns": [
             { "data": "nama_produk" },
-            { "data": "jumlah" },
+            { "data": "jumlah_in" },
+			{ "data": "jumlah_out" },
+			{ "data": "jumlah_all" },
         ],
 		
 		"lengthMenu": [[50, -1], [50, "All"]]

@@ -56,7 +56,9 @@ class Daftar_stok_barang_m extends CI_Model {
 		return $this->db->affected_rows(); 
 	}
 
-    var $table = '( select a.*, b.nama_produk from ( select id_produk, sum(jumlah) as jumlah from barang_masuk group by id_produk ) a left join data_produk b on a.id_produk = b.id ) u';
+    //var $table = '( select a.*, b.nama_produk from ( select id_produk, sum(jumlah) as jumlah from barang_masuk group by id_produk ) a left join data_produk b on a.id_produk = b.id ) u';
+	var $table = '( select a.*, b.id_produk, b.jumlah_in, c.jumlah_out, ( b.jumlah_in - c.jumlah_out ) as jumlah_all from data_produk a left join ( select id_produk, sum(jumlah) as jumlah_in from barang_masuk group by id_produk ) b on a.id = b.id_produk left join ( SELECT id_produk, sum(jumlah) as jumlah_out FROM alff5313_alto_pw2.barang_keluar group by id_produk ) c on a.id = c.id_produk ) u';
+	
 	var $column_order = array('','u.id_produk'); //set order berdasarkan field yang di mau
 	var $column_search = array('u.nama_produk'); //set field yang bisa di search
 	var $order = array('u.id_produk' => 'desc'); // default order 

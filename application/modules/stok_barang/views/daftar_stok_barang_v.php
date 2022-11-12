@@ -40,6 +40,8 @@ tr.details td.details-control {
                   <thead>
                   <tr>
                     <th>Nama Produk</th>
+					<th>Stock In</th>
+					<th>Stock Out</th>
 					<th>Jumlah Total</th>
                   </tr>
                   </thead>
