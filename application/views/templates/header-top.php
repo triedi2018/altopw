@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title><?= ($this->uri->segment(2) ? ucwords(str_replace('-',' ',$this->uri->segment(2,0))) : ucwords(str_replace('-',' ',$this->uri->segment(1,0))) ) ?> | Pengelolaan Karyawan</title>
+  <title><?= ($this->uri->segment(2) ? ucwords(str_replace('-',' ',$this->uri->segment(2,0))) : ucwords(str_replace('-',' ',$this->uri->segment(1,0))) ) ?> </title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
