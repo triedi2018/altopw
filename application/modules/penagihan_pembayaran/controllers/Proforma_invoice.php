@@ -165,11 +165,26 @@ class Proforma_invoice extends CI_Controller {
 		$result = '<table>';
 		foreach ($manage as $value) {
 			$surat_jalan = $this->Data_model->surat_jalan_profile($value['no_surat_jalan']);
-			$result .= "<tr><td>$surat_jalan[no_surat_jalan]</td></tr>";
+			$description_detail = $this->json_description_detail($surat_jalan['items']);
+			$result .= "<tr><td>$surat_jalan[no_surat_jalan]</td><td>$description_detail</td></tr>";
 		}
 		$result .= '<table>';
 		return $result;
 	}
+	
+	public function json_description_detail($json)
+	{
+		$manage = json_decode($json, true);
+		$result = '<table width="400">';
+		foreach ($manage as $value) {
+			$produk = $this->Data_model->produk_profile($value['description_name']);
+			$rupiah = rupiah($value['description_price']);
+			$total_rupiah = rupiah(($value['description_price']*$value['description_quantity']));
+			$result .= "<tr><td width='40%' >$produk[nama_produk]</td><td width='10%' >$value[description_quantity]</td><td width='25%' >$rupiah</td><td width='25%' ><b>$total_rupiah</b></td></tr>";
+		}
+		$result .= '</table>';
+		return $result;
+	}	
 
 	public function printdata($id=0)
 	{

@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="<?php echo base_url(); ?>bower_components/bootstrap-daterangepicker/daterangepicker.css" />
 
 <style>
 td.details-control {
@@ -14,6 +15,28 @@ tr.details td.details-control {
 
     <!-- Main content -->
     <section class="content">
+	
+<form class="form-horizontal" method="post" enctype="multipart/form-data" id="ajax_form" action="">		
+	
+		<div class="row">
+		  <div class="col-md-6">
+							
+		  </div>
+		  <div class="col-md-6">
+			<div class="form-group">
+			  <label>Range Date : </label>
+			  <div class="input-group mb-3">
+				<div class="input-group-prepend">
+				  <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+				</div>
+				<input type="text" class="form-control pull-right" id="reservation">
+			  </div>
+			</div>							
+		  </div>		  
+		</div>	
+		
+</form>	
+	
       <div class="row">
         <div class="col-12">
           

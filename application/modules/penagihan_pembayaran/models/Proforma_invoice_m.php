@@ -181,6 +181,19 @@ class Proforma_invoice_m extends CI_Model {
 	{		
         $this->db->select('u.*');
 		$this->db->from($this->table);
+		
+		$sql = " id is not null ";
+		if ($this->input->post('startdate') != '') {
+			$startdate = $this->input->post('startdate');
+			$sql .= " and invoice_date > '$startdate 00:00:00' ";
+		}
+		if ($this->input->post('enddate') != '') {
+			$enddate = $this->input->post('enddate');
+			$sql .= " and invoice_date < '$enddate 23:59:59' ";
+		}		
+		
+		$this->db->where($sql);	
+		
 		$i = 0;	
 		foreach ($this->column_search as $item) // loop column 
 		{
