@@ -55,7 +55,7 @@ class Kwitansi extends CI_Controller {
         if (cek_akses_user()['edit'] == 0){
             redirect(base_url('unauthorized'));
         }
-        echo $this->Data_model->simpan_edit();
+        echo $this->Data_model->simpan_status_edit();
     }
     
     public function edit(){
@@ -65,9 +65,10 @@ class Kwitansi extends CI_Controller {
             echo "error";
         }
 
-            $data['data'] = $this->Data_model->edit();
+            $data['data'] = $this->Data_model->edit_get($this->input->post('id'));
+			$data['customer'] = $this->Data_model->customer_profile($data['data']['customer_id']);
             
-            $this->load->view('barang_masuk_edit_v',$data);
+            $this->load->view('kwitansi_edit_v',$data);
 
     }
 	
@@ -131,7 +132,7 @@ class Kwitansi extends CI_Controller {
 
             // tombol action - dicek juga punya akses apa engga gengs....
             $tombol_action = (cek_akses_user()['edit'] == 1 ? '<a href="#" ><span class="badge badge-primary btn-edit" data-jenis_action="edit" data-id="'.md5($data['id']).'" data-'.$this->security->get_csrf_token_name().'='.$this->security->get_csrf_hash().'>Edit</span></a>' : '' ). 
-            //(cek_akses_user()['hapus'] == 1 ? ' <a href="#" ><span class="badge badge-danger btn-hapus" data-jenis_action="hapus" data-id="'.md5($data['id']).'">Hapus</span></a>' : '').
+            (cek_akses_user()['hapus'] == 1 ? ' <a href="#" ><span class="badge badge-danger btn-hapus" data-jenis_action="hapus" data-id="'.md5($data['id']).'">Hapus</span></a>' : '').
 			(1 == 1 ? ' <a href="#" ><span class="badge badge-warning btn-print" data-jenis_action="hapus" data-id="'.md5($data['id']).'">Print</span></a>' : '');
 
             // column buat data tables --
@@ -141,7 +142,7 @@ class Kwitansi extends CI_Controller {
             'nama_pelanggan' => $data['nama_pelanggan'],
 			//'items' => $this->json_description($data['items']),
 			//'faktur_number' => $data['faktur_number'],
-			'status' => (($data['status'] == null)?'BLM DIBAYAR':'SUDAH DIBAYAR'),
+			'status' => (($data['status'] == 1)?'LUNAS':'BLM DIBAYAR'),
             'action' => $tombol_action,
             
             ];

@@ -147,6 +147,20 @@ class Proforma_invoice_m extends CI_Model {
 		}
 	}
 	
+	public function simpan_status_edit(){
+
+		$this->db->where('md5(id)',$this->input->post('id'))->update('proforma_invoices',
+		[
+			'status' => $this->input->post('status')
+		]);
+
+		if ($this->db->affected_rows() > 0){
+			return json_encode(['status' => 'success','pesan' => 'Data berhasil diperbaharui']);
+		}else{
+			return json_encode(['status' => 'success','pesan' => 'Tidak ada data yang diperbaharui']);
+		}
+	}	
+	
 	public function hapus(){
 		
 		$cek = $this->db->get_where('proforma_invoices u',['md5(u.id)' => $this->input->post('id')])->row_array();
