@@ -61,7 +61,7 @@ class Kas_m extends CI_Model {
     var $table = '( select * from kas ) u';
 	var $column_order = array('','u.id'); //set order berdasarkan field yang di mau
 	var $column_search = array('u.jenis_transaksi','keterangan'); //set field yang bisa di search
-	var $order = array('u.id' => 'desc'); // default order 
+	var $order = array('u.tanggal' => 'asc'); // default order 
 
 	private function _get_data()
 	{		

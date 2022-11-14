@@ -273,12 +273,14 @@ $(document).ready(function () {
                 "defaultContent": ""
             },
             { "data": "tanggal" },
-            { "data": "jenis_transaksi" },
-            { "data": "jumlah" },
 			{ "data": "keterangan" },
+            { "data": "debit" },
+			{ "data": "kredit" },
+            { "data": "saldo" },
+			
         ],
 		
-		"lengthMenu": [[50, -1], [50, "All"]]
+		"lengthMenu": [[-1], ["All"]]
 
     });
     var detailRows = [];

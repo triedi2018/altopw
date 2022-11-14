@@ -102,6 +102,8 @@ class Kas extends CI_Controller {
 		$list = $this->Data_model->tampildata();
 		$record = array();
 		$no = $_POST['start'];
+		
+		$saldo = 0;
 		foreach ($list as $data) {
 			$no++;
 
@@ -109,8 +111,19 @@ class Kas extends CI_Controller {
             $tombol_action = (cek_akses_user()['edit'] == 1 ? '<a href="#" ><span class="badge badge-primary btn-edit" data-jenis_action="edit" data-id="'.md5($data['id']).'" data-'.$this->security->get_csrf_token_name().'='.$this->security->get_csrf_hash().'>Edit</span></a>' : '' ). 
             (cek_akses_user()['hapus'] == 1 ? ' <a href="#" ><span class="badge badge-danger btn-hapus" data-jenis_action="hapus" data-id="'.md5($data['id']).'">Hapus</span></a>' : '');
 
+			$debit = 0;
+			$kredit = 0;
+			
+			if($data['jenis_transaksi'] == 'DEBIT') {
+				$debit = $data['jumlah'];
+			}
+			else
+			{
+				$kredit = $data['jumlah'];
+			}
+			$saldo += $debit - $kredit;
             // column buat data tables --
-            $row = ['jenis_transaksi' => $data['jenis_transaksi'] ,'keterangan' => $data['keterangan'] ,'jumlah' => rupiah($data['jumlah']),'tanggal'=>date("d-m-Y", strtotime($data['tanggal'])),
+            $row = ['jenis_transaksi' => $data['jenis_transaksi'] ,'keterangan' => $data['keterangan'] ,'saldo' => rupiah($saldo) ,'debit' => ($debit == 0)?'':rupiah($debit) ,'kredit' => ($kredit == 0)?'':rupiah($kredit),'tanggal'=>date("d-m-Y", strtotime($data['tanggal'])),
             'action' => $tombol_action,
             
             ];

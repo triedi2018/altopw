@@ -18,7 +18,7 @@ tr.details td.details-control {
 	
 		<div class="row">
 		  <div class="col-md-6">
-			<div class="form-group">
+			<div class="form-group" style="display:none;" >
 			  <label>View Transaksi</label>
 			  <select class="form-control" id="view" name="view">
 				<option value="all">All Data </option>
@@ -67,9 +67,10 @@ tr.details td.details-control {
                   <tr>
                     <th></th>
                     <th>Tanggal</th>
-					<th>Jenis Transaksi</th>
-					<th>Jumlah</th>
 					<th>Keterangan</th>
+					<th>Debit</th>
+					<th>Kredit</th>
+					<th>Saldo</th>
                   </tr>
                   </thead>
                   <tbody>
