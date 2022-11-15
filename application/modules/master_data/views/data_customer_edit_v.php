@@ -28,9 +28,42 @@
 				<option value="Distributor" <?php if($data['status_pelanggan'] == 'Distributor' ) { echo "selected"; } ?> >Distributor</option>
 				<option value="Agen" <?php if($data['status_pelanggan'] == 'Agen' ) { echo "selected"; } ?>>Agen</option>
 				<option value="Perusahaan" <?php if($data['status_pelanggan'] == 'Perusahaan' ) { echo "selected"; } ?>>Perusahaan</option>
+				<option value="Downline Agen" <?php if($data['status_pelanggan'] == 'Downline Agen' ) { echo "selected"; } ?>>Downline Agen</option>
 				<option value="Perorangan" <?php if($data['status_pelanggan'] == 'Perorangan' ) { echo "selected"; } ?>>Perorangan</option>
 			  </select>
 			</div>
+			
+			<?php if($data['status_pelanggan'] == 'Downline Agen' ) {  ?>
+			
+			<div class="form-group" id="list_agen_container" style="display:block;">
+			  <label>Agen </label>
+			  <select class="form-control" id="list_agen" name="agen_id">
+				<?php 
+					//$CI = & get_instance();
+					$this->CI->list_agen_selected($data['agen_id']);
+					/*
+					if ($data){
+						echo "<option value=''>Pilih Agen</option>";
+						foreach($data as $customer){
+							echo "<option data-address='$customer[alamat]' data-phone='$customer[phone]' data-attn='$customer[contact_person]' value='$customer[id]'>$customer[nama_pelanggan]</option>";
+						}
+					}				
+					*/
+				?>
+			  </select>
+			</div>	
+
+			<?php } else {  ?>
+			
+			<div class="form-group" id="list_agen_container" style="display:none;">
+			  <label>Agen </label>
+			  <select class="form-control" id="list_agen" name="agen_id">
+				<option value="">Pilih Agen </option>
+				
+			  </select>
+			</div>			
+			
+			<?php }  ?>
 
             <div class="form-group">
               <label>Referensi <span class="symbol required"> </span></label>

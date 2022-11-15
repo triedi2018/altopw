@@ -3,8 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 class Data_pelanggan extends CI_Controller {
+	
+	public $CI = NULL;
+	
     public function __construct(){
         parent::__construct();
+		$this->CI = & get_instance();
         $this->load->model('Data_customer_m','Data_model');
         cek_aktif_login();
         cek_akses_user();
@@ -81,6 +85,34 @@ class Data_pelanggan extends CI_Controller {
 		echo "done";
 		//$this->load->view('data_sparepart_edit_v',$data);
 
+    }
+
+    public function list_agen(){
+        cek_ajax();
+        $data = $this->Data_model->list_agen();
+        if ($data){
+            echo "<option value=''>Pilih Agen</option>";
+            foreach($data as $customer){
+                echo "<option data-address='$customer[alamat]' data-phone='$customer[phone]' data-attn='$customer[contact_person]' value='$customer[id]'>$customer[nama_pelanggan]</option>";
+            }
+        }
+    }
+
+    public function list_agen_selected($id){
+        cek_ajax();
+        $data = $this->Data_model->list_agen();
+        if ($data){
+            echo "<option value=''>Pilih Agen</option>";
+            foreach($data as $customer){
+				if($customer['id'] == $id) {
+					echo "<option data-address='$customer[alamat]' data-phone='$customer[phone]' data-attn='$customer[contact_person]' value='$customer[id]' selected >$customer[nama_pelanggan]</option>";
+				}
+				else
+				{
+					echo "<option data-address='$customer[alamat]' data-phone='$customer[phone]' data-attn='$customer[contact_person]' value='$customer[id]'>$customer[nama_pelanggan]</option>";
+				}
+            }
+        }
     }	
 	
     public function tampildata()

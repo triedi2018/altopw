@@ -73,6 +73,34 @@ function cek_divisi_jabatan(){
       })
     }
   });
+  
+  $('#form-action').on('change','#status_pelanggan',function(e){
+    if (e.target.value == "Downline Agen" ){
+		$('#list_agen_container').show();
+		$('#list_agen').removeAttr('disabled');
+		  show_loading();
+		  xhr = $.ajax({
+			method : "POST",
+			url : "<?= base_url().$this->uri->segment(1,0).$this->uri->slash_segment(2,'both')?>list-agen",
+			success: function(response){
+			  $('#list_agen').html(response);
+			  hide_loading();
+			},
+			error : function(){
+
+			}
+		  })		
+	}
+	else {
+		$('#list_agen_container').hide();
+		$('#list_agen').attr('disabled','disabled');
+	}
+      // console.log(e.target.value);
+	  
+
+	  
+  });  
+  
 }
 function validate_form(action){
   
@@ -270,7 +298,8 @@ $(document).ready(function () {
               validate_form('edit');
               cek_divisi_jabatan();
               call_datepicker();
-
+				//if($('#status_pelanggan').val() == 'Downline Agen')
+				 //$('#status_pelanggan').change();
           }
 
           hide_loading();

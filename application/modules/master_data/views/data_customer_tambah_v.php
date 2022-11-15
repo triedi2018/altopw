@@ -27,10 +27,32 @@
 				<option value="Distributor">Distributor</option>
 				<option value="Agen">Agen</option>
 				<option value="Perusahaan">Perusahaan</option>
+				<option value="Downline Agen">Downline Agen</option>
 				<option value="Perorangan">Perorangan</option>
 			  </select>
 			</div>
-
+			
+			<div class="form-group" id="list_agen_container" style="display:none;">
+			  <label>Agen </label>
+			  <select class="form-control" id="list_agen" name="agen_id">
+				<option value="">Pilih Agen </option>
+				
+			  </select>
+			</div>			
+			
+			<!--
+			<div class="form-group">
+			  <label>Status <span class="symbol required"> </span></label>
+			  <select class="form-control" id="status_pelanggan" name="status_pelanggan">
+				<option value="Distributor">Distributor</option>
+				<option value="Agen">Agen</option>
+				<option value="Perusahaan">Perusahaan</option>
+				<option value="Downline Agen">Downline Agen</option>
+				<option value="Perorangan">Perorangan</option>
+			  </select>
+			</div>			
+			-->
+			
             <div class="form-group">
               <label>Referensi <span class="symbol required"> </span></label>
               <div class="input-group mb-3">

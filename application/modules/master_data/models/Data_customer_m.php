@@ -8,9 +8,18 @@ class Data_customer_m extends CI_Model {
 		$data = $this->db
 		->select('u.*')
 		->from('data_pelanggan u')
+		->where(['md5(u.id)' => $this->input->post('id')])
 		->get()->row_array();
 		return $data;
 	}
+	
+	public function list_agen(){
+		
+		return $this->db
+		->get_where('data_pelanggan',['status_pelanggan' => 'Agen'])->result_array();
+		
+	}	
+	
 	public function simpan_tambah(){
 		// cek user exist
 		$cek = $this->db->get_where('data_pelanggan',['nama_pelanggan' => $this->input->post('nama_pelanggan')])->row_array();
@@ -31,6 +40,7 @@ class Data_customer_m extends CI_Model {
 		'email' => $this->input->post('email'),
 		'alamat_pengiriman' => $this->input->post('alamat_pengiriman'),
 		'kode_pos' => $this->input->post('kode_pos'),
+		'agen_id' => empty($this->input->post('agen_id')) ? null : $this->input->post('agen_id'),
 		'created_at' => date('Y-m-d H:i:s')
 		]);
 
@@ -52,6 +62,7 @@ class Data_customer_m extends CI_Model {
 			'phone' => $this->input->post('phone'),
 			'email' => $this->input->post('email'),
 			'alamat_pengiriman' => $this->input->post('alamat_pengiriman'),
+			'agen_id' => empty($this->input->post('agen_id')) ? null : $this->input->post('agen_id'),
 			'kode_pos' => $this->input->post('kode_pos')
 		]);
 
