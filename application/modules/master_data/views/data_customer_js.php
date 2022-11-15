@@ -28,6 +28,23 @@ $('.btn-action').on('click',function(){
         validate_form('tambah');
         cek_divisi_jabatan();
         call_datepicker();
+		
+		  $(".allow_only_numbers").keydown(function(e) {
+
+			// Allow: backspace, delete, tab, escape, enter and .
+			if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 173 , 190]) !== -1 ||
+			  // Allow: Ctrl+A,Ctrl+C,Ctrl+V, Command+A
+			  ((e.keyCode == 65 || e.keyCode == 86 || e.keyCode == 67) && (e.metaKey === true)) ||
+			  // Allow: home, end, left, right, down, up
+			  (e.keyCode >= 35 && e.keyCode <= 40)) {
+			  // let it happen, don't do anything
+			  return;
+			}
+			// Ensure that it is a number and stop the keypress
+			if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {			
+			  e.preventDefault();
+			}
+		  });		
 
       hide_loading();
     },
@@ -123,6 +140,7 @@ function validate_form(action){
 	  email:{required:true},
 	  alamat_pengiriman:{required:true},
 	  kode_pos:{required:true},
+	  term_of_payment:{required:true},
     },
     messages: {
       nama_pelanggan:"Harus diisi",
@@ -137,6 +155,7 @@ function validate_form(action){
 	  email:"Harus diisi",
 	  alamat_pengiriman:"Harus diisi",
 	  kode_pos:"Harus diisi",
+	  term_of_payment:"Harus diisi",
     },
     errorElement: 'span',
     errorPlacement: function (error, element) {
@@ -298,6 +317,23 @@ $(document).ready(function () {
               validate_form('edit');
               cek_divisi_jabatan();
               call_datepicker();
+			  
+		  $(".allow_only_numbers").keydown(function(e) {
+
+			// Allow: backspace, delete, tab, escape, enter and .
+			if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 173 , 190]) !== -1 ||
+			  // Allow: Ctrl+A,Ctrl+C,Ctrl+V, Command+A
+			  ((e.keyCode == 65 || e.keyCode == 86 || e.keyCode == 67) && (e.metaKey === true)) ||
+			  // Allow: home, end, left, right, down, up
+			  (e.keyCode >= 35 && e.keyCode <= 40)) {
+			  // let it happen, don't do anything
+			  return;
+			}
+			// Ensure that it is a number and stop the keypress
+			if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {			
+			  e.preventDefault();
+			}
+		  });			  
 				//if($('#status_pelanggan').val() == 'Downline Agen')
 				 //$('#status_pelanggan').change();
           }

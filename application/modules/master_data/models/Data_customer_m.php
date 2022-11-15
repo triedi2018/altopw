@@ -40,6 +40,7 @@ class Data_customer_m extends CI_Model {
 		'email' => $this->input->post('email'),
 		'alamat_pengiriman' => $this->input->post('alamat_pengiriman'),
 		'kode_pos' => $this->input->post('kode_pos'),
+		'term_of_payment' => $this->input->post('term_of_payment'),
 		'agen_id' => empty($this->input->post('agen_id')) ? null : $this->input->post('agen_id'),
 		'created_at' => date('Y-m-d H:i:s')
 		]);
@@ -63,6 +64,7 @@ class Data_customer_m extends CI_Model {
 			'email' => $this->input->post('email'),
 			'alamat_pengiriman' => $this->input->post('alamat_pengiriman'),
 			'agen_id' => empty($this->input->post('agen_id')) ? null : $this->input->post('agen_id'),
+			'term_of_payment' => $this->input->post('term_of_payment'),
 			'kode_pos' => $this->input->post('kode_pos')
 		]);
 

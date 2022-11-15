@@ -30,6 +30,7 @@
 				<option value="Perusahaan" <?php if($data['status_pelanggan'] == 'Perusahaan' ) { echo "selected"; } ?>>Perusahaan</option>
 				<option value="Downline Agen" <?php if($data['status_pelanggan'] == 'Downline Agen' ) { echo "selected"; } ?>>Downline Agen</option>
 				<option value="Perorangan" <?php if($data['status_pelanggan'] == 'Perorangan' ) { echo "selected"; } ?>>Perorangan</option>
+				<option value="Komisi" <?php if($data['status_pelanggan'] == 'Komisi' ) { echo "selected"; } ?>>Komisi</option>
 			  </select>
 			</div>
 			
@@ -161,7 +162,27 @@
                 </div>
                 <input type="text" autocomplete="off" name="kode_pos" value="<?= $data['kode_pos'] ?>" required class="form-control" placeholder="Kode Pos">
               </div>
-            </div>				
+            </div>
+
+            <div class="form-group">
+              <label>Kode Pos <span class="symbol required"> </span></label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-file"></i></span>
+                </div>
+                <input type="text" autocomplete="off" name="kode_pos" value="<?= $data['kode_pos'] ?>" required class="form-control" placeholder="Kode Pos">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Term Of Payment <span class="symbol required"> </span></label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-file"></i></span>
+                </div>
+                <input type="text" autocomplete="off" name="term_of_payment" value="<?= $data['term_of_payment'] ?>" required class="form-control allow_only_numbers" placeholder="Term Of Payment">
+              </div>
+            </div>			
 
             <span class="symbol required"> Harus diisi 
             <!-- <div class="form-group mb-0">

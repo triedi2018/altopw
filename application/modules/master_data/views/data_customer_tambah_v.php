@@ -29,6 +29,7 @@
 				<option value="Perusahaan">Perusahaan</option>
 				<option value="Downline Agen">Downline Agen</option>
 				<option value="Perorangan">Perorangan</option>
+				<option value="Perorangan">Komisi</option>
 			  </select>
 			</div>
 			
@@ -148,6 +149,16 @@
                   <span class="input-group-text"><i class="fas fa-file"></i></span>
                 </div>
                 <input type="text" autocomplete="off" name="kode_pos" required class="form-control" placeholder="Kode Pos">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Term Of Payment <span class="symbol required"> </span></label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-file"></i></span>
+                </div>
+                <input type="text" autocomplete="off" name="term_of_payment" required class="form-control allow_only_numbers" placeholder="Term Of Payment">
               </div>
             </div>			
 
