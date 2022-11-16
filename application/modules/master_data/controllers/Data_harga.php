@@ -2,10 +2,10 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 
-class Data_produk extends CI_Controller {
+class Data_harga extends CI_Controller {
     public function __construct(){
         parent::__construct();
-        $this->load->model('Data_produk_m','Data_model');
+        $this->load->model('Data_harga_m','Data_model');
         cek_aktif_login();
         cek_akses_user();
     }
@@ -24,11 +24,11 @@ class Data_produk extends CI_Controller {
         $this->load->view('templates/header-notif');
         $this->load->view('templates/main-navigation',$data);
 
-        $this->load->view('data_produk_v',$data);
+        $this->load->view('data_harga_v',$data);
         
         $this->load->view('templates/footer-top');
         // js for this page only
-        $this->load->view('data_produk_js');
+        $this->load->view('data_harga_js');
         //========= end
         $this->load->view('templates/footer-bottom');
     }
@@ -37,7 +37,7 @@ class Data_produk extends CI_Controller {
         if (cek_akses_user()['tambah'] == 0){
             redirect(base_url('unauthorized'));
         }
-        $this->load->view('data_produk_tambah_v');
+        $this->load->view('data_harga_tambah_v');
     }
 
     public function simpan_tambah(){
@@ -65,7 +65,7 @@ class Data_produk extends CI_Controller {
 
             $data['data'] = $this->Data_model->edit();
             
-            $this->load->view('data_produk_edit_v',$data);
+            $this->load->view('data_harga_edit_v',$data);
 
     }
 	
@@ -92,6 +92,17 @@ class Data_produk extends CI_Controller {
                 echo "<option data-address='$customer[alamat]' data-phone='$customer[phone]' data-attn='$customer[contact_person]' value='$customer[id]'>$customer[nama_pelanggan]</option>";
             }
         }
+    }
+
+    public function list_produk(){
+        cek_ajax();
+        $data = $this->Data_model->list_produk();
+        if ($data){
+            echo "<option value=''>Pilih Produk</option>";
+            foreach($data as $produk){
+                echo "<option data-satuan='$produk[satuan]' value='$produk[id]'>$produk[nama_produk]</option>";
+            }
+        }
     }	
 	
     public function tampildata()
@@ -110,7 +121,7 @@ class Data_produk extends CI_Controller {
             (cek_akses_user()['hapus'] == 1 ? ' <a href="#" ><span class="badge badge-danger btn-hapus" data-jenis_action="hapus" data-id="'.md5($data['id']).'">Hapus</span></a>' : '');
 
             // column buat data tables --
-            $row = ['nama_produk' => $data['nama_produk'] ,'satuan'=>$data['satuan'],'harga'=>rupiah($data['harga']),
+            $row = ['nama_produk' => $data['nama_produk'] ,'satuan'=>$data['satuan'],'nama_pelanggan'=>$data['nama_pelanggan'],'harga'=>rupiah($data['harga']),
             'action' => $tombol_action,
             
             ];

@@ -5,7 +5,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Surat_jalan_m extends CI_Model {
 	
 	public function list_produk(){
-		return $this->db->get_where('data_produk',['customer_id' => $this->input->post('customer_id')])->result_array();
+        $this->db->select('u.*');
+		$this->db->from("( select c.id, IFNULL(a.harga,c.harga) as harga , c.nama_produk, c.satuan from ( select * from data_harga where customer_id = ".$this->input->post('customer_id')." ) a right join data_produk c on a.produk_id = c.id order by c.nama_produk ) u");
+		//$this->db->get_where(['a.customer_id' => $this->input->post('customer_id')]);
+		$query = $this->db->get();
+		return $query->result_array();		
+		//return $this->db->get_where('data_produk',['customer_id' => $this->input->post('customer_id')])->result_array();
 	}
 
 	public function list_customers(){

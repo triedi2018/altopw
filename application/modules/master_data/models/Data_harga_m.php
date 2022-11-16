@@ -2,12 +2,12 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 
-class Data_produk_m extends CI_Model {
+class Data_harga_m extends CI_Model {
 
 	public function edit(){
 		$data = $this->db
 		->select('u.*')
-		->from('data_produk u')
+		->from('data_harga u')
 		->where(['md5(u.id)' => $this->input->post('id')])
 		->get()->row_array();
 		return $data;
@@ -15,6 +15,10 @@ class Data_produk_m extends CI_Model {
 	
 	public function list_customers(){
 		return $this->db->get('data_pelanggan')->result_array();
+	}
+
+	public function list_produk(){
+		return $this->db->get('data_produk')->result_array();
 	}	
 	
 	public function simpan_tambah(){
@@ -24,11 +28,11 @@ class Data_produk_m extends CI_Model {
 			//return json_encode(['status' => 'error','pesan' => 'Gagal menyimpan data, Nama Pelanggan sudah ada..']);
 		//}
 		// insert ke table user
-		$this->db->insert('data_produk',
-		['nama_produk' => $this->input->post('nama_produk'),
+		$this->db->insert('data_harga',
+		['produk_id' => $this->input->post('produk_id'),
 		'harga' => $this->input->post('harga'),
-		'satuan' => $this->input->post('satuan'),
-		//'customer_id' => $this->input->post('customer_id'),
+		//'satuan' => $this->input->post('satuan'),
+		'customer_id' => $this->input->post('customer_id'),
 		'created_at' => date('Y-m-d H:i:s')
 		]);
 
@@ -37,12 +41,12 @@ class Data_produk_m extends CI_Model {
 	}
 	public function simpan_edit(){
 
-		$this->db->where('md5(id)',$this->input->post('id'))->update('data_produk',
+		$this->db->where('md5(id)',$this->input->post('id'))->update('data_harga',
 		[
-			'nama_produk' => $this->input->post('nama_produk'),
+			'produk_id' => $this->input->post('produk_id'),
 			'harga' => $this->input->post('harga'),
-			//'customer_id' => $this->input->post('customer_id'),
-			'satuan' => $this->input->post('satuan')
+			'customer_id' => $this->input->post('customer_id'),
+			//'satuan' => $this->input->post('satuan')
 		]);
 
 		if ($this->db->affected_rows() > 0){
@@ -55,14 +59,14 @@ class Data_produk_m extends CI_Model {
 	public function hapus(){
 		$this->db
 		->where(['md5(u.id)' => $this->input->post('id')]);
-		$this->db->delete('data_produk u');
+		$this->db->delete('data_harga u');
 		return $this->db->affected_rows();
 	}
 
-    var $table = 'data_produk u';
+    var $table = ' ( select a.id, a.harga , b.nama_pelanggan, c.nama_produk, c.satuan from data_harga a left join data_pelanggan b on a.customer_id = b.id left join data_produk c on a.produk_id = c.id ) u';
 	var $column_order = array('','u.id'); //set order berdasarkan field yang di mau
 	var $column_search = array('u.nama_produk'); //set field yang bisa di search
-	var $order = array('u.id' => 'asc'); // default order 
+	var $order = array('u.nama_pelanggan' => 'asc'); // default order 
 
 	private function _get_data()
 	{		

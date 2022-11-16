@@ -11,61 +11,41 @@
       <div class="modal-body">
         <!-- form start -->
 		
-		<input type="hidden" name="id" value="<?= md5($data['id']) ?>" />
-<!--		
 			<div class="form-group">
 			  <label>Nama Pelanggan <span class="symbol required"> </span></label>
 			  <select class="form-control" id="list_customers" name="customer_id">
-				<?php
-				
-					$data0 = $this->Data_model->list_customers();
-					if ($data0){
-						echo "<option value=''>Pilih Pelanggan</option>";
-						foreach($data0 as $customer){
-							if($customer['id'] == $data['customer_id']) {
-								echo "<option data-address='$customer[alamat]' data-phone='$customer[phone]' data-attn='$customer[contact_person]' value='$customer[id]' selected >$customer[nama_pelanggan]</option>";
-							}
-							else
-							{
-								echo "<option data-address='$customer[alamat]' data-phone='$customer[phone]' data-attn='$customer[contact_person]' value='$customer[id]'>$customer[nama_pelanggan]</option>";
-							}
-						}
-					}				
-				
-				?>				
+				<option value="">Pilih Pelanggan </option>
 				
 			  </select>
 			</div>		
--->
-            <div class="form-group">
-              <label>Nama Produk <span class="symbol required"> </span></label>
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-file"></i></span>
-                </div>
-                <input type="text" autocomplete="off" name="nama_produk" value="<?= $data['nama_produk'] ?>" required class="form-control" placeholder="Nama Produk">
-              </div>
-            </div>	
-			
+
+			<div class="form-group">
+			  <label>Nama Produk <span class="symbol required"> </span></label>
+			  <select class="form-control" id="list_produk" name="produk_id">
+				<option value="">Pilih Produk </option>
+				
+			  </select>
+			</div>
+	
             <div class="form-group">
               <label>Harga <span class="symbol required"> </span></label>
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fas fa-file"></i></span>
                 </div>
-                <input type="text" autocomplete="off" name="harga" value="<?= $data['harga'] ?>" required class="form-control allow_only_numbers" placeholder="Harga">
+                <input type="text" autocomplete="off" name="harga" required class="form-control allow_only_numbers" placeholder="Harga">
               </div>
             </div>				
-
+<!--
 			<div class="form-group">
 			  <label>Satuan <span class="symbol required"> </span></label>
 			  <select class="form-control" id="satuan" name="satuan">
-				<option value="Unit" <?php if($data['satuan'] == 'Unit' ) { echo "selected"; } ?> >Unit</option>
-				<option value="Galon" <?php if($data['satuan'] == 'Galon' ) { echo "selected"; } ?> >Galon</option>
-				<option value="Dus" <?php if($data['satuan'] == 'Dus' ) { echo "selected"; } ?> >Dus</option>
+				<option value="Unit">Unit</option>
+				<option value="Galon">Galon</option>
+				<option value="Dus">Dus</option>
 			  </select>
 			</div>
-
+-->
             <span class="symbol required"> Harus diisi 
             <!-- <div class="form-group mb-0">
               <div class="custom-control custom-checkbox">

@@ -12,7 +12,7 @@
         <!-- form start -->
 		
 		<input type="hidden" name="id" value="<?= md5($data['id']) ?>" />
-<!--		
+		
 			<div class="form-group">
 			  <label>Nama Pelanggan <span class="symbol required"> </span></label>
 			  <select class="form-control" id="list_customers" name="customer_id">
@@ -36,16 +36,30 @@
 				
 			  </select>
 			</div>		
--->
-            <div class="form-group">
-              <label>Nama Produk <span class="symbol required"> </span></label>
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-file"></i></span>
-                </div>
-                <input type="text" autocomplete="off" name="nama_produk" value="<?= $data['nama_produk'] ?>" required class="form-control" placeholder="Nama Produk">
-              </div>
-            </div>	
+			
+			<div class="form-group">
+			  <label>Nama Produk <span class="symbol required"> </span></label>
+			  <select class="form-control" id="list_produk" name="produk_id">
+				<?php
+				
+					$data0 = $this->Data_model->list_produk();
+					if ($data0){
+						echo "<option value=''>Pilih Produk</option>";
+						foreach($data0 as $produk){
+							if($produk['id'] == $data['produk_id']) {
+								echo "<option data-satuan='$produk[satuan]' value='$produk[id]' selected >$produk[nama_produk]</option>";
+							}
+							else
+							{
+								echo "<option data-satuan='$produk[satuan]' value='$produk[id]'>$produk[nama_produk]</option>";
+							}
+						}
+					}				
+				
+				?>				
+				
+			  </select>
+			</div>	
 			
             <div class="form-group">
               <label>Harga <span class="symbol required"> </span></label>
@@ -56,7 +70,7 @@
                 <input type="text" autocomplete="off" name="harga" value="<?= $data['harga'] ?>" required class="form-control allow_only_numbers" placeholder="Harga">
               </div>
             </div>				
-
+<!--
 			<div class="form-group">
 			  <label>Satuan <span class="symbol required"> </span></label>
 			  <select class="form-control" id="satuan" name="satuan">
@@ -65,7 +79,7 @@
 				<option value="Dus" <?php if($data['satuan'] == 'Dus' ) { echo "selected"; } ?> >Dus</option>
 			  </select>
 			</div>
-
+-->
             <span class="symbol required"> Harus diisi 
             <!-- <div class="form-group mb-0">
               <div class="custom-control custom-checkbox">

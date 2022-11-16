@@ -40,9 +40,10 @@ tr.details td.details-control {
                   <thead>
                   <tr>
                     <th></th>
-                    <th>Nama Produk</th>
+                    <th>Nama Pelanggan</th>
+					<th>Nama Produk</th>
 					<th>Satuan</th>
-					<th>Harga (Umum)</th>
+					<th>Harga</th>
                   </tr>
                   </thead>
                   <tbody>

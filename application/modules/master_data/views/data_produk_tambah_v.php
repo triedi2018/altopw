@@ -10,7 +10,7 @@
       <form method="post" action="" role="form" id="form-action">
       <div class="modal-body">
         <!-- form start -->
-		
+<!--		
 			<div class="form-group">
 			  <label>Nama Pelanggan <span class="symbol required"> </span></label>
 			  <select class="form-control" id="list_customers" name="customer_id">
@@ -18,7 +18,7 @@
 				
 			  </select>
 			</div>		
-
+-->
             <div class="form-group">
               <label>Nama Produk <span class="symbol required"> </span></label>
               <div class="input-group mb-3">
@@ -30,12 +30,12 @@
             </div>	
 			
             <div class="form-group">
-              <label>Harga <span class="symbol required"> </span></label>
+              <label>Harga (Umum) <span class="symbol required"> </span></label>
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fas fa-file"></i></span>
                 </div>
-                <input type="text" autocomplete="off" name="harga" required class="form-control" placeholder="Harga">
+                <input type="text" autocomplete="off" name="harga" required class="form-control allow_only_numbers" placeholder="Harga (Umum)">
               </div>
             </div>				
 

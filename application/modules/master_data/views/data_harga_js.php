@@ -29,6 +29,32 @@ $('.btn-action').on('click',function(){
         cek_divisi_jabatan();
         call_datepicker();
 		
+		xhr = $.ajax({
+		  method : "POST",
+		  url : "<?= base_url().$this->uri->segment(1,0).$this->uri->slash_segment(2,'both')?>list-customers",
+		  success: function(response){
+			$('#list_customers').html(response);	
+			
+			hide_loading();
+		  },
+		  error : function(){
+
+		  }
+		})
+
+		xhr = $.ajax({
+		  method : "POST",
+		  url : "<?= base_url().$this->uri->segment(1,0).$this->uri->slash_segment(2,'both')?>list-produk",
+		  success: function(response){
+			$('#list_produk').html(response);	
+			
+			hide_loading();
+		  },
+		  error : function(){
+
+		  }
+		})
+
 		  $(".allow_only_numbers").keydown(function(e) {
 
 			// Allow: backspace, delete, tab, escape, enter and .
@@ -45,21 +71,7 @@ $('.btn-action').on('click',function(){
 			  e.preventDefault();
 			}
 		  });		
-		
-/*		
-		xhr = $.ajax({
-		  method : "POST",
-		  url : "<?= base_url().$this->uri->segment(1,0).$this->uri->slash_segment(2,'both')?>list-customers",
-		  success: function(response){
-			$('#list_customers').html(response);	
-			
-			hide_loading();
-		  },
-		  error : function(){
 
-		  }
-		})		
-*/
       hide_loading();
     },
     error : function(){
@@ -114,13 +126,13 @@ function validate_form(action){
   
   $('#form-action').validate({
     rules: {
-      nama_produk : { required : true },
-      satuan: { required: true },
+      customer_id : { required : true },
+      produk_id: { required: true },
 	  harga: { required: true },
     },
     messages: {
-      nama_produk:"Harus diisi",
-      satuan:"Harus diisi",
+      customer_id:"Harus diisi",
+      produk_id:"Harus diisi",
 	  harga:"Harus diisi",
     },
     errorElement: 'span',
@@ -217,10 +229,10 @@ $(document).ready(function () {
                 "data":           null,
                 "defaultContent": ""
             },
-            { "data": "nama_produk" },
-			//{ "data": "nama_pelanggan" },
-            { "data": "satuan" },
-			{ "data": "harga" },
+			{ "data": "nama_pelanggan" },
+			{ "data": "nama_produk" },
+            { "data": "harga" },
+            { "data": "satuan" }
         ],
 		
 		"lengthMenu": [[50, -1], [50, "All"]]
@@ -291,7 +303,6 @@ $(document).ready(function () {
 			  e.preventDefault();
 			}
 		  });			  
-			  
 
           }
 
