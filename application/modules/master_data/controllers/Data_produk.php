@@ -81,6 +81,17 @@ class Data_produk extends CI_Controller {
 		echo "done";
 		//$this->load->view('data_sparepart_edit_v',$data);
 
+    }
+
+    public function list_customers(){
+        cek_ajax();
+        $data = $this->Data_model->list_customers();
+        if ($data){
+            echo "<option value=''>Pilih Pelanggan</option>";
+            foreach($data as $customer){
+                echo "<option data-address='$customer[alamat]' data-phone='$customer[phone]' data-attn='$customer[contact_person]' value='$customer[id]'>$customer[nama_pelanggan]</option>";
+            }
+        }
     }	
 	
     public function tampildata()
@@ -99,7 +110,7 @@ class Data_produk extends CI_Controller {
             (cek_akses_user()['hapus'] == 1 ? ' <a href="#" ><span class="badge badge-danger btn-hapus" data-jenis_action="hapus" data-id="'.md5($data['id']).'">Hapus</span></a>' : '');
 
             // column buat data tables --
-            $row = ['nama_produk' => $data['nama_produk'] ,'harga' => rupiah($data['harga']),'satuan'=>$data['satuan'],
+            $row = ['nama_produk' => $data['nama_produk'] ,'harga' => rupiah($data['harga']),'satuan'=>$data['satuan'],'nama_pelanggan'=>$data['nama_pelanggan'],
             'action' => $tombol_action,
             
             ];

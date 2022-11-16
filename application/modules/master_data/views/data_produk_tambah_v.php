@@ -10,6 +10,14 @@
       <form method="post" action="" role="form" id="form-action">
       <div class="modal-body">
         <!-- form start -->
+		
+			<div class="form-group">
+			  <label>Nama Pelanggan <span class="symbol required"> </span></label>
+			  <select class="form-control" id="list_customers" name="customer_id">
+				<option value="">Pilih Pelanggan </option>
+				
+			  </select>
+			</div>		
 
             <div class="form-group">
               <label>Nama Produk <span class="symbol required"> </span></label>

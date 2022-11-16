@@ -12,17 +12,23 @@ class Data_produk_m extends CI_Model {
 		->get()->row_array();
 		return $data;
 	}
+	
+	public function list_customers(){
+		return $this->db->get('data_pelanggan')->result_array();
+	}	
+	
 	public function simpan_tambah(){
 		// cek user exist
-		$cek = $this->db->get_where('data_produk',['nama_produk' => $this->input->post('nama_produk')])->row_array();
-		if ($cek){
-			return json_encode(['status' => 'error','pesan' => 'Gagal menyimpan data, Nama Pelanggan sudah ada..']);
-		}
+		//$cek = $this->db->get_where('data_produk',['nama_produk' => $this->input->post('nama_produk')])->row_array();
+		//if ($cek){
+			//return json_encode(['status' => 'error','pesan' => 'Gagal menyimpan data, Nama Pelanggan sudah ada..']);
+		//}
 		// insert ke table user
 		$this->db->insert('data_produk',
 		['nama_produk' => $this->input->post('nama_produk'),
 		'harga' => $this->input->post('harga'),
 		'satuan' => $this->input->post('satuan'),
+		'customer_id' => $this->input->post('customer_id'),
 		'created_at' => date('Y-m-d H:i:s')
 		]);
 
@@ -35,6 +41,7 @@ class Data_produk_m extends CI_Model {
 		[
 			'nama_produk' => $this->input->post('nama_produk'),
 			'harga' => $this->input->post('harga'),
+			'customer_id' => $this->input->post('customer_id'),
 			'satuan' => $this->input->post('satuan')
 		]);
 
@@ -52,10 +59,10 @@ class Data_produk_m extends CI_Model {
 		return $this->db->affected_rows();
 	}
 
-    var $table = 'data_produk u';
+    var $table = '( select a.* , b.nama_pelanggan from data_produk a left join data_pelanggan b on a.customer_id = b.id ) u';
 	var $column_order = array('','u.id'); //set order berdasarkan field yang di mau
 	var $column_search = array('u.nama_produk','alamat','phone','contact_person'); //set field yang bisa di search
-	var $order = array('u.id' => 'asc'); // default order 
+	var $order = array('u.nama_pelanggan' => 'asc'); // default order 
 
 	private function _get_data()
 	{		

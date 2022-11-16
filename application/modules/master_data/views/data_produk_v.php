@@ -41,6 +41,7 @@ tr.details td.details-control {
                   <tr>
                     <th></th>
                     <th>Nama Produk</th>
+					<th>Nama Pelanggan</th>
 					<th>Harga</th>
 					<th>Satuan</th>
                   </tr>

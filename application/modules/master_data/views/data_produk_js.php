@@ -28,6 +28,19 @@ $('.btn-action').on('click',function(){
         validate_form('tambah');
         cek_divisi_jabatan();
         call_datepicker();
+		
+		xhr = $.ajax({
+		  method : "POST",
+		  url : "<?= base_url().$this->uri->segment(1,0).$this->uri->slash_segment(2,'both')?>list-customers",
+		  success: function(response){
+			$('#list_customers').html(response);	
+			
+			hide_loading();
+		  },
+		  error : function(){
+
+		  }
+		})		
 
       hide_loading();
     },
@@ -205,6 +218,7 @@ $(document).ready(function () {
                 "defaultContent": ""
             },
             { "data": "nama_produk" },
+			{ "data": "nama_pelanggan" },
             { "data": "harga" },
             { "data": "satuan" }
         ],

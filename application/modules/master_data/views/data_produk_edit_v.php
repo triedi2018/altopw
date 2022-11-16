@@ -12,6 +12,30 @@
         <!-- form start -->
 		
 		<input type="hidden" name="id" value="<?= md5($data['id']) ?>" />
+		
+			<div class="form-group">
+			  <label>Nama Pelanggan <span class="symbol required"> </span></label>
+			  <select class="form-control" id="list_customers" name="customer_id">
+				<?php
+				
+					$data0 = $this->Data_model->list_customers();
+					if ($data0){
+						echo "<option value=''>Pilih Pelanggan</option>";
+						foreach($data0 as $customer){
+							if($customer['id'] == $data['customer_id']) {
+								echo "<option data-address='$customer[alamat]' data-phone='$customer[phone]' data-attn='$customer[contact_person]' value='$customer[id]' selected >$customer[nama_pelanggan]</option>";
+							}
+							else
+							{
+								echo "<option data-address='$customer[alamat]' data-phone='$customer[phone]' data-attn='$customer[contact_person]' value='$customer[id]'>$customer[nama_pelanggan]</option>";
+							}
+						}
+					}				
+				
+				?>				
+				
+			  </select>
+			</div>		
 
             <div class="form-group">
               <label>Nama Produk <span class="symbol required"> </span></label>

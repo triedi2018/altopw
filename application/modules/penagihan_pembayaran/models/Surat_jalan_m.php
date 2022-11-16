@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Surat_jalan_m extends CI_Model {
 	
 	public function list_produk(){
-		return $this->db->get('data_produk')->result_array();
+		return $this->db->get_where('data_produk',['customer_id' => $this->input->post('customer_id')])->result_array();
 	}
 
 	public function list_customers(){
