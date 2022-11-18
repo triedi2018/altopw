@@ -355,6 +355,7 @@ $(document).ready(function () {
             { "data": "invoice_date" },
 			{ "data": "nama_pelanggan" },			
 			{ "data": "items" },
+			{ "data": "expire_date" },
 			//{ "data": "total" },
         ],
 		

@@ -172,10 +172,10 @@ class Proforma_invoice_m extends CI_Model {
 		
 	}
 
-    var $table = '( select a.* , b.nama_pelanggan from proforma_invoices a left join data_pelanggan b on a.customer_id = b.id ) u';
+    var $table = '( select a.* , b.nama_pelanggan, DATE_ADD(a.invoice_date, INTERVAL b.term_of_payment WEEK) as expire_date from proforma_invoices a left join data_pelanggan b on a.customer_id = b.id ) u';
 	var $column_order = array('','u.id'); //set order berdasarkan field yang di mau
 	var $column_search = array('u.invoice_no','items'); //set field yang bisa di search
-	var $order = array('u.id' => 'desc'); // default order 
+	var $order = array('u.expire_date' => 'ASC'); // default order 
 
 	private function _get_data()
 	{		
