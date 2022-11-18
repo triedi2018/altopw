@@ -141,7 +141,7 @@ class Proforma_invoice extends CI_Controller {
             'nama_pelanggan' => $data['nama_pelanggan'],
 			'items' => $this->json_description($data['items']),
 			'faktur_number' => $data['faktur_number'],
-			'expire_date' => $data['expire_date'],
+			'expire_date' => date("d-m-Y", strtotime($data['expire_date'])),
 			'total' => $data['total'],
             'action' => $tombol_action,
             
