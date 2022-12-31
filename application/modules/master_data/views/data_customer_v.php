@@ -34,9 +34,11 @@ tr.details td.details-control {
               <button type="button" class="btn btn-primary mb-3 btn-action">
                   <span class="fa fa-plus"></span> Tambah Data
               </button>
+			  <!--
               <button type="button" class="btn btn-primary mb-3 btn-action2">
                   <span class="fa fa-plus"></span> Upload Data
               </button>
+			  -->
               <?php endif ?>
               <div class="table-responsive">
                 <table id="example1" class="table table-bordered table-sm table-hover table-striped">
