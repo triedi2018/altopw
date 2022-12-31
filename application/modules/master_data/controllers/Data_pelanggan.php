@@ -1,6 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+ini_set('max_execution_time', 0); // time
+
+//load Spout Library
+require_once APPPATH.'/third_party/spout/src/Spout/Autoloader/autoload.php';
+
+//lets Use the Spout Namespaces
+use Box\Spout\Reader\Common\Creator\ReaderFactory;
+use Box\Spout\Common\Type;
 
 class Data_pelanggan extends CI_Controller {
 	
@@ -8,6 +16,7 @@ class Data_pelanggan extends CI_Controller {
 	
     public function __construct(){
         parent::__construct();
+		$this->load->library('form_validation');
 		$this->CI = & get_instance();
         $this->load->model('Data_customer_m','Data_model');
         cek_aktif_login();
@@ -43,7 +52,13 @@ class Data_pelanggan extends CI_Controller {
         }
         $this->load->view('data_customer_tambah_v');
     }
-
+    public function upload(){
+        cek_ajax();
+        if (cek_akses_user()['tambah'] == 0){
+            redirect(base_url('unauthorized'));
+        }
+        $this->load->view('data_customer_upload_v');
+    }
     public function simpan_tambah(){
         cek_ajax();
         if (cek_akses_user()['tambah'] == 0){
@@ -151,4 +166,157 @@ class Data_pelanggan extends CI_Controller {
 		//output to json format
 		echo json_encode($output);
 	}
+	
+      public function simpan_upload() { // 
+	  
+	    $data = array();
+		
+		$data["xxxxxxxxx"] = "cccccccccccccccc";
+		
+		$data_array = array();
+	  
+		if(isset($_FILES['file'])) {
+			
+				$data["bbbbbbbbbbbbbb"] = "bbbbbbbbbbbbbbbbbbbbbbbbb";
+			
+			  if($_FILES['file']['tmp_name'])//check if any picture is selected to upload
+			  {
+				  
+				  $file = 'file' . date('YmdHis') . '_' . $_FILES['file']['name'] ;
+				  
+				  $config = array();
+				  $config['upload_path']   = FCPATH . 'upload/';
+				  $config['allowed_types'] = '*';
+				  $config['file_name'] 		= $file;
+				  //$config['max_size']      = '10000';
+				  $this->load->library('upload', $config);
+				  $this->upload->initialize($config);
+
+				  if ( !$this->upload->do_upload('file',FALSE))
+				  {
+
+					if($_FILES['file']['error'] != 4) {
+						$data['error'] = $_FILES['file']['error'];
+					}
+					else {
+						$data['upload_data'] = $this->upload->data();
+					}
+				  }
+
+					$data["yyyyyyyyyyy"] = "cccccccccccccccc";
+				  
+				  try {
+					  
+					  //$this->db->trans_start();
+					  //$this->db->query("delete from energi_final_sektor_dashboard3");
+					  //$this->db->trans_complete();
+					  
+					   //Lokasi file excel	      
+					   $inputFileName = FCPATH . 'upload/' . str_replace( ' ', '_', $file );           	      
+					   $reader = ReaderFactory::createFromType(Type::XLSX); //set Type file xlsx
+						$reader->open($inputFileName); //open the file	  	      
+
+						//echo "<pre>";	          
+						
+						$no = 0;
+						$k = 0;
+						$provinsi = NULL;
+						
+						
+				 
+						foreach ($reader->getSheetIterator() as $sheet) {
+
+							//if ($sheet->getName() == 'Sheet1') {
+							if ($sheet->getIndex() == 0) {
+								//Rows iterator	               
+								foreach ($sheet->getRowIterator() as $row) {
+									
+									$values = $row->toArray();
+									
+									
+									if($k > 0) {
+										
+										array_push($data_array, $values);
+										
+										$row = array();
+		
+		$row['kode'] = $values[1];
+		$row['kode_pelanggan'] = $values[2];
+		$row['nama_pelanggan'] = $values[3];
+		$row['status_pelanggan'] = 'Agen';
+		$row['referensi'] = '-';
+		$row['status_ref'] = '-';
+		$row['no_npwp'] = '-';
+		$row['faktur_pajak'] = '-';
+		$row['alamat'] = $values[4];
+		$row['contact_person'] = '-';
+		$row['phone'] = $values[5];
+		$row['email'] = '-';
+		$row['alamat_pengiriman'] = $values[4];
+		$row['kode_pos'] = '-';
+		$row['term_of_payment'] = 1;
+		
+		$this->Data_model->simpan_upload($row);
+		
+										
+										/*
+										$query = $this->engine_m->getdata_like('jabatan','n_jabatan',$values[0]);
+										
+										foreach ($query as $row1) {
+
+											$search = array();
+											$search["nip"] = $row1->nip;
+											$search["kegiatan"] = $values[1];
+											$search["tahun"] = (int)$this->input->post('tahun');
+
+											$result_array = $this->engine_m->get_sql3('skp',$search);
+
+											if(count($result_array)==0) {
+												
+												//$r = $query->first_row();
+												
+												$row0["nip"] = $row1->nip;
+												$row0["kegiatan"] = $values[1];
+												$row0["tahun"] = (int)$this->input->post('tahun');
+												
+												//array_push($data_array, $row0);
+												
+												$this->engine_m->simpandata("skp",$row0);
+												
+												
+											}
+
+										}
+										*/
+											
+									}
+									
+									$k++;
+								}
+							}
+						}
+
+						//echo "<br> Total Rows : ".$i." <br>";	  	          
+						$reader->close();
+										 
+
+				 //echo "Peak memory:", (memory_get_peak_usage(true) / 1024 / 1024), " MB" ,"<br>";
+
+			  } catch (Exception $e) {
+
+					$data["getMessage"] = $e->getMessage();
+ 
+			  }				  
+				  
+				  
+			  }
+			
+		}
+				
+		$data["dt"] = $data_array;
+		header("Content-type: application/json");
+		echo  json_encode($data);	
+	
+  }//end of function 
+	
 }

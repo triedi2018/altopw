@@ -53,6 +53,48 @@ $('.btn-action').on('click',function(){
     }
   })
 })
+
+
+$('.btn-action2').on('click',function(){
+  show_loading();
+
+  xhr = $.ajax({
+    method : "POST",
+    url : "<?= base_url().$this->uri->segment(1,0).$this->uri->slash_segment(2,'both')?>upload",
+    data:"jenis=tambah",
+    success: function(response){
+      $('.tampil-modal').html(response);
+      $('.modal-action').modal({
+        backdrop: 'static',
+        keyboard: false},'show');
+
+        validate_form2('upload');
+		
+		  $(".allow_only_numbers").keydown(function(e) {
+
+			// Allow: backspace, delete, tab, escape, enter and .
+			if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 173 , 190]) !== -1 ||
+			  // Allow: Ctrl+A,Ctrl+C,Ctrl+V, Command+A
+			  ((e.keyCode == 65 || e.keyCode == 86 || e.keyCode == 67) && (e.metaKey === true)) ||
+			  // Allow: home, end, left, right, down, up
+			  (e.keyCode >= 35 && e.keyCode <= 40)) {
+			  // let it happen, don't do anything
+			  return;
+			}
+			// Ensure that it is a number and stop the keypress
+			if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {			
+			  e.preventDefault();
+			}
+		  });		
+
+      hide_loading();
+    },
+    error : function(){
+
+    }
+  })
+})
+
 function cek_divisi_jabatan(){
   $('#form-action').on('change','#divisi',function(e){
     // console.log(e.target.value);
@@ -128,6 +170,8 @@ function validate_form(action){
   
   $('#form-action').validate({
     rules: {
+		kode : { required : true },
+		kode_pelanggan : { required : true },
       nama_pelanggan : { required : true },
       status_pelanggan: { required: true },
       referensi:{required:true},
@@ -143,6 +187,8 @@ function validate_form(action){
 	  term_of_payment:{required:true},
     },
     messages: {
+		kode:"Harus diisi",
+		kode_pelanggan:"Harus diisi",
       nama_pelanggan:"Harus diisi",
       status_pelanggan:"Harus diisi",
       referensi:"Harus diisi",
@@ -216,6 +262,103 @@ function validate_form(action){
   });
 }
 
+function validate_form2(action){
+  
+  $.validator.setDefaults({
+    
+  });
+  
+  $('#form-action2').validate({
+    rules: {
+      file : { required : true },
+    },
+    messages: {
+      file:"Harus diisi",
+    },
+    errorElement: 'span',
+    errorPlacement: function (error, element) {
+      error.addClass('invalid-feedback');
+
+        error.appendTo($(element).closest('.form-group').find('.symbol'));
+    },
+    highlight: function (element, errorClass, validClass) {
+    //   $(element).addClass('is-invalid');
+      $(element).closest('.form-group').removeClass('has-success').addClass('has-error').find('.symbol').removeClass('ok').addClass('required');
+
+    },
+    unhighlight: function (element, errorClass, validClass) {
+        $(element).closest('.form-group').removeClass('has-error');
+
+    },
+    success: function (label, element) {
+        label.addClass('help-block valid');
+        // mark the current input as valid and display OK icon
+        $(element).closest('.form-group').removeClass('has-error').addClass('has-success').find('.symbol').removeClass('required').addClass('ok');
+    },
+    submitHandler: function () {
+      $('#simpan').text('Menyimpan data...');
+      $('#simpan').attr('disabled','disabled');
+
+      show_loading();
+	  
+		//var formData = new FormData($('#orm-action2')[0]);
+		  var formData = new FormData();
+		  formData.append('file',$('#uploadFile')[0].files[0]);
+		
+		  $.ajax({
+			url : "<?= base_url().$this->uri->segment(1,0).$this->uri->slash_segment(2,'both') ?>simpan-"+action,
+			type: 'POST',
+			data: formData,
+			async: false,
+			cache: false,
+			contentType: false,
+			processData: false,
+			dataType: "json",
+			success: function (json) {
+				
+				console.log(json);
+				
+				hide_loading();
+				
+				alert("Data Sukses Terupload");
+				
+			}
+		  });	
+
+/*	  
+      let formdata = $('#form-action2').serialize();
+      xhr = $.ajax({
+        method : "POST",
+        url : "<?= base_url().$this->uri->segment(1,0).$this->uri->slash_segment(2,'both') ?>simpan-"+action,
+        data : formdata,
+        success: function(response){
+          let result = JSON.parse(response);
+
+          if (result.status == 'error'){
+            hide_loading();
+            $('#simpan').text('Simpan');
+            $('#simpan').removeAttr('disabled');
+          }else{
+            reload_table();
+            $('.modal-action').modal('hide');
+            hide_loading();
+          }
+          Toast.fire({
+            type: result.status,
+            title: result.pesan
+          })
+          
+
+        },
+        
+
+      })
+*/
+
+
+    }
+  });
+}
 
 function detail_table ( d ) {
     return d.action;

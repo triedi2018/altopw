@@ -29,6 +29,8 @@ class Data_customer_m extends CI_Model {
 		// insert ke table user
 		$this->db->insert('data_pelanggan',
 		['nama_pelanggan' => $this->input->post('nama_pelanggan'),
+		'kode' => $this->input->post('kode'),
+		'kode_pelanggan' => $this->input->post('kode_pelanggan'),
 		'status_pelanggan' => $this->input->post('status_pelanggan'),
 		'referensi' => $this->input->post('referensi'),
 		'status_ref' => $this->input->post('status_ref'),
@@ -48,11 +50,41 @@ class Data_customer_m extends CI_Model {
 		return json_encode(['status' => 'success','pesan' => 'Data berhasil disimpan']);
 
 	}
+	
+	public function simpan_upload($row){
+		// cek user exist
+		// insert ke table user
+		$this->db->insert('data_pelanggan',
+		['nama_pelanggan' => $row['nama_pelanggan'],
+		'status_pelanggan' => $row['status_pelanggan'],
+		'referensi' => $row['referensi'],
+		'status_ref' => $row['status_ref'],
+		'no_npwp' => $row['no_npwp'],
+		'faktur_pajak' => $row['faktur_pajak'],
+		'alamat' => $row['alamat'],
+		'contact_person' => $row['contact_person'],
+		'phone' => $row['phone'],
+		'email' => $row['email'],
+		'alamat_pengiriman' => $row['alamat_pengiriman'],
+		'kode_pos' => $row['kode_pos'],
+		'term_of_payment' => $row['term_of_payment'],
+		'kode' => $row['kode'],
+		'kode_pelanggan' => $row['kode_pelanggan'],
+		//'agen_id' => empty($row->input->post('agen_id')) ? null : $row->input->post('agen_id'),
+		'created_at' => date('Y-m-d H:i:s')
+		]);
+
+		//return json_encode(['status' => 'success','pesan' => 'Data berhasil disimpan']);
+
+	}	
+	
 	public function simpan_edit(){
 
 		$this->db->where('md5(id)',$this->input->post('id'))->update('data_pelanggan',
 		[
 			'nama_pelanggan' => $this->input->post('nama_pelanggan'),
+			'kode' => $this->input->post('kode'),
+			'kode_pelanggan' => $this->input->post('kode_pelanggan'),
 			'status_pelanggan' => $this->input->post('status_pelanggan'),
 			'referensi' => $this->input->post('referensi'),
 			'status_ref' => $this->input->post('status_ref'),

@@ -20,6 +20,26 @@
                 <input type="text" autocomplete="off" name="nama_pelanggan" required class="form-control" placeholder="Nama Pelanggan">
               </div>
             </div>	
+			
+            <div class="form-group">
+              <label>Kode <span class="symbol required"> </span></label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-file"></i></span>
+                </div>
+                <input type="text" autocomplete="off" name="kode" required class="form-control" placeholder="Kode">
+              </div>
+            </div>	
+
+            <div class="form-group">
+              <label>Kode Pelanggan<span class="symbol required"> </span></label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-file"></i></span>
+                </div>
+                <input type="text" autocomplete="off" name="kode_pelanggan" required class="form-control" placeholder="Kode Pelanggan">
+              </div>
+            </div>			
 
 			<div class="form-group">
 			  <label>Status <span class="symbol required"> </span></label>
