@@ -387,7 +387,7 @@ PROFORMA INVOICE
 <td style="width: 50%; text-align:left;" >
 	<table style="width: 100%; border-collapse: collapse;" border="0">
 	<tbody>
-	<tr style="background-color:#869c98">
+	<tr style="background-color:#869c98;display:none;">
 	<td>
 	SUB TOTAL
 	</td>
@@ -400,24 +400,13 @@ PROFORMA INVOICE
 	</tr>
 	<tr style="background-color:#869c98">
 	<td>
-	11% TAX
-	</td>
-	<td>
-		:
-	</td>	
-	<td>
-	$total_price_all_tax_format
-	</td>	
-	</tr>
-	<tr style="background-color:#869c98">
-	<td>
 	TOTAL :
 	</td>
 	<td>
 		:
 	</td>	
 	<td>
-	$total_price_all_tax_plus_all_format
+	$total_price_all_format
 	</td>	
 	</tr>
 
