@@ -110,6 +110,7 @@ class Surat_jalan_m extends CI_Model {
 			'driver_id' => $this->input->post('driver_id'),
 			'items' => $this->input->post('items'),
 			'total' => $this->input->post('total'),
+			'diskon' => $this->input->post('diskon'),
 			'created_at' => date('Y-m-d H:i:s')
 		]);
 		
@@ -171,6 +172,7 @@ class Surat_jalan_m extends CI_Model {
 			'customer_id' => $this->input->post('customer_id'),
 			'faktur_number' => $this->input->post('faktur_number'),
 			'items' => $this->input->post('items'),
+			'diskon' => $this->input->post('diskon'),
 			'total' => $this->input->post('total')
 		]);
 

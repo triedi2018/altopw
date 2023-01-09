@@ -480,7 +480,7 @@
           </li> -->
           <li class="nav-header"> Bottom Navigation </li>
           <li class="nav-item">
-            <a href="<?= base_url() ?>Login/out" class="nav-link">
+            <a href="<?= base_url() ?>login/out" class="nav-link">
               <i class="nav-icon fas fa-file"></i>
               <p>Logout</p>
             </a>

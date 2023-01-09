@@ -136,9 +136,18 @@ $('.btn-action').on('click',function(){
 							}
 						  });	
 
-							$(".description_quantity , .description_price").keyup(function(e) {
+							$(".description_quantity , .description_price , #diskon ").keyup(function(e) {
 								
 								var total = 0;
+								
+								var diskon = 0;
+								
+								var el = document.getElementById("diskon");
+								if (el !== null && el.value !== "")
+								{
+								  //The element was found and the value is empty.
+								  diskon = $('input[name=diskon]').val();
+								}								
 								
 								$('input[name=total]').val(total);
 								
@@ -148,7 +157,8 @@ $('.btn-action').on('click',function(){
 									var price = $(this).parent().find('.description_price').val();
 									var quantity = $(this).parent().find('.description_quantity').val();
 									console.log(quantity);
-									total += (price * quantity);
+									console.log((diskon/100));
+									total += ((price * quantity) - ((price * quantity) * (diskon/100)));
 								});
 								
 								$('input[name=total]').val(total);
@@ -295,12 +305,14 @@ function validate_form(action){
       no_surat_jalan:{required:true},
 	  tanggal_surat_jalan:{required:true},
 	  total:{required:true},
+	  diskon:{required:true},
     },
     messages: {
       customer_id:"Harus diisi",
       no_surat_jalan:"Harus diisi",
       tanggal_surat_jalan:"Harus diisi",
 	  total:"Harus diisi",
+	  diskon:"Harus diisi",
     },
     errorElement: 'span',
     errorPlacement: function (error, element) {
@@ -395,6 +407,9 @@ function detail_table ( d ) {
     return d.action;
 }
 $(document).ready(function () {
+	
+	$('#judul-halaman').html("Pesanan dan Surat Jalan");
+	
     table_data = $('#example1').DataTable({
 
         "processing": true, //Feature control the processing indicator.

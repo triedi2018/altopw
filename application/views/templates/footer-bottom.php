@@ -30,7 +30,7 @@
     let int_logoff = setInterval(function(){
         let now = new Date();
         if (now > log_off){
-            window.location.assign("<?= base_url() ?>Login/logoff");
+            window.location.assign("<?= base_url() ?>login/logoff");
             clearInterval(int_logoff);
         }
     }, 5000);

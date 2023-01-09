@@ -33,7 +33,7 @@ tr.details td.details-control {
             <div class="card-body">
               <?php if ($cek_akses['tambah'] == 1): ?>
               <button type="button" class="btn btn-primary mb-3 btn-action">
-                  <span class="fa fa-plus"></span> Tambah Data
+                  <span class="fa fa-plus"></span> Tambah Pesanan
               </button>
               <?php endif ?>
               <div class="table-responsive">

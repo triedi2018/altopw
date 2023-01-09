@@ -101,6 +101,22 @@
 			</div>
 				<input type="hidden" name="items" />	  
 		</div>
+		
+		<div class="row">
+			<div class="col-lg-12 col-12">
+			
+					<div class="form-group">
+					  <label>Diskon (%)<span class="symbol required"> </span></label>
+					  <div class="input-group mb-3">
+						<div class="input-group-prepend">
+						  <span class="input-group-text"><i class="fas fa-file"></i></span>
+						</div>
+						<input type="text" autocomplete="off" id="diskon" name="diskon" required class="form-control allow_only_numbers" placeholder="Diskon (%)" value="0" >
+					  </div>
+					</div>	
+			
+			</div>
+		</div>
 
 		<div class="row">
 			<div class="col-lg-12 col-12">
@@ -111,12 +127,12 @@
 						<div class="input-group-prepend">
 						  <span class="input-group-text"><i class="fas fa-file"></i></span>
 						</div>
-						<input type="text" autocomplete="off" name="total" required class="form-control" placeholder="Total ">
+						<input type="text" autocomplete="off" name="total" required class="form-control allow_only_numbers" placeholder="Total ">
 					  </div>
 					</div>	
 			
 			</div>
-		</div>
+		</div>		
 
 		<div class="row">
 			<div class="col-lg-12 col-12">
