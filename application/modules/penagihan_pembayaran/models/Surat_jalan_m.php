@@ -12,6 +12,15 @@ class Surat_jalan_m extends CI_Model {
 		return $query->result_array();		
 		//return $this->db->get_where('data_produk',['customer_id' => $this->input->post('customer_id')])->result_array();
 	}
+	
+	public function list_produk2($customer_id){
+        $this->db->select('u.*');
+		$this->db->from("( select c.id, IFNULL(a.harga,c.harga) as harga , c.nama_produk, c.satuan from ( select * from data_harga where customer_id = ".$customer_id." ) a right join data_produk c on a.produk_id = c.id order by c.nama_produk ) u");
+		//$this->db->get_where(['a.customer_id' => $this->input->post('customer_id')]);
+		$query = $this->db->get();
+		return $query->result_array();		
+		//return $this->db->get_where('data_produk',['customer_id' => $this->input->post('customer_id')])->result_array();
+	}
 
 	public function list_customers(){
 		return $this->db->get('data_pelanggan')->result_array();
@@ -25,6 +34,7 @@ class Surat_jalan_m extends CI_Model {
 		$data = $this->db
 		->select('u.*')
 		->from('surat_jalan u')
+		->where(['md5(u.id)' => $this->input->post('id')])
 		->get()->row_array();
 		return $data;
 	}
@@ -62,6 +72,40 @@ class Surat_jalan_m extends CI_Model {
 				
 		
 		return $no_surat_jalan;
+	}
+
+	public function get_no_urut0(){
+		$data = $this->db
+		->select('u.*')
+		->from('surat_jalan u')
+		->order_by("id", "desc")
+		->limit(1)
+		->get()->row_array();
+		
+		$no_po = "NPO-" . date('Ym');
+		
+		if($data) {
+			$no_po_temp = $data['no_po'];
+			$init = substr($no_po_temp,0,10);
+			$final = substr($no_po_temp,10,strlen($no_po_temp)-10);
+			
+			if($no_po == $init) {
+				$value = (int)$final;
+				$no_po .= str_pad($value+1, 8, '0', STR_PAD_LEFT);
+			}
+			else
+			{
+				$no_po = "NPO-" . date('Ym') . '00000001';
+			}
+
+		}
+		else 
+		{
+			$no_po = "NPO-" . date('Ym') . '00000001';
+		}
+				
+		
+		return $no_po;
 	}	
 	
 	public function edit_get($id){
@@ -104,6 +148,8 @@ class Surat_jalan_m extends CI_Model {
 		// insert ke table user
 		$this->db->insert('surat_jalan',
 		[
+			'no_po' => $this->input->post('no_po'),
+			'tanggal_po' => convert_date_to_en($this->input->post('tanggal_po')),
 			'no_surat_jalan' => $this->input->post('no_surat_jalan'),
 			'tanggal_surat_jalan' => convert_date_to_en($this->input->post('tanggal_surat_jalan')),
 			'customer_id' => $this->input->post('customer_id'),

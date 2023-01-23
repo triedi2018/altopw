@@ -38,6 +38,7 @@ class Surat_jalan extends CI_Controller {
         if (cek_akses_user()['tambah'] == 0){
             redirect(base_url('unauthorized'));
         }
+		$data['no_urut0'] = $this->Data_model->get_no_urut0();
 		$data['no_urut'] = $this->Data_model->get_no_urut();
         $this->load->view('surat_jalan_tambah_v', $data);
     }
@@ -66,7 +67,16 @@ class Surat_jalan extends CI_Controller {
         }
 
             $data['data'] = $this->Data_model->edit();
-            
+			$description = $data['data']['items'];
+			if(!empty($description)) {
+				$manage = json_decode($description, true);
+				$items = "";
+				foreach ($manage as $item) {
+					//$items = $items . "<li style='margin-bottom:10px;'> Produk: &nbsp;<select id='list_produk' class='description_name' type='text' style='width:250px;' required >".$this->list_produk2($data['data']['customer_id'],$item['description_name'])."</select> &nbsp; Quantity: &nbsp;<input type='text' value='$item[description_quantity]' style='width:50px;' required align='center' class='allow_only_numbers description_quantity'  /> &nbsp; Harga: &nbsp;<input type='text' value='$item[description_price]' style='width:150px;' required class='allow_only_numbers description_price'  />&nbsp; <a href='javascript:void(0);' class='remove'>×</a></li>";
+					$items = $items . "<li style='margin-bottom:10px;'> Produk: &nbsp;<select id='list_produk' class='description_name' type='text' style='width:250px;' required  >".$this->list_produk2($data['data']['customer_id'],$item['description_name'])."</select> &nbsp; Quantity: &nbsp;<input type='text' value='$item[description_quantity]' style='width:50px;' required align='center' class='allow_only_numbers description_quantity'  /> &nbsp; Harga: &nbsp;<input type='text' value='$item[description_price]' style='width:150px;' required class='allow_only_numbers description_price'  />&nbsp; <a href='javascript:void(0);' class='remove'>×</a></li>";
+				}
+				$data['data']['items'] = $items;
+			}            
             $this->load->view('surat_jalan_edit_v',$data);
 
     }
@@ -94,6 +104,22 @@ class Surat_jalan extends CI_Controller {
                 echo "<option data-id='$produk[id]' data-nama_produk='$produk[nama_produk]' data-harga='$produk[harga]' data-satuan='$produk[satuan]' value='$produk[id]'>$produk[nama_produk]</option>";
             }
         }
+    }
+	
+    public function list_produk2($customer_id, $id){
+        //cek_ajax();
+		$list_produk2 = "";
+        $data = $this->Data_model->list_produk2($customer_id);
+        if ($data){
+            $list_produk2 = "<option value=''>Pilih Produk</option>";
+            foreach($data as $produk){
+				if($id == $produk['id'])
+					$list_produk2 .= "<option data-id='$produk[id]' data-nama_produk='$produk[nama_produk]' data-harga='$produk[harga]' data-satuan='$produk[satuan]' value='$produk[id]' selected >$produk[nama_produk]</option>";
+				else
+					$list_produk2 .= "<option data-id='$produk[id]' data-nama_produk='$produk[nama_produk]' data-harga='$produk[harga]' data-satuan='$produk[satuan]' value='$produk[id]'>$produk[nama_produk]</option>";
+            }
+        }
+		return $list_produk2;
     }
 
     public function list_customers(){
@@ -185,7 +211,7 @@ class Surat_jalan extends CI_Controller {
 		$pdf->SetFooterMargin(10);
 
 		// set font
-		$pdf->SetFont('times', 'B', 10);
+		$pdf->SetFont('times', '', 10);
 		
 		// add a page
 		$pdf->AddPage();
@@ -201,7 +227,7 @@ $i = 0;
 $total_price_all = 0;
 
 
-if(!empty($data['invoice_date'])) {
+if(!empty($data['items'])) {
 	
 	$manage = json_decode($data['items'], true);
 	foreach ($manage as $item) {
@@ -209,9 +235,10 @@ if(!empty($data['invoice_date'])) {
 		$produk = $this->Data_model->produk_profile($item['description_name']);
 		$total_price = (double)$item['description_price'] * (double)$item['description_quantity'];
 		$total_price_all += $total_price;
-		$items .= "<tr><td style=\"width: 5%;\">$i</td><td style=\"width: 50%;\">$produk[nama_produk]</td><td style=\"width: 15%;\">$item[description_quantity] Units</td><td style=\"width: 15%;\">".number_format($item['description_price'], 0, ',', ',')."</td><td style=\"width: 15%;\">".number_format($total_price, 0, ',', ',')."</td></tr>";
+		$items .= "<tr><td style=\"width: 5%;\">$i</td><td style=\"width: 35%;\">$produk[nama_produk]</td><td style=\"width: 15%;\">$item[description_quantity] Units</td><td style=\"width: 15%;\">".number_format($item['description_price'], 0, ',', ',')."</td><td style=\"width: 15%;\"></td><td style=\"width: 15%;\">".number_format($total_price, 0, ',', ',')."</td></tr>";
 		
 	}
+	$items .= "<tr><td colspan=\"4\" style=\"width: 85%;\"></td><td style=\"width: 15%;\">".number_format($total_price_all, 0, ',', ',')."</td></tr>";
 	
 }
 
@@ -223,6 +250,7 @@ $total_price_all_format = number_format($total_price_all, 0, ',', ',');
 $total_price_all_tax_format = number_format($total_price_all_tax, 0, ',', ',');
 $total_price_all_tax_plus_all_format = number_format($total_price_all_tax_plus_all, 0, ',', ',');
 
+$tanggal_po = date("d-m-Y", strtotime($data['tanggal_surat_jalan']));
 // Set some content to print
 $html = <<<EOD
 <table style="width: 100%; border-collapse: collapse;" border="0">
@@ -263,171 +291,27 @@ $html = <<<EOD
 	</tr>
 	</tbody>
 	</table>
-	
-	<table style="width: 100%; border-collapse: collapse;" border="0">
-	<tbody>
-	<tr style="background-color:#869c98">
-	<td>
-	BILLED TO :
-	</td>
-	</tr>
-	<tr>
-	<td>
-	$customer[nama_pelanggan]
-	</td>
-	</tr>
-	<tr>
-	<td>
-	$customer[alamat]
-	</td>
-	</tr>
-	<tr>
-	<td>
-	Contact Person : $customer[contact_person]
-	</td>
-	</tr>
-	<tr>
-	<td>
-	Phone : $customer[phone]
-	</td>
-	</tr>
-	</tbody>
-	</table>	
+		
 	
 </td>
-<td style="width: 50%; text-align:center;" >
+<td style="width: 50%; text-align:left;" >
 	<table style="width: 100%; border-collapse: collapse;" border="0">
 	<tbody>
-	<tr style="background-color:#869c98">
+	<tr>
 	<td>
-	INVOICE NO :
+	Nomor :
 	</td>
 	<td>
-	INVOICE DATE :
+	$data[no_po]
 	</td>	
 	</tr>
 	<tr>
 	<td>
-	$data[invoice_no]
+	Tanggal :
 	</td>
 	<td>
-	$invoice_date
+	$tanggal_po
 	</td>	
-	</tr>
-	<tr style="background-color:#869c98">
-	<td>
-	CUST ORDER NO :
-	</td>
-	<td>
-	CUST ORDER DATE :
-	</td>	
-	</tr>
-	<tr>
-	<td>
-	$data[cust_order_no]
-	</td>
-	<td>
-	$cust_order_date
-	</td>	
-	</tr>
-	<tr style="background-color:#869c98">
-	<td>
-	OUR ORDER NO :
-	</td>
-	<td>
-	TECHNICIAN :
-	</td>	
-	</tr>
-	<tr>
-	<td>
-	-
-	</td>
-	<td>
-	-
-	</td>	
-	</tr>
-	<tr style="background-color:#869c98">
-	<td>
-	PAYMENT TERM :
-	</td>
-	<td>
-	DUE DATE :
-	</td>	
-	</tr>
-	<tr>
-	<td>
-	$data[payment_term]
-	</td>
-	<td>
-	$due_date
-	</td>	
-	</tr>
-
-	<tr style="background-color:#869c98; text-align:left;">
-	<td colspan="2">
-	PAYABLE TO :
-	</td>	
-	</tr>
-	<tr>
-	<td colspan="2">
-	<table style="text-align:left">
-		<tr>
-		<td style="width: 30%">
-		Account Name 
-		</td>
-		<td style="width: 5%">
-		:
-		</td>
-		<td style="width: 65%">
-		PT. ALTO ANUGERAH ABADI
-		</td>		
-		</tr>
-		<tr>
-		<td style="width: 30%">
-		Account No
-		</td>
-		<td style="width: 5%">
-		:
-		</td>
-		<td style="width: 65%">
-		123-45-678900-00
-		</td>		
-		</tr>
-		<tr>
-		<td style="width: 30%">
-		Bank Name
-		</td>
-		<td style="width: 5%">
-		:
-		</td>
-		<td style="width: 65%">
-		Mandiri
-		</td>		
-		</tr>
-		<tr>
-		<td style="width: 30%">
-		Branch
-		</td>
-		<td style="width: 5%">
-		:
-		</td>
-		<td style="width: 65%">
-		-
-		</td>		
-		</tr>
-		<tr>
-		<td style="width: 30%">
-		Swift Code
-		</td>
-		<td style="width: 5%">
-		:
-		</td>
-		<td style="width: 65%">
-		-
-		</td>		
-		</tr>		
-	</table>
-	</td>
 	</tr>
 	</tbody>
 	</table>
@@ -440,100 +324,124 @@ $html = <<<EOD
 <table style="width: 100%; border-collapse: collapse; padding-top:10px;padding-bottom:10px;" border="0">
 <tbody>
 <tr>
-<td style="width: 10%;">
-Subject :
-</td>
-<td style="width: 90%;">
-	$data[subject]
+<td style="width: 100%;text-align:center;font-size:14px;">
+	<b>SURAT PESANAN</b>
 </td>
 </tr>
 </tbody>
 </table>
 
-<table style="width: 100%; border-collapse: collapse;padding-top:10px;padding-bottom:10px; " border="0">
-<thead>
-	<tr style="background-color:#869c98">
-		<th style="width: 5%;">NO</th>
-		<th style="width: 50%;">DESCRIPTION</th>
-		<th style="width: 15%;">QTY</th>
-		<th style="width: 15%;">UNIT PRICE</th>
-		<th style="width: 15%;">TOTAL PRICE</th>
-	</tr>
-</thead>
-<tbody>
-	$items
-</tbody>
-</table>
-
-
-<table style="width: 100%; border-collapse: collapse;padding-top:300px;" border="0">
+<table style="width: 100%; border-collapse: collapse;" border="0">
 <tbody>
 <tr>
 <td style="width: 50%">
-	<table style="width: 100%; border-collapse: collapse;padding-bottom:50px;" border="0">
-	<tbody>
-	<tr>
-	<td>
-		Kind Regards,
-	</td>
-	</tr>
-	</tbody>
-	</table>
-
 	<table style="width: 100%; border-collapse: collapse;" border="0">
 	<tbody>
 	<tr>
 	<td>
-		
+	No. Pelanggan :
+	</td>
+	<td>
+	$customer[kode_pelanggan]
 	</td>
 	</tr>
-	<tr style="background-color:#869c98;margin-top:50px;">
-	<td style="margin-top:50px;">
-		Remarks / Instructions
+	<tr>
+	<td>
+	Nama Pelanggan :
 	</td>
-	</tr>	
+	<td>
+	$customer[nama_pelanggan]
+	</td>
+	</tr>
+	<tr>
+	<td>
+	Alamat Pelanggan :
+	</td>
+	<td>
+	$customer[alamat]
+	</td>
+	</tr>
+	<tr>
+	<td>
+	No. Telphone :
+	</td>
+	<td>
+	$customer[phone]
+	</td>
+	</tr>
+	<tr>
+	<td>
+	Ex. Nomor PO :
+	</td>
+	<td>
+	$data[no_po]
+	</td>
+	</tr>
 	</tbody>
 	</table>
-
+		
 	
 </td>
 <td style="width: 50%; text-align:left;" >
 	<table style="width: 100%; border-collapse: collapse;" border="0">
 	<tbody>
-	<tr style="background-color:#869c98">
+	<tr>
+	<td style="border-top-style: solid;border-right-style: solid;border-bottom-style: solid;border-left-style: solid;">
+		
+	</td>	
 	<td>
-	SUB TOTAL
+	Cash
 	</td>
 	<td>
-		:
-	</td>
-	<td>
-	$total_price_all_format
+	-
 	</td>	
 	</tr>
-	<tr style="background-color:#869c98">
-	<td>
-	11% TAX
+	<tr>
+	<td style="border-top-style: solid;border-right-style: solid;border-bottom-style: solid;border-left-style: solid;">
+		
 	</td>
 	<td>
-		:
-	</td>	
-	<td>
-	$total_price_all_tax_format
-	</td>	
-	</tr>
-	<tr style="background-color:#869c98">
-	<td>
-	TOTAL :
+	Kredit
 	</td>
 	<td>
-		:
-	</td>	
-	<td>
-	$total_price_all_tax_plus_all_format
+	-
 	</td>	
 	</tr>
-
+	<tr>
+	<td style="border-top-style: solid;border-right-style: solid;border-bottom-style: solid;border-left-style: solid;">
+		
+	</td>
+	<td>
+	Promo Diskon
+	</td>
+	<td>
+	-
+	</td>	
+	</tr>
+	<tr>
+	<td colspan="3">
+		<table style="width: 100%; border-collapse: collapse;" border="0">
+		<tbody>
+		<tr>
+			<td>
+				Salesman
+			</td>
+			<td>
+				:
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Tanggal Kirim
+			</td>
+			<td>
+				:
+			</td>
+		</tr>
+		</tbody>
+		</table>
+	</td>	
+	</tr>
 	</tbody>
 	</table>
 </td>	
@@ -542,11 +450,24 @@ Subject :
 </tbody>
 </table>
 
-<table style="width: 100%; border-collapse: collapse;padding-top:10px; text-align:center;" border="0">
+	<div style="height:150px;"></div>
+
+<table style="width: 100%; border-collapse: collapse;padding-top:10px;padding-bottom:10px; " border="1">
+<thead>
+	<tr style="border:1px;">
+		<th style="width: 5%;">No</th>
+		<th style="width: 35%;">Jenis Barang</th>
+		<th style="width: 15%;">Satuan</th>
+		<th style="width: 15%;">Harga Satuan</th>
+		<th style="width: 15%;">Diskon Satuan</th>
+		<th style="width: 15%;">Total Harga</th>
+	</tr>
+</thead>
 <tbody>
-	<tr><td>THANK YOU</td></tr>
+	$items
 </tbody>
 </table>
+
 
 EOD;
 

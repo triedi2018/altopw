@@ -11,7 +11,51 @@
       <div class="modal-body">
         <!-- form start -->
 		<div class="row">
-			<div class="col-lg-6 col-6">
+			<div class="col-lg-12 col-12">
+			
+					<div class="form-group">
+					  <label>No PO <span class="symbol required"> </span></label>
+					  <div class="input-group mb-3">
+						<div class="input-group-prepend">
+						  <span class="input-group-text"><i class="fas fa-file"></i></span>
+						</div>
+						<input type="text" autocomplete="off" name="no_po" required class="form-control" value="<?= $no_urut0 ?>" placeholder="No PO ">
+					  </div>
+					</div>		
+
+					<div class="form-group">
+					  <label class="control-label">
+						Tanggal PO <span class="symbol required"> </span>
+					  </label>
+					  <div class="input-group input-append datepicker date" data-date-format='dd-mm-yyyy' style="padding: 0px;" > 
+						<input class="form-control" type="text" readonly autocomplete="off" name="tanggal_po" required />
+						<div class="input-group-append">
+						  <button class="btn btn-outline-secondary" type="button" ><i class="far fa-calendar-alt"></i></button>
+						</div>
+					  </div>
+					</div>			
+			
+					<div class="form-group">
+					  <label>No Surat Jalan <span class="symbol required"> </span></label>
+					  <div class="input-group mb-3">
+						<div class="input-group-prepend">
+						  <span class="input-group-text"><i class="fas fa-file"></i></span>
+						</div>
+						<input type="text" autocomplete="off" name="no_surat_jalan" required class="form-control" value="<?= $no_urut ?>" placeholder="No Surat Jalan">
+					  </div>
+					</div>		
+
+					<div class="form-group">
+					  <label class="control-label">
+						Tanggal Kirim <span class="symbol required"> </span>
+					  </label>
+					  <div class="input-group input-append datepicker date" data-date-format='dd-mm-yyyy' style="padding: 0px;" > 
+						<input class="form-control" type="text" readonly autocomplete="off" name="tanggal_surat_jalan" required />
+						<div class="input-group-append">
+						  <button class="btn btn-outline-secondary" type="button" ><i class="far fa-calendar-alt"></i></button>
+						</div>
+					  </div>
+					</div>
 
 					<div class="form-group">
 					  <label>Nama Pelanggan <span class="symbol required"> </span></label>
@@ -61,32 +105,6 @@
 			
 			</div>
 			
-			<div class="col-lg-6 col-6">
-			
-
-					<div class="form-group">
-					  <label>No Surat Jalan <span class="symbol required"> </span></label>
-					  <div class="input-group mb-3">
-						<div class="input-group-prepend">
-						  <span class="input-group-text"><i class="fas fa-file"></i></span>
-						</div>
-						<input type="text" autocomplete="off" name="no_surat_jalan" required class="form-control" value="<?= $no_urut ?>" placeholder="No Surat Jalan">
-					  </div>
-					</div>		
-
-					<div class="form-group">
-					  <label class="control-label">
-						Tanggal Surat Jalan <span class="symbol required"> </span>
-					  </label>
-					  <div class="input-group input-append datepicker date" data-date-format='dd-mm-yyyy' style="padding: 0px;" > 
-						<input class="form-control" type="text" readonly autocomplete="off" name="tanggal_surat_jalan" required />
-						<div class="input-group-append">
-						  <button class="btn btn-outline-secondary" type="button" ><i class="far fa-calendar-alt"></i></button>
-						</div>
-					  </div>
-					</div>
-			
-			</div>	
 			
 		</div>		
 		

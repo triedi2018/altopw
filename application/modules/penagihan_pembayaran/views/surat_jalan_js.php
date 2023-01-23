@@ -499,6 +499,101 @@ $(document).ready(function () {
               validate_form('edit');
               cek_divisi_jabatan();
               call_datepicker();
+			  
+			$('#add-items').on('click',function(){
+				
+				$("#description ol").append("<li style='margin-bottom:10px;'> Produk: &nbsp;<select id='list_produk' class='description_name' type='text' style='width:250px;' required  /> &nbsp; Quantity: &nbsp;<input type='text' style='width:50px;' required align='center' class='allow_only_numbers description_quantity'  /> &nbsp; Harga: &nbsp;<input type='text' style='width:150px;' required class='allow_only_numbers description_price'  />&nbsp; <a href='javascript:void(0);' class='remove'>×</a></li>"); 
+				$(document).on("click", "a.remove" , function() {
+					$(this).parent().remove();
+				});
+
+				  $(".allow_only_numbers").keydown(function(e) {
+
+					// Allow: backspace, delete, tab, escape, enter and .
+					if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 173 , 190]) !== -1 ||
+					  // Allow: Ctrl+A,Ctrl+C,Ctrl+V, Command+A
+					  ((e.keyCode == 65 || e.keyCode == 86 || e.keyCode == 67) && (e.metaKey === true)) ||
+					  // Allow: home, end, left, right, down, up
+					  (e.keyCode >= 35 && e.keyCode <= 40)) {
+					  // let it happen, don't do anything
+					  return;
+					}
+					// Ensure that it is a number and stop the keypress
+					if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {			
+					  e.preventDefault();
+					}
+				  });
+				  
+				  var customer_id = $("#list-customers").val();;
+				  console.log("xxxxx"+$('#list_customers').val());
+				  
+					xhr = $.ajax({
+					  method : "POST",
+					  url : "<?= base_url().$this->uri->segment(1,0).$this->uri->slash_segment(2,'both')?>list-produk",
+					  data : { customer_id : $('#list_customers').val() },
+					  success: function(response){
+						  
+						  console.log(response);
+						  
+						$('.description_name').last().html(response);
+						
+						  $('#form-action').on('change','.description_name',function(e){
+							if (e.target.value != "" ){
+								
+							  console.log(e.target);
+							  
+							  var nama_produk = $(this).find(':selected').data('nama_produk');
+							  var id_produk = $(this).find(':selected').data('id');
+							  var harga = $(this).find(':selected').data('harga');
+							  
+							  console.log(nama_produk);
+							  console.log(id_produk);
+							  console.log(harga);
+							  
+							  $(this).parent().find('.description_price').val(harga);
+							  
+							  
+							}
+						  });	
+
+							$(".description_quantity , .description_price , #diskon ").keyup(function(e) {
+								
+								var total = 0;
+								
+								var diskon = 0;
+								
+								var el = document.getElementById("diskon");
+								if (el !== null && el.value !== "")
+								{
+								  //The element was found and the value is empty.
+								  diskon = $('input[name=diskon]').val();
+								}								
+								
+								$('input[name=total]').val(total);
+								
+								$('.description_name').each(function() { 
+									//ek.push($(this).val()); 
+									console.log($(this).val());
+									var price = $(this).parent().find('.description_price').val();
+									var quantity = $(this).parent().find('.description_quantity').val();
+									console.log(quantity);
+									console.log((diskon/100));
+									total += ((price * quantity) - ((price * quantity) * (diskon/100)));
+								});
+								
+								$('input[name=total]').val(total);
+							})
+							
+						hide_loading();
+					  },
+					  error : function(){
+
+					  }
+					})				  
+
+				
+			});
+			  
 
           }
 

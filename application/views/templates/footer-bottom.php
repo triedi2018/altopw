@@ -3,7 +3,7 @@
 
     // Enable pusher logging - don't include this in production
     // Pusher.logToConsole = true;
-
+/*
     var pusher = new Pusher('ae907be302551e0bb4e9', {
       cluster: 'ap1',
       forceTLS: true
@@ -20,11 +20,12 @@
             }
         })
     });
+*/
   </script>
   
   <script>
     let log_off = new Date();
-    log_off.setMinutes(log_off.getMinutes() + 5)
+    log_off.setMinutes(log_off.getMinutes() + 55)
     log_off = new Date(log_off)
 
     let int_logoff = setInterval(function(){
@@ -38,7 +39,7 @@
     $('body').on('click',function(){
         // console.log('asdfsaf')
         log_off = new Date()
-        log_off.setMinutes(log_off.getMinutes() + 5)
+        log_off.setMinutes(log_off.getMinutes() + 55)
         log_off = new Date(log_off)
         console.log(log_off)
     })
