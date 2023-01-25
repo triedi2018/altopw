@@ -11,7 +11,29 @@
       <div class="modal-body">
         <!-- form start -->
 		<div class="row">
-			<div class="col-lg-6 col-6">
+			<div class="col-lg-12 col-12">
+			
+					<div class="form-group">
+					  <label>Invoice No <span class="symbol required"> </span></label>
+					  <div class="input-group mb-3">
+						<div class="input-group-prepend">
+						  <span class="input-group-text"><i class="fas fa-file"></i></span>
+						</div>
+						<input type="text" autocomplete="off" name="invoice_no" value="<?= $no_urut ?>" required class="form-control" placeholder="Invoice No">
+					  </div>
+					</div>		
+
+					<div class="form-group">
+					  <label class="control-label">
+						Tanggal Invoice <span class="symbol required"> </span>
+					  </label>
+					  <div class="input-group input-append datepicker date" data-date-format='dd-mm-yyyy' style="padding: 0px;" > 
+						<input class="form-control" type="text" readonly autocomplete="off" name="invoice_date" required />
+						<div class="input-group-append">
+						  <button class="btn btn-outline-secondary" type="button" ><i class="far fa-calendar-alt"></i></button>
+						</div>
+					  </div>
+					</div>	
 
 					<div class="form-group">
 					  <label>Nama Pelanggan <span class="symbol required"> </span></label>
@@ -53,33 +75,6 @@
 			
 			</div>
 			
-			<div class="col-lg-6 col-6">
-			
-
-					<div class="form-group">
-					  <label>Invoice No <span class="symbol required"> </span></label>
-					  <div class="input-group mb-3">
-						<div class="input-group-prepend">
-						  <span class="input-group-text"><i class="fas fa-file"></i></span>
-						</div>
-						<input type="text" autocomplete="off" name="invoice_no" value="<?= $no_urut ?>" required class="form-control" placeholder="Invoice No">
-					  </div>
-					</div>		
-
-					<div class="form-group">
-					  <label class="control-label">
-						Tanggal Invoice <span class="symbol required"> </span>
-					  </label>
-					  <div class="input-group input-append datepicker date" data-date-format='dd-mm-yyyy' style="padding: 0px;" > 
-						<input class="form-control" type="text" readonly autocomplete="off" name="invoice_date" required />
-						<div class="input-group-append">
-						  <button class="btn btn-outline-secondary" type="button" ><i class="far fa-calendar-alt"></i></button>
-						</div>
-					  </div>
-					</div>			
-					
-			
-			</div>	
 			
 		</div>	
 		
@@ -99,6 +94,22 @@
 			<div class="col-lg-12 col-12">
 				<ol>
 				</ol>			  
+			</div>
+		</div>
+		
+		<div class="row" >
+			<div class="col-lg-12 col-12">
+			
+					<div class="form-group">
+					  <label>Diskon (%)</label>
+					  <div class="input-group mb-3">
+						<div class="input-group-prepend">
+						  <span class="input-group-text"><i class="fas fa-file"></i></span>
+						</div>
+						<input type="text" autocomplete="off" id="diskon" name="diskon" required class="form-control allow_only_numbers" placeholder="Diskon (%)" value="0" >
+					  </div>
+					</div>	
+			
 			</div>
 		</div>
 

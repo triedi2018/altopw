@@ -55,7 +55,7 @@ class Proforma_invoice_m extends CI_Model {
 		->limit(1)
 		->get()->row_array();
 		
-		$no_urut = "PRO-" . date('Ym');
+		$no_urut = "INV-" . date('Ym');
 		
 		if($data) {
 			$no_urut_temp = $data['invoice_no'];
@@ -68,13 +68,13 @@ class Proforma_invoice_m extends CI_Model {
 			}
 			else
 			{
-				$no_urut = "PRO-" . date('Ym') . '00000001';
+				$no_urut = "INV-" . date('Ym') . '00000001';
 			}
 
 		}
 		else 
 		{
-			$no_urut = "PRO-" . date('Ym') . '00000001';
+			$no_urut = "INV-" . date('Ym') . '00000001';
 		}
 				
 		
@@ -121,6 +121,7 @@ class Proforma_invoice_m extends CI_Model {
 			'invoice_date' => convert_date_to_en($this->input->post('invoice_date')),
 			'customer_id' => $this->input->post('customer_id'),
 			'items' => $this->input->post('items'),
+			'diskon' => $this->input->post('diskon'),
 			'created_at' => date('Y-m-d H:i:s')
 		]);
 				

@@ -120,7 +120,7 @@
 				<input type="hidden" name="items" />	  
 		</div>
 		
-		<div class="row">
+		<div class="row" style="display:none;">
 			<div class="col-lg-12 col-12">
 			
 					<div class="form-group">
