@@ -253,18 +253,19 @@ $total_price_all = 0;
 if(!empty($proforma_invoices_join)) {
 	
 	$items .= "<table>";
+	$items .= "<tr><td colspan=\"5\" style=\"text-align:left;\">Untuk Pembayaran	: 	</td></tr>";
 	foreach ($proforma_invoices_join as $item) {
 		$i++;
 		$total_price = (double)$item['jumlah'] * (double)$item['harga'];
 		$total_price_all += $total_price;
-		$items .= "<tr><td style=\"width: 5%;\">$i</td><td style=\"width: 58%;\">$item[nama_produk]</td><td style=\"width: 7%;\">$item[satuan]</td><td style=\"width: 10%;\">$item[jumlah]</td><td style=\"width: 20%;text-align:left;\">".rupiah($total_price)."</td></tr>";
+		$items .= "<tr><td style=\"width: 15%;\"></td><td style=\"width: 48%;text-align:left; \">$item[nama_produk] $item[jumlah] $item[satuan]</td><td style=\"width: 7%;\"></td><td style=\"width: 10%;\"></td><td style=\"width: 20%;text-align:left;\">".rupiah($total_price)."</td></tr>";
 		
 	}
 	$items .= "</table>";
 	
 }
 
-$total_price_all_tax = $total_price_all * 0.11;
+$total_price_all_tax = $total_price_all * 0.0;
 
 $total_price_all_tax_plus_all = $total_price_all_tax + $total_price_all;
 
@@ -351,9 +352,11 @@ $html = <<<EOF
   <tr>
   <td width="100%" align="left" colspan="3">
   <table>
-	<tr style="vertical-align:middle;"><td width="23.3%">Terima Dari</td><td width="3.3%">:</td><td width="43.3%">$customer[nama_pelanggan]</td><td width="30%" rowspan="2" align="center" style="height: 30px;vertical-align: middle;padding: 5px;" style="border-style: solid solid solid solid;"><b>$total_price_all_tax_plus_all_format</b></td></tr>
+	<tr style="vertical-align:middle;"><td width="23.3%">Terima Dari</td><td width="3.3%">:</td><td width="43.3%">$customer[nama_pelanggan]</td><td width="30%" rowspan="2" align="center" style="height: 30px;vertical-align: middle;padding: 5px;" style="border-style: solid solid solid solid;"><b>$total_price_all_format</b></td></tr>
 	<tr><td>Alamat</td><td>:</td><td>$customer[alamat]</td></tr>
-	<tr><td>Uang Sebanyak</td><td>:</td><td colspan="3" style="font-size: 16pt;"><b>$terbilang</b></td></tr>
+	<tr><td></td><td></td><td></td></tr>
+	<tr><td></td><td></td><td></td></tr>
+	<tr><td>Uang Sebanyak</td><td>:</td><td colspan="3" style="font-size: 14pt; background-color: #d8dee9; padding:20px; text-align:center;"><b>$terbilang</b></td></tr>
   </table>
   </td>
  </tr>
@@ -361,15 +364,11 @@ $html = <<<EOF
   <td width="100%" align="center" colspan="3" style="border-style: solid solid solid solid;">$items</td>
  </tr>
   <tr>
-  <td width="100%" align="center" colspan="3">Total Harga ( termasuk PPN 11% )   :  <b>$total_price_all_tax_plus_all_format</b></td>
- </tr>
-  <tr>
   <td width="100%" align="left" colspan="3" style="font-size: 10pt;"><b>Pembayaran ke : BCA a/c 879.120.030.0 a/n PT ALTO ANUGERAH ABADI</b></td>
  </tr> 
  <tr>
-  <td width="33.3%" align="center">Ketentuan : Pembayaran dengan Cek/Giro dianggap sah apabila Cek/Giro dapat diuangkan.</td>
-  <td width="33.3%" align="center" bgcolor="#FFFFFF"> </td>
-  <td width="33.3%" align="center">Jakarta, $tanggal</td>
+  <td colspan="2" align="left" >Keterangan : Konfirmasi Pembayaran ke 0812 8301 1061.</td>
+  <td align="center">Jakarta, $tanggal</td>
  </tr>
 </table>
 EOF;
