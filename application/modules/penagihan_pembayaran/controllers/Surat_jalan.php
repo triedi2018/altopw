@@ -167,6 +167,8 @@ class Surat_jalan extends CI_Controller {
 			'nama_driver'=>$data['nama_driver'],
 			'no_surat_jalan'=>$data['no_surat_jalan'],
 			'tanggal_surat_jalan'=>date("d-m-Y", strtotime($data['tanggal_surat_jalan'])),
+			'no_po'=>$data['no_po'],
+			'tanggal_po'=>date("d-m-Y", strtotime($data['tanggal_po'])),			
 			'items' => $this->json_description($data['items']),
 			'total' => rupiah($data['total']),
             'action' => $tombol_action,

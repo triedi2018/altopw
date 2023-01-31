@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Proforma_invoice extends CI_Controller {
     public function __construct(){
         parent::__construct();
-        $this->load->model('Proforma_invoice_m','Data_model');
+        $this->load->model('Proforma_invoice2_m','Data_model');
 		$this->load->library('Pdf');
         cek_aktif_login();
         cek_akses_user();
@@ -25,11 +25,11 @@ class Proforma_invoice extends CI_Controller {
         $this->load->view('templates/header-notif');
         $this->load->view('templates/main-navigation',$data);
 
-        $this->load->view('proforma_invoice_v',$data);
+        $this->load->view('proforma_invoice2_v',$data);
         
         $this->load->view('templates/footer-top');
         // js for this page only
-        $this->load->view('proforma_invoice_js');
+        $this->load->view('proforma_invoice2_js');
         //========= end
         $this->load->view('templates/footer-bottom');
     }
@@ -130,20 +130,19 @@ class Proforma_invoice extends CI_Controller {
 			$no++;
 
             // tombol action - dicek juga punya akses apa engga gengs....
-            $tombol_action = (cek_akses_user()['edit'] == 1 ? '<a href="#" ><span class="badge badge-primary btn-edit" data-jenis_action="edit" data-id="'.md5($data['id']).'" data-'.$this->security->get_csrf_token_name().'='.$this->security->get_csrf_hash().'>Edit</span></a>' : '' ). 
-            (cek_akses_user()['hapus'] == 1 ? ' <a href="#" ><span class="badge badge-danger btn-hapus" data-jenis_action="hapus" data-id="'.md5($data['id']).'">Hapus</span></a>' : '').
-			(cek_akses_user()['hapus'] == 1 ? ' <a href="#" ><span class="badge badge-warning btn-print" data-jenis_action="hapus" data-id="'.md5($data['id']).'">Print</span></a>' : '');
 
+			$total_price = ($data['description_price']*$data['description_quantity']);
+			$ppn = ($data['description_price']*$data['description_quantity'])*0.11;
             // column buat data tables --
             $row = [
-			'invoice_no' => $data['invoice_no'],
-			'invoice_date'=>date("d-m-Y", strtotime($data['invoice_date'])),
+			'no_surat_jalan' => $data['no_surat_jalan'],
+			'tanggal_surat_jalan'=>date("d-m-Y", strtotime($data['tanggal_surat_jalan'])),
             'nama_pelanggan' => $data['nama_pelanggan'],
-			'items' => $this->json_description($data['items']),
-			'faktur_number' => $data['faktur_number'],
-			'expire_date' => date("d-m-Y", strtotime($data['expire_date'])),
-			'total' => $data['total'],
-            'action' => $tombol_action,
+			'nama_produk' => $data['nama_produk'],
+			'description_quantity' => $data['description_quantity'],
+			'description_price' => rupiah($total_price),
+			'ppn' => rupiah($ppn),
+			'total' => rupiah($total_price + $ppn) 
             
             ];
 			$record[] = $row;

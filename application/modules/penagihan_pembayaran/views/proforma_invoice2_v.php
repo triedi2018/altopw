@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="<?php echo base_url(); ?>bower_components/bootstrap-daterangepicker/daterangepicker.css" />
 
 <style>
 td.details-control {
@@ -14,6 +15,28 @@ tr.details td.details-control {
 
     <!-- Main content -->
     <section class="content">
+	
+<form class="form-horizontal" method="post" enctype="multipart/form-data" id="ajax_form" action="">		
+	
+		<div class="row">
+		  <div class="col-md-6">
+							
+		  </div>
+		  <div class="col-md-6">
+			<div class="form-group">
+			  <label>Range Date : </label>
+			  <div class="input-group mb-3">
+				<div class="input-group-prepend">
+				  <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+				</div>
+				<input type="text" class="form-control pull-right" id="reservation">
+			  </div>
+			</div>							
+		  </div>		  
+		</div>	
+		
+</form>	
+	
       <div class="row">
         <div class="col-12">
           
@@ -33,7 +56,7 @@ tr.details td.details-control {
             <div class="card-body">
               <?php if ($cek_akses['tambah'] == 1): ?>
               <button type="button" class="btn btn-primary mb-3 btn-action">
-                  <span class="fa fa-plus"></span> Tambah Pesanan
+                  <span class="fa fa-plus"></span> Tambah Data
               </button>
               <?php endif ?>
               <div class="table-responsive">
@@ -41,14 +64,14 @@ tr.details td.details-control {
                   <thead>
                   <tr>
                     <th></th>
-                    <th>No PO</th>
-                    <th>Tgl PO</th>					
                     <th>No Surat Jalan</th>
                     <th>Tgl Surat Jalan</th>
-                    <th>Pelanggan</th>
-					<th>Driver</th>
-					<th>Keterangan</th>
-					<th>Total</th>
+                    <th>Nama Pelanggan</th>					
+					<th>Nama Barang</th>
+					<th>Qty</th>
+					<th>DPP</th>
+					<th>PPN</th>
+					<th>Total Harga</th>
                   </tr>
                   </thead>
                   <tbody>
