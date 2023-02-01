@@ -297,6 +297,7 @@ function detail_table ( d ) {
 $(document).ready(function () {
     table_data = $('#example1').DataTable({
 
+		/*
 		dom: 'Bfrtip',
 		buttons: [ {
                 extend: 'excel',
@@ -319,6 +320,83 @@ $(document).ready(function () {
                 },
 		action: newexportaction_all				
             } ],
+		*/	
+			
+       drawCallback: function (settings) {
+            var api = this.api();
+            var rows = api.rows( {page:'current'} ).nodes();
+			var entirerows_count = rows.length;
+			
+			let b1 = null;
+			let first_row = true;
+			var total = 0;
+ 
+            api.column(0, {page:'current'} ).data().each( function ( name, i ) {	// 0 =  first column
+                let row = $(rows).eq( i );
+				
+				let v = api.cell(i,7).node().innerHTML.replace(/[^0-9]+/g, "");
+				
+				//$.each($(row),function(key,value){
+					//console.log(key);
+					//dataArr.push(value["name"]); //"name" being the value of your first column.
+				//});				
+                let temp = row.find('td:eq(0)').text();	
+				
+				
+				var temp_total = api.cell(i,7).node().innerHTML.replace(/[^0-9]+/g, "");
+				
+				api.cell(i,7).node().innerHTML = "Rp " + numberWithDot(temp_total)
+				//console.log(temp_total);
+				
+				if(b1 != temp) {
+					console.log(temp_total);
+					
+                    //b2 = row.find('td:eq(3)').text(),
+                    //b3 = row.find('td:eq(4)').text();
+					if(first_row) {
+                      row.before(
+                          '<tr role="row" class="'+name+' name"><th colspan="8" >'+name+'</td></tr>');		
+					  first_row = false;
+					  total = parseInt(temp_total);
+						
+					}
+					else
+					{
+						  row.before(
+							  '<tr role="row" class="'+name+' total"><th>Total :</td><th colspan="7" >Rp '+numberWithDot(total)+'</td></tr>');							
+						  row.before(
+							  '<tr role="row" class="'+name+' total"><th colspan="8" >'+name+'</td></tr>');	
+
+						total = parseInt(temp_total);
+						
+					}
+					
+	
+						  
+					b1 = temp;
+				}
+				else
+				{
+					total += parseInt(temp_total);
+					//console.log("yyy "+total);
+					//console.log("xxx "+temp_total);
+					
+				}
+				
+				
+				let b1TRow = row.find('td:eq(0)');
+				b1TRow.text('');
+				
+				if((entirerows_count-1)==i) {
+						  row.after(
+							  '<tr role="row" class="'+name+' total"><th>Total :</td><th colspan="20" >Rp '+numberWithDot(total)+'</td></tr>');						
+					
+				}
+				
+				//console.log(b1);
+				
+            }) ;
+        },			
 
         "processing": true, //Feature control the processing indicator.
         "serverSide": true, //Feature control DataTables' server-side processing mode.
@@ -345,15 +423,9 @@ $(document).ready(function () {
         
 
         "columns": [
-            {
-                "class":          "details-control",
-                "orderable":      false,
-                "data":           null,
-                "defaultContent": ""
-            },
+			{ "data": "nama_pelanggan" },
             { "data": "no_surat_jalan" },
-            { "data": "tanggal_surat_jalan" },
-			{ "data": "nama_pelanggan" },			
+            { "data": "tanggal_surat_jalan" },						
 			{ "data": "nama_produk" },
 			{ "data": "description_quantity" },
 			{ "data": "description_price" },
@@ -533,5 +605,10 @@ function newexportaction_all(e, dt, button, config) {
     // Requery the server with the new one-time export settings
     dt.ajax.reload();
 };
+
+
+function numberWithDot(x) {
+    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".");
+}
 
 </script>

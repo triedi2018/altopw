@@ -142,7 +142,7 @@ class Proforma_invoice extends CI_Controller {
 			'description_quantity' => $data['description_quantity'],
 			'description_price' => rupiah($total_price),
 			'ppn' => rupiah($ppn),
-			'total' => rupiah($total_price + $ppn) 
+			'total' => thousands($total_price + $ppn)
             
             ];
 			$record[] = $row;

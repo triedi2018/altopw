@@ -63,10 +63,9 @@ tr.details td.details-control {
                 <table id="example1" class="table table-bordered table-sm table-hover table-striped">
                   <thead>
                   <tr>
-                    <th></th>
+					<th>Nama Pelanggan</th>	
                     <th>No Surat Jalan</th>
-                    <th>Tgl Surat Jalan</th>
-                    <th>Nama Pelanggan</th>					
+                    <th>Tgl Surat Jalan</th>                    				
 					<th>Nama Barang</th>
 					<th>Qty</th>
 					<th>DPP</th>
