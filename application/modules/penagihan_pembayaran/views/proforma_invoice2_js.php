@@ -34,6 +34,16 @@ $('#reservation').on('apply.daterangepicker', function(ev, picker) {
 })
 
 
+$('.btn-print-action').on('click',function(e){
+  //alert(e.target.dataset.id);
+	var anchor = document.createElement('a');
+	anchor.href = "<?= base_url().$this->uri->segment(1,0).$this->uri->slash_segment(2,'both')?>printdata/" + $('#reservation').data('daterangepicker').startDate.format('YYYY-MM-DD') + "/" + $('#reservation').data('daterangepicker').endDate.format('YYYY-MM-DD') ;
+	anchor.target="_blank";
+	anchor.click();		
+
+})
+
+
 $('.btn-action').on('click',function(){
   show_loading();
 
@@ -299,24 +309,32 @@ $(document).ready(function () {
 
 		/*
 		dom: 'Bfrtip',
-		buttons: [ {
+		
+		buttons: [ 
+		{
+			extend: 'excelHtml5',
+			filename: "File Name You want",
+			title: "some title or heading for excel",
+			text: 'Export'  //By default it is excel. if you want to change it set "text" value.
+		},
+		{
                 extend: 'excel',
                 //orientation: 'landscape',
                 //pageSize: 'LEGAL',
                 exportOptions: {
                     //columns: ':visible'
-					columns: [ 1, 2, 3, 4 ],
-					stripHtml: true,
+					columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ],
+					stripHtml: false,
                 },
 		action: newexportaction_all				
             },            {
                 extend: 'pdfHtml5',
-                orientation: 'landscape',
+                //orientation: 'landscape',
                 pageSize: 'LEGAL',
                 exportOptions: {
                     //columns: ':visible'
-					columns: [ 1, 2, 3, 4 ],
-					stripHtml: true,
+					columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ],
+					stripHtml: false,
                 },
 		action: newexportaction_all				
             } ],
@@ -434,7 +452,7 @@ $(document).ready(function () {
 			//{ "data": "total" },
         ],
 		
-		"lengthMenu": [[50, -1], [50, "All"]]
+		"lengthMenu": [[-1], ["All"]]
 
     });
     var detailRows = [];

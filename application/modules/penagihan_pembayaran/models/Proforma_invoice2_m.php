@@ -21,11 +21,19 @@ class Proforma_invoice2_m extends CI_Model {
 		return $data;
 	}
 
-	public function list_proforma_invoices_join($invoice_no){
+	public function list_proforma_invoices_join($startdate,$enddate){
+		
+        $this->db->select('u.*');
+		$this->db->from($this->table);	
+		
+		$sql = " no_surat_jalan is not null ";
+		$sql .= " and tanggal_surat_jalan > '$startdate 00:00:00' ";
+		$sql .= " and tanggal_surat_jalan < '$enddate 23:59:59' ";
+			
+		$this->db->where($sql)
+		->order_by("u.customer_id", "desc");
+
 		$data = $this->db
-		->select('u.*')
-		->from('vw_proforma_invoices_join u')
-		->where('invoice_no',$invoice_no)
 		->get()->result_array();
 		return $data;
 	}	

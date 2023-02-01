@@ -54,9 +54,9 @@ tr.details td.details-control {
 			<div class="tampil-modal2"></div>
 
             <div class="card-body">
-              <?php if ($cek_akses['tambah'] == 1): ?>
-              <button type="button" class="btn btn-primary mb-3 btn-action">
-                  <span class="fa fa-plus"></span> Tambah Data
+              <?php if (true): ?>
+              <button type="button" class="btn btn-primary mb-3 btn-print-action">
+                  <span class="fa fa-print"></span> Print PDF
               </button>
               <?php endif ?>
               <div class="table-responsive">
