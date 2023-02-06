@@ -247,6 +247,12 @@ function validate_form(action){
 			  var jsonObj = {};
 			  //console.log(current);
 			  jsonObj.no_surat_jalan = current.find(".description_no_surat_jalan option:selected").val();	
+				current.find('input[type=text]').each(function(){
+					if($(this).hasClass('description_tanggal_surat_jalan')) {
+						//alert($(this).val());
+						jsonObj.tanggal_surat_jalan = $(this).val();
+					}
+				});
 
 			json_description.push(jsonObj);
 			  
@@ -410,6 +416,63 @@ $(document).ready(function () {
               validate_form('edit');
               cek_divisi_jabatan();
               call_datepicker();
+			  
+			$('#add-items').on('click',function(){
+				
+				$("#description ol").append("<li style='margin-bottom:10px;'> No Surat Jalan: &nbsp;<select id='list_surat_jalan' class='description_no_surat_jalan' type='text' style='width:250px;' required  /> &nbsp; Tgl : &nbsp;<input type='text' style='width:150px;' required align='center' class='description_tanggal_surat_jalan'  /> &nbsp; <a href='javascript:void(0);' class='remove'>×</a></li>"); 
+				$(document).on("click", "a.remove" , function() {
+					$(this).parent().remove();
+				});
+
+				  $(".allow_only_numbers").keydown(function(e) {
+
+					// Allow: backspace, delete, tab, escape, enter and .
+					if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 173 , 190]) !== -1 ||
+					  // Allow: Ctrl+A,Ctrl+C,Ctrl+V, Command+A
+					  ((e.keyCode == 65 || e.keyCode == 86 || e.keyCode == 67) && (e.metaKey === true)) ||
+					  // Allow: home, end, left, right, down, up
+					  (e.keyCode >= 35 && e.keyCode <= 40)) {
+					  // let it happen, don't do anything
+					  return;
+					}
+					// Ensure that it is a number and stop the keypress
+					if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {			
+					  e.preventDefault();
+					}
+				  });
+				  
+				xhr = $.ajax({
+				  method : "POST",
+				  url : "<?= base_url().$this->uri->segment(1,0).$this->uri->slash_segment(2,'both')?>list-surat-jalan",
+				  data:"customer_id=" + $('#list_customers').val(),
+				  success: function(response){
+					  
+					$('.description_no_surat_jalan').last().html(response);
+					
+					  $('#form-action').on('change','.description_no_surat_jalan',function(e){
+						if (e.target.value != "" ){
+							
+						  console.log(e.target);
+						  
+						  var tanggal_surat_jalan = $(this).find(':selected').data('tanggal_surat_jalan');
+						  console.log(tanggal_surat_jalan);
+						  
+						  $(this).parent().find('.description_tanggal_surat_jalan').val(tanggal_surat_jalan);
+						  
+						  
+						}
+					  });	
+
+						
+					hide_loading();
+				  },
+				  error : function(){
+
+				  }
+				})				  
+
+				
+			});				  
 
           }
 

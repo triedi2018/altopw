@@ -20,6 +20,15 @@ class Proforma_invoice_m extends CI_Model {
 		->get()->result_array();
 		return $data;
 	}
+	
+	public function list_surat_jalan2($customer_id){
+		$data = $this->db
+		->select('u.*')
+		->from('surat_jalan u')
+		->where('customer_id',$customer_id)
+		->get()->result_array();
+		return $data;
+	}	
 
 	public function list_proforma_invoices_join($invoice_no){
 		$data = $this->db
@@ -34,6 +43,7 @@ class Proforma_invoice_m extends CI_Model {
 		$data = $this->db
 		->select('u.*')
 		->from('proforma_invoices u')
+		->where(['md5(u.id)' => $this->input->post('id')])
 		->get()->row_array();
 		return $data;
 	}
@@ -138,7 +148,8 @@ class Proforma_invoice_m extends CI_Model {
 			'invoice_no' => $this->input->post('invoice_no'),
 			'invoice_date' => convert_date_to_en($this->input->post('invoice_date')),
 			'customer_id' => $this->input->post('customer_id'),
-			'items' => $this->input->post('items')
+			'items' => $this->input->post('items'),
+			'diskon' => $this->input->post('diskon')
 		]);
 
 		if ($this->db->affected_rows() > 0){

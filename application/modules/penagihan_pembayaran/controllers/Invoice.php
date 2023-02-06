@@ -66,8 +66,20 @@ class Invoice extends CI_Controller {
         }
 
             $data['data'] = $this->Data_model->edit();
-            
-            $this->load->view('barang_masuk_edit_v',$data);
+			$description = $data['data']['items'];
+			if(!empty($description)) {
+				$manage = json_decode($description, true);
+				$items = "";
+				foreach ($manage as $item) {
+					//$items = $items . "<li style='margin-bottom:10px;'> Produk: &nbsp;<select id='list_produk' class='description_name' type='text' style='width:250px;' required >".$this->list_produk2($data['data']['customer_id'],$item['description_name'])."</select> &nbsp; Quantity: &nbsp;<input type='text' value='$item[description_quantity]' style='width:50px;' required align='center' class='allow_only_numbers description_quantity'  /> &nbsp; Harga: &nbsp;<input type='text' value='$item[description_price]' style='width:150px;' required class='allow_only_numbers description_price'  />&nbsp; <a href='javascript:void(0);' class='remove'>×</a></li>";
+					$items = $items . "<li style='margin-bottom:10px;'> No Surat Jalan: &nbsp;<select id='list_surat_jalan' class='description_no_surat_jalan' type='text' style='width:250px;' required  >".$this->list_surat_jalan2($data['data']['customer_id'],$item['no_surat_jalan'])."</select> &nbsp; Tgl : &nbsp;<input type='text' value='$item[tanggal_surat_jalan]' style='width:150px;' required align='center' class='description_tanggal_surat_jalan'  /> &nbsp; <a href='javascript:void(0);' class='remove'>×</a></li>";
+					//echo "<option data-no_surat_jalan='$surat_jalan[no_surat_jalan]' data-tanggal_surat_jalan='$surat_jalan[tanggal_surat_jalan]' value='$surat_jalan[id]'>$surat_jalan[no_surat_jalan]</option>";					
+					
+					
+				}
+				$data['data']['items'] = $items;
+			}            
+            $this->load->view('proforma_invoice_edit_v',$data);
 
     }
 	
@@ -116,6 +128,22 @@ class Invoice extends CI_Controller {
                 echo "<option data-no_surat_jalan='$surat_jalan[no_surat_jalan]' data-tanggal_surat_jalan='$surat_jalan[tanggal_surat_jalan]' value='$surat_jalan[id]'>$surat_jalan[no_surat_jalan]</option>";
             }
         }
+    }
+
+    public function list_surat_jalan2($customer_id, $id){
+        //cek_ajax();
+		$list_surat_jalan2 = "";
+        $data = $this->Data_model->list_surat_jalan2($customer_id);
+        if ($data){
+            $list_surat_jalan2 = "<option value=''>Pilih Produk</option>";
+            foreach($data as $surat_jalan){
+				if($id == $surat_jalan['id'])
+					$list_surat_jalan2 .= "<option data-no_surat_jalan='$surat_jalan[no_surat_jalan]' data-tanggal_surat_jalan='$surat_jalan[tanggal_surat_jalan]' value='$surat_jalan[id]' selected >$surat_jalan[no_surat_jalan]</option>";
+				else
+					$list_surat_jalan2 .= "<option data-no_surat_jalan='$surat_jalan[no_surat_jalan]' data-tanggal_surat_jalan='$surat_jalan[tanggal_surat_jalan]' value='$surat_jalan[id]'>$surat_jalan[no_surat_jalan]</option>";
+            }
+        }
+		return $list_surat_jalan2;
     }	
 	
     public function tampildata()

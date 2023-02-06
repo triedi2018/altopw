@@ -41,6 +41,7 @@ class Proforma_invoice2_m extends CI_Model {
 	public function edit(){
 		$data = $this->db
 		->select('u.*')
+		->where(['md5(u.id)' => $this->input->post('id')])
 		->from('proforma_invoices u')
 		->get()->row_array();
 		return $data;
