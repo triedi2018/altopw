@@ -51,7 +51,8 @@ class Proforma_invoice_m extends CI_Model {
 	public function edit_get($id){
 		$data = $this->db
 		->select('u.*')
-		->from('proforma_invoices u')
+		//->from('proforma_invoices u')
+		->from('( select a.* , b.nama_pelanggan, DATE_ADD(a.invoice_date, INTERVAL b.term_of_payment WEEK) as expire_date from proforma_invoices a left join data_pelanggan b on a.customer_id = b.id ) u')
 		->where(['md5(u.id)' => $id])
 		->get()->row_array();
 		return $data;

@@ -235,6 +235,7 @@ class Invoice extends CI_Controller {
 
 $url_image = base_url() . "assets/images/orbit_logo.png" ;	
 $invoice_date = date("d-m-Y", strtotime($data['invoice_date']));
+$expire_date = date("d-m-Y", strtotime($data['expire_date']));
 //$cust_order_date = date("d-m-Y", strtotime($data['cust_order_date']));
 //$due_date = date("d-m-Y", strtotime($data['due_date']));
 
@@ -320,12 +321,12 @@ $html = <<<EOD
 	<tbody>
 	<tr>
 	<td>
-	Alamat Pengiriman : 
+	
 	</td>	
 	</tr>
 	<tr>
 	<td>
-	$customer[alamat_pengiriman]
+	
 	</td>	
 	</tr>	
 	</tbody>
@@ -366,6 +367,14 @@ $html = <<<EOD
 	$customer[alamat]
 	</td>
 	</tr>
+	<tr>
+	<td>
+	Telp :
+	</td>
+	<td>
+	$customer[phone]
+	</td>
+	</tr>
 	</tbody>
 	</table>
 		
@@ -380,10 +389,10 @@ $html = <<<EOD
 	</tr>	
 	<tr>
 	<td>
-	Telp :
+	
 	</td>
 	<td>
-	$customer[phone]
+	
 	</td>
 	</tr>
 	</tbody>
@@ -508,22 +517,22 @@ INVOICE
 	</tr>
 	<tr>
 	<td>
-		1. Invoice Ini Bukan Bukti Pembayaran
+		1. Harga jual sudah termasuk PPN
 	</td>
 	</tr>
 	<tr>
 	<td>
-		2. Pembayaran dengan cek/giro ditujukan ke : <br> BCA a/c 879.120.130.0 a/n PT. ALTO ANUGERAH ABADI
+		2. Pembayaran ditujukan ke : <br> BCA a/c 879.120.030.0 a/n PT. ALTO ANUGERAH ABADI
 	</td>
 	</tr>
 	<tr>
 	<td>
-		3. Mohon lakukan pembayaran sebelum tanggal 
+		3. Mohon segera lakukan pembayaran sebelum tanggal $expire_date
 	</td>
 	</tr>
 	<tr>
 	<td>
-		4. Konfirmasi Pembayaran ke 0812 8301 3061
+		4. Konfirmasi Pembayaran ke 0812 8301 1061
 	</td>
 	</tr>	
 	</tbody>
