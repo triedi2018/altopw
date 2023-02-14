@@ -258,18 +258,18 @@ if(!empty($proforma_invoices_join)) {
 }
 
 
-$total_price_all_tax = $total_price_all * 0;
+$total_price_all_disc = $total_price_all * 0;
 
 if(isset($data['diskon'])) {
-	$total_price_all_tax = $total_price_all * ($data['diskon']/100);
+	$total_price_all_disc = $total_price_all * ($data['diskon']/100);
 }
 
 
 
-$total_price_all_tax_plus_all = $total_price_all_tax + $total_price_all;
+$total_price_all_tax_plus_all =  $total_price_all - $total_price_all_disc;
 
 $total_price_all_format = rupiah($total_price_all); //number_format($total_price_all, 0, ',', ',');
-$total_price_all_tax_format = rupiah($total_price_all_tax);//number_format($total_price_all_tax, 0, ',', ',');
+$total_price_all_disc_format = rupiah($total_price_all_disc);//number_format($total_price_all_tax, 0, ',', ',');
 $total_price_all_tax_plus_all_format = rupiah($total_price_all_tax_plus_all); //number_format($total_price_all_tax_plus_all, 0, ',', ',');
 
 // Set some content to print
@@ -445,7 +445,7 @@ INVOICE
 	Potongan Harga :
 	</td>	
 	<td style="width: 10%;">
-		$total_price_all_tax_format
+		$total_price_all_disc_format
 	</td>	
 	</tr>
 	</tbody>
