@@ -237,10 +237,10 @@ if(!empty($data['items'])) {
 		$produk = $this->Data_model->produk_profile($item['description_name']);
 		$total_price = (double)$item['description_price'] * (double)$item['description_quantity'];
 		$total_price_all += $total_price;
-		$items .= "<tr><td style=\"width: 5%;\">$i</td><td style=\"width: 35%;\">$produk[nama_produk]</td><td style=\"width: 15%;\">$item[description_quantity] Units</td><td style=\"width: 15%;\">".number_format($item['description_price'], 0, ',', ',')."</td><td style=\"width: 15%;\"></td><td style=\"width: 15%;\">".number_format($total_price, 0, ',', ',')."</td></tr>";
+		$items .= "<tr><td style=\"width: 5%;\">$i</td><td style=\"width: 60%;\">$produk[nama_produk]</td><td style=\"width: 15%;\">$item[description_quantity] $produk[satuan]</td><td style=\"width: 20%;\">".number_format($total_price, 0, ',', ',')."</td></tr>";
 		
 	}
-	$items .= "<tr><td colspan=\"4\" style=\"width: 85%;\"></td><td style=\"width: 15%;\">".number_format($total_price_all, 0, ',', ',')."</td></tr>";
+	$items .= "<tr><td colspan=\"4\" style=\"width: 80%;\"></td><td style=\"width: 20%;\">".number_format($total_price_all, 0, ',', ',')."</td></tr>";
 	
 }
 
@@ -273,12 +273,7 @@ $html = <<<EOD
 	</tr>
 	<tr>
 	<td>
-	Jl. Raya Jagakarsa No 000D - Jakarta Selatan
-	</td>
-	</tr>
-	<tr>
-	<td>
-	Pondok Melati - Jakarta Selatan
+	Jl. Bojog Raya No 10 - Jakarta Barat
 	</td>
 	</tr>
 	<tr>
@@ -288,7 +283,7 @@ $html = <<<EOD
 	</tr>
 	<tr>
 	<td>
-	Email : sales@altopw.co.id
+	Email : alto.ab.premier@gmail.com
 	</td>
 	</tr>
 	</tbody>
@@ -301,10 +296,10 @@ $html = <<<EOD
 	<tbody>
 	<tr>
 	<td>
-	Nomor :
+	Nomor Surat Jalan:
 	</td>
 	<td>
-	$data[no_po]
+	$data[no_surat_jalan]
 	</td>	
 	</tr>
 	<tr>
@@ -458,11 +453,9 @@ $html = <<<EOD
 <thead>
 	<tr style="border:1px;">
 		<th style="width: 5%;">No</th>
-		<th style="width: 35%;">Jenis Barang</th>
+		<th style="width: 60%;">Jenis Barang</th>
 		<th style="width: 15%;">Satuan</th>
-		<th style="width: 15%;">Harga Satuan</th>
-		<th style="width: 15%;">Diskon Satuan</th>
-		<th style="width: 15%;">Total Harga</th>
+		<th style="width: 20%;">Total Harga</th>
 	</tr>
 </thead>
 <tbody>
