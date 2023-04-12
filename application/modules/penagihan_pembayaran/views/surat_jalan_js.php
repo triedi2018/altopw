@@ -52,6 +52,11 @@ $('.btn-action').on('click',function(){
 		  success: function(response){
 			$('#list_customers').html(response);
 			
+			$('#list_customers').select2({
+			  //placeholder: 'Select an option'
+			  width: '100%'
+			});			
+			
 			  $('#form-action').on('change','#list_customers',function(e){
 				  
 			$("#description ol").html("");				  

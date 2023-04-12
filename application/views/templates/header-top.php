@@ -20,6 +20,8 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="<?= base_url() ?>plugins/datatables-bs4/css/dataTables.bootstrap4.css">
   <!-- Theme style -->
+  <link rel="stylesheet" href="<?= base_url() ?>plugins/select2/css/select2.min.css">  
+  <!-- Theme style -->
   <link rel="stylesheet" href="<?= base_url() ?>dist/css/adminlte.min.css">
 
 
