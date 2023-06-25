@@ -207,8 +207,8 @@ class Surat_jalan extends CI_Controller {
 		$data = $this->Data_model->edit_get($id);
 		$customer = $this->Data_model->customer_profile($data['customer_id']);
 
-		$pdf = new MyTCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
-		$pdf->SetMargins(10, 10, 10, 10);
+		$pdf = new MyTCPDF('P', 'mm', 'A5', true, 'UTF-8', false);
+		$pdf->SetMargins(5, 5, 5, 5);
 		$pdf->SetHeaderMargin(25);
 		$pdf->SetFooterMargin(10);
 
@@ -295,10 +295,10 @@ $html = <<<EOD
 	<table style="width: 100%; border-collapse: collapse;" border="0">
 	<tbody>
 	<tr>
-	<td>
-	Nomor Surat Jalan:
+	<td style="width: 40%;">
+	No. Surat Jalan:
 	</td>
-	<td>
+	<td style="width: 60%;">
 	$data[no_surat_jalan]
 	</td>	
 	</tr>
@@ -335,10 +335,10 @@ $html = <<<EOD
 	<table style="width: 100%; border-collapse: collapse;" border="0">
 	<tbody>
 	<tr>
-	<td>
+	<td style="width: 40%;">
 	No. Pelanggan :
 	</td>
-	<td>
+	<td style="width: 60%;">
 	$customer[kode_pelanggan]
 	</td>
 	</tr>
