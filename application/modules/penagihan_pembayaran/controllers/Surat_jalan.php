@@ -207,7 +207,7 @@ class Surat_jalan extends CI_Controller {
 		$data = $this->Data_model->edit_get($id);
 		$customer = $this->Data_model->customer_profile($data['customer_id']);
 
-		$pdf = new MyTCPDF('L', 'mm', 'A5', true, 'UTF-8', false);
+		$pdf = new MyTCPDF('L', 'mm', 'A4', true, 'UTF-8', false);
 		$pdf->SetMargins(5, 5, 5, 5);
 		$pdf->SetHeaderMargin(25);
 		$pdf->SetFooterMargin(10);
