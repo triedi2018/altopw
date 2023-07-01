@@ -207,7 +207,7 @@ class Surat_jalan extends CI_Controller {
 		$data = $this->Data_model->edit_get($id);
 		$customer = $this->Data_model->customer_profile($data['customer_id']);
 
-		$pdf = new MyTCPDF('P', 'mm', 'A5', true, 'UTF-8', false);
+		$pdf = new MyTCPDF('L', 'mm', 'A5', true, 'UTF-8', false);
 		$pdf->SetMargins(5, 5, 5, 5);
 		$pdf->SetHeaderMargin(25);
 		$pdf->SetFooterMargin(10);
@@ -237,10 +237,10 @@ if(!empty($data['items'])) {
 		$produk = $this->Data_model->produk_profile($item['description_name']);
 		$total_price = (double)$item['description_price'] * (double)$item['description_quantity'];
 		$total_price_all += $total_price;
-		$items .= "<tr><td style=\"width: 5%;\">$i</td><td style=\"width: 60%;\">$produk[nama_produk]</td><td style=\"width: 15%;\">$item[description_quantity] $produk[satuan]</td><td style=\"width: 20%;\">".number_format($total_price, 0, ',', ',')."</td></tr>";
-		
+		//$items .= "<tr><td style=\"width: 5%;\">$i</td><td style=\"width: 60%;\">$produk[nama_produk]</td><td style=\"width: 15%;\">$item[description_quantity] $produk[satuan]</td><td style=\"width: 20%;\">".number_format($total_price, 0, ',', ',')."</td></tr>";
+		$items .= "<tr><td style=\"width: 5%;\">$i</td><td style=\"width: 70%;\">$produk[nama_produk]</td><td style=\"width: 25%;\">$item[description_quantity] $produk[satuan]</td></tr>";
 	}
-	$items .= "<tr><td colspan=\"4\" style=\"width: 80%;\"></td><td style=\"width: 20%;\">".number_format($total_price_all, 0, ',', ',')."</td></tr>";
+	//$items .= "<tr><td colspan=\"4\" style=\"width: 80%;\"></td><td style=\"width: 20%;\">".number_format($total_price_all, 0, ',', ',')."</td></tr>";
 	
 }
 
@@ -318,10 +318,10 @@ $html = <<<EOD
 </tbody>
 </table>
 
-<table style="width: 100%; border-collapse: collapse; padding-top:10px;padding-bottom:10px;" border="0">
+<table style="width: 100%; border-collapse: collapse; padding-top:2px;padding-bottom:2px;" border="0">
 <tbody>
 <tr>
-<td style="width: 100%;text-align:center;font-size:14px;">
+<td style="width: 100%;text-align:center;font-size:12px;">
 	<b>SURAT PESANAN</b>
 </td>
 </tr>
@@ -449,17 +449,33 @@ $html = <<<EOD
 
 	<div style="height:150px;"></div>
 
-<table style="width: 100%; border-collapse: collapse;padding-top:10px;padding-bottom:10px; " border="1">
+<table style="width: 100%; border-collapse: collapse;padding-top:2px;padding-bottom:2px; " border="1">
 <thead>
 	<tr style="border:1px;">
 		<th style="width: 5%;">No</th>
-		<th style="width: 60%;">Jenis Barang</th>
-		<th style="width: 15%;">Satuan</th>
-		<th style="width: 20%;">Total Harga</th>
+		<th style="width: 70%;">Jenis Barang</th>
+		<th style="width: 25%;">Satuan</th>
+		<!--<th style="width: 20%;">Total Harga</th>-->
 	</tr>
 </thead>
 <tbody>
 	$items
+</tbody>
+</table>
+
+	<div style="height:150px;"></div>
+
+<table style="width: 100%; border-collapse: collapse;padding-top:2px;padding-bottom:2px; " border="0">
+<thead>
+	<tr>
+		<th style="width: 25%; text-align:center; "> Dibuat : </th>
+		<th style="width: 25%; text-align:center; "> Disetujui : </th>
+		<th style="width: 25%; text-align:center; "> Diserahkan : </th>
+		<th style="width: 25%; text-align:center; "> Diterima : </th>
+	</tr>
+</thead>
+<tbody>
+	
 </tbody>
 </table>
 
