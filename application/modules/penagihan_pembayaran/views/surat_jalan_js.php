@@ -507,6 +507,34 @@ $(document).ready(function () {
               cek_divisi_jabatan();
               call_datepicker();
 			  
+							$(".description_quantity , .description_price , #diskon ").keyup(function(e) {
+								
+								var total = 0;
+								
+								var diskon = 0;
+								
+								var el = document.getElementById("diskon");
+								if (el !== null && el.value !== "")
+								{
+								  //The element was found and the value is empty.
+								  diskon = $('input[name=diskon]').val();
+								}								
+								
+								$('input[name=total]').val(total);
+								
+								$('.description_name').each(function() { 
+									//ek.push($(this).val()); 
+									console.log($(this).val());
+									var price = $(this).parent().find('.description_price').val();
+									var quantity = $(this).parent().find('.description_quantity').val();
+									console.log(quantity);
+									console.log((diskon/100));
+									total += ((price * quantity) - ((price * quantity) * (diskon/100)));
+								});
+								
+								$('input[name=total]').val(total);
+							})			  
+			  
 			$('#add-items').on('click',function(){
 				
 				$("#description ol").append("<li style='margin-bottom:10px;'> Produk: &nbsp;<select id='list_produk' class='description_name' type='text' style='width:250px;' required  /> &nbsp; Quantity: &nbsp;<input type='text' style='width:50px;' required align='center' class='allow_only_numbers description_quantity'  /> &nbsp; Harga: &nbsp;<input type='text' style='width:150px;' required class='allow_only_numbers description_price'  />&nbsp; <a href='javascript:void(0);' class='remove'>×</a></li>"); 
@@ -592,6 +620,7 @@ $(document).ready(function () {
 							})
 							
 						hide_loading();
+						
 					  },
 					  error : function(){
 

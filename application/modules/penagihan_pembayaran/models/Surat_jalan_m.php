@@ -206,22 +206,40 @@ class Surat_jalan_m extends CI_Model {
 	
 	public function simpan_edit(){
 
-		$this->db->where('md5(id)',$this->input->post('id'))->update('proforma_invoices',
+		$this->db->where('md5(id)',$this->input->post('id'))->update('surat_jalan',
 		[
-			'invoice_no' => $this->input->post('invoice_no'),
-			'invoice_date' => convert_date_to_en($this->input->post('invoice_date')),
-			'subject' => $this->input->post('subject'),
-			'cust_order_no' => $this->input->post('cust_order_no'),
-			'cust_order_date' => convert_date_to_en($this->input->post('cust_order_date')),
-			'payment_term' => $this->input->post('payment_term'),
-			'due_date' => convert_date_to_en($this->input->post('due_date')),
-			'customer_id' => $this->input->post('customer_id'),
-			'faktur_number' => $this->input->post('faktur_number'),
+			//'no_po' => $this->input->post('no_po'),
+			//'tanggal_po' => convert_date_to_en($this->input->post('tanggal_po')),
+			//'no_surat_jalan' => $this->input->post('no_surat_jalan'),
+			//'tanggal_surat_jalan' => convert_date_to_en($this->input->post('tanggal_surat_jalan')),
+			//'customer_id' => $this->input->post('customer_id'),
+			//'driver_id' => $this->input->post('driver_id'),
 			'items' => $this->input->post('items'),
+			'total' => $this->input->post('total'),
 			'diskon' => $this->input->post('diskon'),
-			'total' => $this->input->post('total')
 		]);
-
+		
+		$this->db
+		->where(['no_surat_jalan' => $this->input->post('no_surat_jalan')]);
+		$this->db->delete('barang_keluar u');		
+		
+		$manage = json_decode($this->input->post('items'), true);
+		foreach ($manage as $value) {
+			$description_name = $value['description_name'];
+			$description_quantity = $value['description_quantity'];
+			$description_price = $value['description_price'];
+			$this->db->insert('barang_keluar',
+			[
+				'id_produk' => $description_name,
+				'jumlah' => $description_quantity,
+				'harga' => $description_price,
+				'no_surat_jalan' => $this->input->post('no_surat_jalan'),
+				'tanggal_surat_jalan' => convert_date_to_en($this->input->post('tanggal_surat_jalan')),
+				'created_at' => date('Y-m-d H:i:s')
+			]);
+			
+		}		
+		
 		if ($this->db->affected_rows() > 0){
 			return json_encode(['status' => 'success','pesan' => 'Data berhasil diperbaharui']);
 		}else{
