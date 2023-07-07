@@ -31,7 +31,7 @@
 	'<?php echo base_url('assets/images/Buku-2.jpg'); ?>')no-repeat;background-size:100%;">
 <div class="login-box">
   <div class="login-logo">
-    <a href="index2.html"><b>PREMIER WATER 3 </b></a>
+    <a href="index2.html"><b>PREMIER WATER </b></a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
