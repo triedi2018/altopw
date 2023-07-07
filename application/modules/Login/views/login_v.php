@@ -31,7 +31,7 @@
 	'<?php echo base_url('assets/images/Buku-2.jpg'); ?>')no-repeat;background-size:100%;">
 <div class="login-box">
   <div class="login-logo">
-    <a href="index2.html"><b>PREMIER WATER </b></a>
+    <a href="index2.html"><b>PREMIER WATER 2 </b></a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
@@ -44,7 +44,7 @@
 
       ?>
 
-      <form action="<?= base_url('login2')?>" method="post">
+      <form action="<?= base_url('login')?>" method="post">
        <?= csrf() ?>
         <div class="input-group mb-3">
           <input type="text" name="nik" value="<?= set_value('nik') ?>" class="form-control <?= (form_error('nik') ? "is-invalid" : "") ?>" placeholder="Username">
