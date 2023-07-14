@@ -273,7 +273,7 @@ $html = <<<EOD
 	</tr>
 	<tr>
 	<td>
-	Jl. Bojog Raya No 10 - Jakarta Barat
+	Jl. Kembangan Utara No.25, RT.2/RW.2, <br>Kembangan Utara, Kec. Kembangan, Kota Jakarta Barat, <br>Daerah Khusus Ibukota Jakarta 11610
 	</td>
 	</tr>
 	<tr>
@@ -321,7 +321,7 @@ $html = <<<EOD
 <table style="width: 100%; border-collapse: collapse; padding-top:2px;padding-bottom:2px;" border="0">
 <tbody>
 <tr>
-<td style="width: 100%;text-align:center;font-size:12px;">
+<td style="width: 100%;text-align:center;font-size:14px;">
 	<b>SURAT PESANAN</b>
 </td>
 </tr>
