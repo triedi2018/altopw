@@ -292,9 +292,19 @@ $html = <<<EOD
 	</tr>
 	<tr>
 	<td>
-	Jl. Bojong Raya No. 10
+	Jl. Kembangan Utara No.25, RT.2/RW.2, <br>Kembangan Utara, Kec. Kembangan, Kota Jakarta Barat, <br>Daerah Khusus Ibukota Jakarta 11610
 	</td>
 	</tr>
+	<tr>
+	<td>
+	Phone : +0821.1251.0875
+	</td>
+	</tr>
+	<tr>
+	<td>
+	Email : alto.ab.premier@gmail.com
+	</td>
+	</tr>	
 	</tbody>
 	</table>	
 	
