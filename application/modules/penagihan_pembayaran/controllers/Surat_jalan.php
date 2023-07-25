@@ -163,6 +163,7 @@ class Surat_jalan extends CI_Controller {
 
             // column buat data tables --
             $row = [
+			'kode_pelanggan'=>$data['kode_pelanggan'],
 			'nama_pelanggan'=>$data['nama_pelanggan'],
 			'nama_driver'=>$data['nama_driver'],
 			'no_surat_jalan'=>$data['no_surat_jalan'],

@@ -45,6 +45,7 @@ tr.details td.details-control {
                     <th>Tgl PO</th>					
                     <th>No Surat Jalan</th>
                     <th>Tgl Surat Jalan</th>
+					<th>Kode Pelanggan</th>
                     <th>Pelanggan</th>
 					<th>Driver</th>
 					<th>Keterangan</th>

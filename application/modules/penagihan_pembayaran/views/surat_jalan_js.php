@@ -449,6 +449,7 @@ $(document).ready(function () {
 			{ "data": "tanggal_po" },
             { "data": "no_surat_jalan" },
             { "data": "tanggal_surat_jalan" },
+			{ "data": "kode_pelanggan" },
 			{ "data": "nama_pelanggan" },	
 			{ "data": "nama_driver" },				
 			{ "data": "items" },
