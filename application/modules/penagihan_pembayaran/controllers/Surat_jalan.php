@@ -337,7 +337,7 @@ $html = <<<EOD
 	<tbody>
 	<tr>
 	<td style="width: 40%;">
-	No. Pelanggan :
+	Kode Pelanggan :
 	</td>
 	<td style="width: 60%;">
 	$customer[kode_pelanggan]
