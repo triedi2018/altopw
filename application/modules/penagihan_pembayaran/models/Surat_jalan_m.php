@@ -265,7 +265,7 @@ class Surat_jalan_m extends CI_Model {
 
     var $table = '( select a.* , b.kode_pelanggan, b.nama_pelanggan, c.nama_driver from surat_jalan a left join data_pelanggan b on a.customer_id = b.id left join driver c on a.driver_id = c.id ) u';
 	var $column_order = array('','u.id'); //set order berdasarkan field yang di mau
-	var $column_search = array('u.no_surat_jalan','items'); //set field yang bisa di search
+	var $column_search = array('u.no_surat_jalan','items','nama_pelanggan'); //set field yang bisa di search
 	var $order = array('u.id' => 'desc'); // default order 
 
 	private function _get_data()
