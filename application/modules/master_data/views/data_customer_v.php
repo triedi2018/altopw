@@ -45,7 +45,8 @@ tr.details td.details-control {
                   <thead>
                   <tr>
                     <th></th>
-                    <th>Nama Pelanggan</th>
+                    <th>Kode Pelanggan</th>
+					<th>Nama Pelanggan</th>
 					<th>Status</th>
 					<th>Referensi</th>
 					<th>Status Ref</th>

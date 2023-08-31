@@ -146,7 +146,7 @@ class Data_pelanggan extends CI_Controller {
             (cek_akses_user()['hapus'] == 1 ? ' <a href="#" ><span class="badge badge-danger btn-hapus" data-jenis_action="hapus" data-id="'.md5($data['id']).'">Hapus</span></a>' : '');
 
             // column buat data tables --
-            $row = ['nama_pelanggan' => $data['nama_pelanggan'] ,'status_pelanggan' => $data['status_pelanggan'],'referensi'=>$data['referensi'],
+            $row = ['kode_pelanggan' => $data['kode_pelanggan'] ,'nama_pelanggan' => $data['nama_pelanggan'] ,'status_pelanggan' => $data['status_pelanggan'],'referensi'=>$data['referensi'],
 			'status_ref' => $data['status_ref'] ,'no_npwp' => $data['no_npwp'],'faktur_pajak'=>$data['faktur_pajak'],
             'alamat' => $data['alamat'] ,'contact_person' => $data['contact_person'],'phone'=>$data['phone'],
 			'email' => $data['email'] ,'alamat_pengiriman' => $data['alamat_pengiriman'],'kode_pos'=>$data['kode_pos'],

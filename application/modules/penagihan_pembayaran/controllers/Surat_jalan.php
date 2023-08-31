@@ -214,7 +214,7 @@ class Surat_jalan extends CI_Controller {
 		$pdf->SetFooterMargin(10);
 
 		// set font
-		$pdf->SetFont('times', '', 10);
+		$pdf->SetFont('times', '', 12);
 		
 		// add a page
 		$pdf->AddPage();

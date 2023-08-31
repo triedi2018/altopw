@@ -394,6 +394,7 @@ $(document).ready(function () {
                 "data":           null,
                 "defaultContent": ""
             },
+			{ "data": "kode_pelanggan" },
             { "data": "nama_pelanggan" },
             { "data": "status_pelanggan" },
             { "data": "referensi" },
